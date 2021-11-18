@@ -1,0 +1,47 @@
+.prods {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.prod__background {
+    background-color: #8B9E8A;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 270px;
+    height: 430px;
+    padding: 30px;
+}
+
+.prod__img {
+    width: 180px;
+}
+
+.prod__description {
+    font-family: 'Arial Rounded MT';
+    font-size: 18px;
+    color: #FFF;
+}
+
+.prod__divider {
+    display: flex;
+    justify-content: space-between;
+}
+
+.prod__price {
+    font-family: 'Arial Rounded MT';
+    color: #FFF;
+}
+
+.prod__btn {
+    font-family: 'Arial Rounded MT';
+    text-decoration: none;
+    color: #8B9E8A;
+    background-color: #FBE1D0;
+    border-radius: 15px;
+    padding: 10px 50px;
+    text-align: center;
+}
