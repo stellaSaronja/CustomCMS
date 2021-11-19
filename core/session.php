@@ -3,10 +3,11 @@
 namespace Core;
 
 class Session {
+
     public static function init() {
         session_name(Config::get('app.app-slug', 'cms-session-cookie'));
 
-        session_start(['cookie-lifetime' => 60 * 60 * 24 * 90]);
+        session_start(['cookie-lifetime' => 60 * 60 * 24 * 30]);
         /**
          * @todo: ne radi cookie-lifetime
          */
