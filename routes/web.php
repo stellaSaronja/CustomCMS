@@ -6,4 +6,4 @@ return [
 
     '/' => [HomeController::class, 'index'],
     
-]
+];

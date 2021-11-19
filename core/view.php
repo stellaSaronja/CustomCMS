@@ -4,9 +4,11 @@ namespace Core;
 
 class View {
 
-    public function render() {
+    public function render(
+        ?string $layout
+    ) {
         if ($layout === null) {
-            $layout = 
+            $layout = Config::get('app.default-layout', 'default');
         }
     }
 }
