@@ -8,3 +8,8 @@ spl_autoload_register(function ($namespaceAndClassname) {
 
     require_once __DIR__ . "/../$filepath.php";
 });
+
+$app = new \Core\Bootloader();
+/**
+ * @todo: objasniti
+ */

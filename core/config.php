@@ -3,7 +3,7 @@
 namespace Core;
 
 class Config {
-    public static function get(string $filenameAndKey)
+    public static function get(string $filenameAndKey, mixed $default = null): mixed
     {
         [$filename, $key] = explode('.', $filenameAndKey);
 
