@@ -2,12 +2,13 @@
 
 namespace App\Modles;
 
+use Core\Models\AbstractUser;
 use Core\Traits\SoftDelete;
 
 /**
- * @todo: jel treba Abstract User
+ * @todo: urediti tablicu iz Database-a
  */
-class User {
+class User extends AbstractUser {
 
     use SoftDelete;
 
