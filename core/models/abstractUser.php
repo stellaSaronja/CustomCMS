@@ -41,4 +41,16 @@ abstract class AbstractUser {
 
         return false;
     }
+
+    public static function getLoggedIn(): ?object {
+        if (self::isLoggedIn()) {
+            $userId = Session::get(self::LOGGED_IN_USER_ID, null);
+
+            if ($userId !== null) {
+                return User::findOrFail($userId);
+            }
+        }
+
+        return null;
+    }
 }
