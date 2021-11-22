@@ -3,7 +3,7 @@
 return [
     'app-slug' => 'sae-php-cms-session',
 
-    'baseurl' => 'http://localhost/php/CustomCMS/public/',
+    'baseurl' => 'http://localhost/CustomCMS/public',
     
     'default-layout' => 'default'
 ];
