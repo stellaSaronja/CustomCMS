@@ -36,4 +36,29 @@ class Session {
 
         return $default;
     }
+
+    public static function forget(string $key)
+    {
+        if (isset($_SESSION[$key])) {
+            unset($_SESSION[$key]);
+        }
+    }
+
+    public static function getAndForget(string $key, mixed $default = null): mixed
+    {
+        $_value = self::get($key, $default);
+        self::forget($key);
+        return $_value;
+    }
+
+    public static function old(string $key, mixed $default = null): mixed
+    {
+        if (isset($_SESSION['$_request'][$key])) {
+            $_value = $_SESSION['$_request'][$key];
+            unset($_SESSION['$_request'][$key]);
+            return $_value;
+        }
+
+        return $default;
+    }
 }
