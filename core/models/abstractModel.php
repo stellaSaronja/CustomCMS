@@ -9,7 +9,7 @@ abstract class AbstractModel {
     public abstract function save(): bool;
 
     public static function all(?string $orderBy = null, ?string $direction = null): array {
-        $database = new Database;
+        $database = new Database();
 
         $tablename = self::getTablenameFromClassname();
 
@@ -20,21 +20,15 @@ abstract class AbstractModel {
         }
 
         return self::handleResult($result);
-        /**
-         * @todo: napraviti funkciju handleResult, query, getTablenameFromClassname
-         */
     }
 
     public static function find(int $id): ?object {
-        $database = new Database;
+        $database = new Database();
         $tablename = self::getTablenameFromClassname();
 
         $result = $database->query("SELECT * FROM $tablename WHERE `id` = ?", ['i:id' => $id]);
 
         return self::handleUniqueResult($result);
-        /**
-         * @todo: napraviti handleUniqueResult funkciju
-         */
     }
 
     public static function findOrFail(int $id): ?object {
@@ -53,7 +47,7 @@ abstract class AbstractModel {
     public function fill(array $data, bool $ignoreEmpty): object {
         foreach ($data as $name => $value) {
             if (property_exists($this, $name)) {
-                $trimValue = trim($value);
+                $trimmedValue = trim($value);
 
                 if ($ignoreEmpty !== true || !empty($value)) {
                     $this->$name = $trimmedValue;

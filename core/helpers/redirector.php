@@ -9,6 +9,7 @@ class Redirector {
 
             if ($baseUrl === true) {
                 header("Location" . BASE_URL . "$redirect");
+                exit;
                 /**
                  * @todo: objasniti
                  */

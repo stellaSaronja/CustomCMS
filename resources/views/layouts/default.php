@@ -6,11 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Totes:cool Shop</title>
   <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/style.css">
-
 </head>
 <body>
 
   <?php require_once __DIR__ . '/../partials/nav.php'; ?>
+
+  <?php require_once __DIR__ . '/../partials/flashMessagesAndErrors.php'; ?>
+
+  <?php require_once $templatePath; ?>
 
   <?php require_once __DIR__ . '/../partials/footer.php'; ?>
 
