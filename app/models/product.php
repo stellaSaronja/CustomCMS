@@ -12,13 +12,13 @@ class Product {
     public function __construct(
         public ?int $id = null,
         public string $name = '',
-        public ?string $location = null,
-        public string $room_nr = '',
+        public string $description = '',
+        public string $category = '',
+        public string $price = '',
         public string $images = '[]',
         public string $created_at = '',
         public string $updated_at = '',
-        public ?string $deleted_at = null,
-        private array $_roomFeatures = []
+        public ?string $deleted_at = null
         /**
          * @todo: uskladiti sa Database-om
          */
