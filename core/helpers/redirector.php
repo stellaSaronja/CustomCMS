@@ -4,15 +4,12 @@ namespace Core\Helpers;
 
 class Redirector {
 
-    public static function redirect(?string $redirect = null, bool $baseUrl = true) {
+    public static function redirect(?string $redirect = null, bool $useBaseUrl = true) {
         if (!empty($redirect)) {
 
-            if ($baseUrl === true) {
+            if ($useBaseUrl === true) {
                 header("Location" . BASE_URL . "$redirect");
                 exit;
-                /**
-                 * @todo: objasniti
-                 */
             }
 
             header("Location: $redirect");

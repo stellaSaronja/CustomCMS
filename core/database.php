@@ -48,6 +48,10 @@ class Database {
          */
     }
 
+    private function executeQuery(string $query): mysqli_result|bool {
+        return $this->link->query($query);
+    }
+
     private function prepareStatementAndExecuteQuery(string $queryWithPlaceholders, array $params): mysqli_result|bool {
         $this->stmt = $this->link->prepare($queryWithPlaceholders);
 
