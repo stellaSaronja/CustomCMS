@@ -15,17 +15,11 @@ class Session {
 
     public static function set(string $key, mixed $value) {
         $_SESSION[$key] = $value;
-        /**
-         * @todo: objasniti
-         */
     }
 
     public static function initSuperglobals() {
-        if (!empty($_POST) || !empty($_GET)) {
-            self::set('$_getAndPost', $_GET, $_POST);
-            /**
-             * @todo: objasniti, dali moze get & post odvojeno
-             */
+        if (!empty($_REQUEST)) {
+            self::set('$_request', $_REQUEST);
         }
     }
 
