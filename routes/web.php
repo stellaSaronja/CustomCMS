@@ -7,6 +7,15 @@ return [
 
     '/' => [HomeController::class, 'index'],
 
-    '/products' => [ProductController::class, 'index']
+    /**
+     * Home Route
+     */
+    '/home' => [HomeController::class, 'home'],
+
+    /**
+     * Products Routes
+     */
+    '/products' => [ProductController::class, 'index'],
+    '/products/{id}/show' => [ProductController::class, 'show']
     
 ];
