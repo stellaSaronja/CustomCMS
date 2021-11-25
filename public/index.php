@@ -4,15 +4,14 @@ spl_autoload_register(function ($namespaceAndClassname) {
     
     $namespaceAndClassname = str_replace('Core', 'core', $namespaceAndClassname);
     $namespaceAndClassname = str_replace('App', 'app', $namespaceAndClassname);
+
     $filepath = str_replace('\\', '/', $namespaceAndClassname);
-    /**
-     * @todo: dali je potrebno
-     */
 
     require_once __DIR__ . "/../$filepath.php";
 });
 
-$app = new \Core\Bootloader();
 /**
- * @todo: objasniti
+ * Error Reporting einschalten.
  */
+\Core\Bootloader::setDisplayErrors();
+$app = new \Core\Bootloader();

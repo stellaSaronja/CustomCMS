@@ -36,8 +36,7 @@
 
     </div>
     <span></span>
-    <!-- @todo: set link href -->
-    <a href="" class="detail__btn">Add to cart</a>
+    <a href="<?php echo BASE_URL; ?>/add-to-cart" class="detail__btn">Add to cart</a>
 
 </main>
 

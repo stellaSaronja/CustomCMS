@@ -22,7 +22,7 @@ class Session
         /**
          * Hier setzen wir den Namen des Session Cookie aus dem app-slug Value aus der app-Config.
          */
-        session_name(Config::get('app.app-slug', 'mvc-session-cookie'));
+        session_name(Config::get('app.app-slug', 'cms-session-cookie'));
 
         /**
          * Die session_start() Funktion erlaubt es, Config-Werte zu übergeben, unter anderem das Ablaufdatum des Session
