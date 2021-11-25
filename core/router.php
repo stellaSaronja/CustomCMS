@@ -27,5 +27,9 @@ class Router {
 
         $callable = [];
         $params = [];
+
+        if (array_key_exists($path, $this->routes)) {
+            $callable = $this->routes[$path];
+        }
     }
 }
