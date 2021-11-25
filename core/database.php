@@ -75,4 +75,46 @@ class Database {
 
         return $this->stmt->get_result();
     }
+
+    public function getLink()
+    {
+        return $this->link;
+    }
+
+    /**
+     * @return array|bool
+     */
+    public function getLastResult(): bool|array
+    {
+        return $this->lastResult;
+    }
+
+    /**
+     * @return array
+     */
+    public function getData(): array
+    {
+        return $this->data;
+    }
+
+    /**
+     * Wird bei einem INSERT-Query ein auto_increment Feld befüllt, so wird der Wert des zuletzt ausgeführten Queries
+     * in $link->insert_id gespeichert. Das hat den Sinn, dass die neu generierte ID direkt für weitere Queries
+     * verwendet werden kann, ohne die neu eingetragene Zeile wieder extra abfragen zu müssen.
+     *
+     * @return int|string
+     */
+    public function getInsertId(): int|string
+    {
+        return $this->link->insert_id;
+    }
+
+    /**
+     * Der Destruktor wird aufgerufen, wenn das aktuelle Database Objekt gelöscht wird. In diesem Fall wird auch die
+     * Datenbankverbindung wieder getrennt.
+     */
+    public function __destruct()
+    {
+        $this->link->close();
+    }
 }
