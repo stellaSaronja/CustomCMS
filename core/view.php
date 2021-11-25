@@ -4,7 +4,7 @@ namespace Core;
 
 class View {
 
-    public function render(
+    public static function render(
         string $template,
         array $params = [],
         ?string $layout = null,
