@@ -3,6 +3,7 @@
 namespace Core\Models;
 
 use Core\Database;
+use Exception;
 
 abstract class AbstractModel {
 
@@ -24,6 +25,7 @@ abstract class AbstractModel {
 
     public static function find(int $id): ?object {
         $database = new Database();
+
         $tablename = self::getTablenameFromClassname();
 
         $result = $database->query("SELECT * FROM $tablename WHERE `id` = ?", ['i:id' => $id]);
@@ -36,9 +38,6 @@ abstract class AbstractModel {
 
         if (empty($result)) {
             throw new Exception("Model not found", 404);
-            /**
-             * @todo: napraviti exception
-             */
         }
 
         return $result;
@@ -60,6 +59,7 @@ abstract class AbstractModel {
 
     public function delete(): bool {
         $database = new Database();
+
         $tablename = self::getTablenameFromClassname();
 
         $result = query("DELETE FROM $tablename WHERE id = ?", ['i:id' => $this->id]);
@@ -105,13 +105,10 @@ abstract class AbstractModel {
 
         if (defined("$calledClass::TABLENAME")) {
             return $calledClass::TABLENAME;
-            /**
-             * @todo: objasniti
-             */
         }
 
-        $splitName = explode('\\', $calledClass);
-        $classname = array_pop($splitName);
+        $particles = explode('\\', $calledClass);
+        $classname = array_pop($particles);
         $tablename = strtolower($classname) . 's';
 
         return $tablename;
