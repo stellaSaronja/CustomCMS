@@ -1,15 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products Details</title>
-    <link rel="stylesheet" href="/resources/css/style.css">
-    <link rel="stylesheet" href="/resources/css/details.css">
-</head>
-<body>
-    
 <main class="details__main">
     <div class="img__container">
         <p class="details__title">Lorem ipsum dolor sit amet</p>
@@ -36,10 +24,6 @@
 
     </div>
     <span></span>
-    <!-- @todo: set link href -->
-    <a href="" class="detail__btn">Add to cart</a>
+    <a href="<?php echo BASE_URL; ?>/add-to-cart" class="detail__btn">Add to cart</a>
 
 </main>
-
-</body>
-</html>

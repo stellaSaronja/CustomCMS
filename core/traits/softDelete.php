@@ -12,6 +12,7 @@ trait SoftDelete {
         $tablename = self::getTablenameFromClass();
 
         $result = $database->query("UPDATE $tablename SET deleted_at = CURRENT_TIME() WHERE id = ?", ['i:id' => $this->id]);
+        
         return $result;
     }
 
@@ -20,15 +21,6 @@ trait SoftDelete {
         $database = new Database();
         $tablename = self::getTablenameFromClassname();
 
-        /**
-         * Query ausführen.
-         *
-         * Wurde in den Funktionsparametern eine Sortierung definiert, so wenden wir sie hier an, andernfalls rufen wir
-         * alles ohne Sortierung ab.
-         *
-         * Hier nehmen wir auch Rücksicht auf die deleted_at Spalte und geben nur Einträge zurück, die nicht als
-         * gelöscht markiert sind.
-         */
         if ($orderBy === null) {
             $result = $database->query("SELECT * FROM $tablename WHERE deleted_at IS NULL");
         } else {
