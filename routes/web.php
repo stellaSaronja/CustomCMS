@@ -7,7 +7,19 @@ use App\Controllers\UserController;
 
 return [
 
+    /**
+     * Index Route
+     */
     '/' => [HomeController::class, 'index'],
+
+    /**
+     * Auth Routes
+     */
+    '/login' => [AuthController::class, 'loginForm'],
+    '/login/do' => [AuthController::class, 'loginDo'],
+    '/logout' => [AuthController::class, 'logout'],
+    '/sign-up' => [AuthController::class, 'signupForm'],
+    '/sign-up/do' => [AuthController::class, 'signupDo'],
 
     /**
      * Home Route
