@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Core\Database;
 use Core\Models\AbstractUser;
 use Core\Traits\SoftDelete;
 
@@ -24,6 +25,38 @@ class User extends AbstractUser {
     ) {
     }
 
-    public function save(): bool {
+    public function save(): bool
+    {
+        $database = new Database();
+
+        $tablename = self::getTablenameFromClassname();
+
+        if (!empty($this->id)) {
+            $result = $database->query(
+                "UPDATE $tablename SET username = ?, name = ?, surname = ?, email = ?, password = ? WHERE id = ?",
+                [
+                    's:username' => $this->username,
+                    's:name' => $this->name,
+                    's:surname' => $this->surname,
+                    's:email' => $this->email,
+                    's:password' => $this->password,
+                    'i:id' => $this->id
+                ]
+            );
+
+            return $result;
+        } else {
+            $result = $database->query("INSERT INTO $tablename SET username = ?, name = ?, surname = ?, email = ?, password = ?", [
+                's:username' => $this->username,
+                's:name' => $this->name,
+                's:surname' => $this->surname,
+                's:email' => $this->email,
+                's:password' => $this->password
+            ]);
+
+            $this->handleInsertResult($database);
+
+            return $result;
+        }
     }
 }

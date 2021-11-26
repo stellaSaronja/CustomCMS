@@ -2,6 +2,12 @@
 
 namespace Core\Models;
 
+use App\Models\User;
+use Core\Database;
+use Core\Session;
+use Core\Helpers\Redirector;
+use Exception;
+
 abstract class AbstractUser {
 
     const LOGGED_IN_STATUS = 'is_logged_in';
@@ -21,6 +27,16 @@ abstract class AbstractUser {
     {
         Session::set(self::LOGGED_IN_STATUS, true);
         Session::set(self::LOGGED_IN_USER_ID, $this->id);
+
+        Redirector::redirect($redirect);
+
+        return true;
+    }
+
+    public static function logout(?string $redirect): bool
+    {
+        Session::set(self::LOGGED_IN_STATUS, false);
+        Session::forget(self::LOGGED_IN_USER_ID);
 
         Redirector::redirect($redirect);
 
