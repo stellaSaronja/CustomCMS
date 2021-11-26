@@ -1,7 +1,9 @@
 <?php
 
+use App\Controllers\AuthController;
 use App\Controllers\HomeController;
 use App\Controllers\ProductController;
+use App\Controllers\UserController;
 
 return [
 
@@ -16,6 +18,12 @@ return [
      * Products Routes
      */
     '/products' => [ProductController::class, 'index'],
-    '/products/{id}/show' => [ProductController::class, 'show']
+    '/products/{id}/show' => [ProductController::class, 'show'],
+
+    /**
+     * Users Routes
+     */
+    '/users' => [UserController::class, 'index'],
+    '/users/{id}/show' => [UserController::class, 'show'],
     
 ];

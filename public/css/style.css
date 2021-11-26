@@ -1,0 +1,195 @@
+@font-face {
+  font-family: "Arial Rounded MT";
+  src: url("../fonts/arlrdbd.ttf");
+}
+
+@font-face {
+  font-family: "Varela Round";
+  src: url("../fonts/varelaround-regular.ttf");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*##################################
+########### HEADER STYLE ###########
+###################################*/
+
+header {
+  background-color: #5b745e;
+  padding: 7px 0;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 50px;
+}
+
+h1 {
+  font-family: "Arial Rounded MT";
+  font-size: 26px;
+  color: #fff;
+  text-align: center;
+}
+
+.nav__ul {
+  list-style: none;
+  display: flex;
+  flex-basis: 700px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+ul a {
+  text-decoration: none;
+  font-family: "Arial Rounded MT";
+  color: #fff;
+  font-size: 18px;
+}
+
+/*##################################
+############ MAIN STYLE ############
+###################################*/
+
+h2 {
+  font-family: "Arial Rounded MT";
+  font-size: 26px;
+}
+
+.promo__img {
+  width: 100%;
+  height: auto;
+}
+
+.promo__text {
+  font-family: "Arial Rounded MT";
+  font-size: 32px;
+  color: #fff;
+  margin-bottom: 30px;
+  position: absolute;
+  bottom: 450px;
+  left: 50px;
+}
+
+.promo__btn {
+  font-family: "Arial Rounded MT";
+  font-size: 24px;
+  text-decoration: none;
+  color: #5b745e;
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 20px 70px;
+  position: relative;
+  bottom: 450px;
+  left: 50px;
+}
+
+.offer-section {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 40px;
+}
+
+.home-prod__container {
+  max-width: 250px;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-prod__img {
+  width: 200px;
+  margin: auto;
+  margin-bottom: 40px;
+}
+
+.home-prod__description {
+  font-family: 'Arial Rounded MT';
+  font-size: 20px;
+  margin: auto;
+  margin-bottom: 20px;
+}
+
+.home__divider {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.home__price {
+  font-family: 'Arial Rounded MT';
+  font-size: 18px;
+}
+
+.home-prod__btn {
+  font-family: 'Arial Rounded MT';
+  font-size: 16px;
+  color: #000;
+  text-decoration: none;
+  background-color: #FBE1D0;
+  border-radius: 10px;
+  padding: 15px 70px;
+}
+
+.banner {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-image: url("/resources/imgs/bckgrnd.png");
+  height: 300px;
+  margin: 70px 0;
+}
+
+.banner__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.banner__text {
+  font-family: 'Arial Rounded MT';
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+/*##################################
+########### FOOTER STYLE ###########
+###################################*/
+
+.background {
+  margin-top: 70px;
+  background-color: #FBE1D0;
+  padding: 40px 150px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.footer__logo {
+  font-family: 'Arial Rounded MT';
+  font-size: 26px;
+}
+
+.footer__container {
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+  display: grid;
+  grid-template-columns: 150px 150px;
+}
+
+.footer__link {
+  font-family: 'Varela Round';
+  text-decoration: none;
+  color: #000;
+  margin: 20px 0;
+}
+
+.foot {
+  font-family: 'Arial Rounded MT';
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}

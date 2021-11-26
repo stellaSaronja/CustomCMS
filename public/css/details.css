@@ -1,0 +1,51 @@
+.details__main {
+  display: grid;
+  grid-template-columns: 530px 600px;
+  margin: 100px 200px;
+}
+
+.img__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #8b9e8a;
+  border-radius: 30px;
+  width: 400px;
+  height: 450px;
+}
+
+.details__title {
+  font-family: 'Arial Rounded MT';
+  font-size: 22px;
+  color: #fff;
+  margin-bottom: 30px;
+  max-width: 250px;
+}
+
+.detail__features {
+  display: grid;
+  grid-template-columns: 130px auto;
+  grid-template-rows: 50px;
+  margin-top: 30px;
+}
+
+.detail__btn {
+  font-family: 'Arial Rounded MT';
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  background-color: #e1bda5;
+  padding: 15px 50px;
+  border-radius: 10px;
+  max-width: 250px;
+}
+
+.detail__title {
+  font-family: 'Arial Rounded MT';
+  font-size: 18px;
+}
+
+.detail__p {
+  font-family: 'Varela Round';
+}

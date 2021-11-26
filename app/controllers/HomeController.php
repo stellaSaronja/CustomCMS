@@ -14,6 +14,7 @@ class HomeController {
     }
 
     public function home() {
-        View::render('home', ['foo' => 'bar']);
+        $users = User::all('username', 'ASC');
+        View::render('home', ['users' => $users]);
     }
 }
