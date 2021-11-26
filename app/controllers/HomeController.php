@@ -8,9 +8,6 @@ class HomeController {
     
     public function index() {
         View::render('index', ['foo' => 'bar']);
-        /**
-         * @todo: objasniti zasto array
-         */
     }
 
     public function home() {
