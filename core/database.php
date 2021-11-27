@@ -2,6 +2,9 @@
 
 namespace Core;
 
+use mysqli;
+use mysqli_result;
+
 class Database {
 
     private object $link;

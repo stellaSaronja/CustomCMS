@@ -8,17 +8,14 @@ use Core\View;
 
 class HomeController {
     
-    // public function index() {
-    //     View::render('index', ['foo' => 'bar']);
-    // }
     public function index() {
-        $prods = Product::all();
+        $products = Product::all();
 
         View::render('products/index', ['products' => $products]);
     }
 
     public function home() {
-        $users = User::all('username', 'ASC');
+        $users = User::all();
         View::render('home', ['users' => $users]);
     }
 }

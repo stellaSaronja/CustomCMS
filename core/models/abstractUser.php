@@ -8,7 +8,7 @@ use Core\Session;
 use Core\Helpers\Redirector;
 use Exception;
 
-abstract class AbstractUser {
+abstract class AbstractUser extends AbstractModel {
 
     const LOGGED_IN_STATUS = 'is_logged_in';
     const LOGGED_IN_USER_ID = 'logged_in_user_id';

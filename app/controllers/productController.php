@@ -10,7 +10,7 @@ use Core\View;
 class ProductController {
 
     public function index() {
-        $prods = Product::all();
+        $products = Product::all();
 
         View::render('products/index', ['products' => $products]);
     }
@@ -25,7 +25,7 @@ class ProductController {
         /**
          * View laden und Daten übergeben.
          */
-        View::render('products/show', [
+        View::render('products/details', [
             'product' => $product
         ]);
     }

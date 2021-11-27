@@ -16,7 +16,7 @@
 
   <?php require_once __DIR__ . '/../partials/flashMessagesAndErrors.php'; ?>
 
-  <?php echo $templatePath; ?>
+  <?php require_once $templatePath; ?>
 
   <?php require_once __DIR__ . '/../partials/footer.php'; ?>
 
