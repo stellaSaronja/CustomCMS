@@ -77,6 +77,7 @@ trait SoftDelete
          * Hier nehmen wir auch Rücksicht auf die deleted_at Spalte und geben nur Einträge zurück, die nicht als
          * gelöscht markiert sind.
          */
+      
         if ($orderBy === null) {
             $result = $database->query("SELECT * FROM $tablename WHERE deleted_at IS NULL");
         } else {

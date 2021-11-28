@@ -5,21 +5,8 @@ namespace Core;
 /**
  * Views und Error Views laden
  */
-class View
-{
+class View {
 
-    /**
-     * Diese Methode erlaubt es uns innerhalb der Controller der App (s. HomeController), einen View in nur einer
-     * einzigen Zeile zu laden und auch Parameter an den View zu übergeben. Die View Parameter dienen dazu, dass Werte,
-     * die in den Controllern berechnet wurden, an den View zur Darstellung übergeben werden können.
-     *
-     * Aufruf: View::render('ProductSingle', $productValues)
-     *
-     * @param string  $template
-     * @param array   $params
-     * @param ?string $layout
-     * @param bool    $useCoreTemplates
-     */
     public static function render(
         string $template,
         array $params = [],
@@ -33,10 +20,6 @@ class View
             $layout = Config::get('app.default-layout', 'default');
         }
 
-        /**
-         * extract() erstellt aus jedem Wert in einem Array eine eigene Variable. Das brauchen wir aber nur zu tun, wenn
-         * überhaupt $params vorhanden sind.
-         */
         if (!empty($params)) {
             extract($params);
         }
@@ -74,12 +57,6 @@ class View
     /**
      * Das ist eine Hilfsfunktion, damit $useCoreTemplate direkt true ist und auch ein HTTP Status Code gesetzt werden
      * kann.
-     *
-     * @param string  $template
-     * @param array   $params
-     * @param ?string $layout
-     * @param bool    $useCoreTemplates
-     * @param int     $httpResponseCode
      */
     public static function error(
         string $template = 'errors/exception',
@@ -100,5 +77,4 @@ class View
          */
         self::render($template, $params, $layout, $useCoreTemplates);
     }
-
 }

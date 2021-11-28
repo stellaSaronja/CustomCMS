@@ -2,24 +2,16 @@
 
 namespace App\Controllers;
 
+use App\Models\Product;
 use App\Models\User;
 use Core\View;
 
-/**
- * Beispiel Controller
- */
-class HomeController
-{
+class HomeController {
+    
+    public function index() {
+        $prods = Product::all();
 
-    /**
-     * Beispielmethode
-     */
-    public function index()
-    {
-        View::render('index', ['foo' => 'bar']);
-        /**
-         * @todo: objasniti zasto array
-         */
+        View::render('products/index', ['products' => $products]);
     }
 
     /**
@@ -33,7 +25,7 @@ class HomeController
         $users = User::all('username', 'ASC');
 
         /**
-         * View laden und Daten übergeben.
+         * View laden und Daten ï¿½bergeben.
          */
         View::render('home', [
             'users' => $users

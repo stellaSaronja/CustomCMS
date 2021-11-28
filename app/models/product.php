@@ -25,10 +25,11 @@ class Product extends AbstractModel {
 
     public function save(): bool {
         $database = new Database();
+      
         $tablename = self::getTablenameFromClassname();
 
         if (!empty($this->$id)) {
-            $result = $database->query(
+           $result = $database->query(
                 "UPDATE $tablename SET name = ?, description = ?, category = ?, price = ?, images = ? WHERE id = ?",
                 [
                     's:name' => $this->name,
@@ -39,72 +40,62 @@ class Product extends AbstractModel {
                     'i:id' => $this->id
                 ]
             );
-            $this->saveProduct();
-            /**
-             * @todo: napraviti saveProduct funkciju
-             */
+            return $result;
+        } else {
+            $result = $database->query("INSERT INTO $tablename SET name = ?, description = ?, category = ?, id = ?", [
+                's:name' => $this->name,
+                's:description' => $this->description,
+                's:category' => $this->category,
+                'i:id' => $this->id,
+            ]);
+
+            $this->handleInsertResult($database);
 
             return $result;
         }
-
-        $result = $database->query("INSERT INTO $tablename SET name = ?, location = ?, room_nr = ?, images = ?", [
-            's:name' => $this->name,
-            's:location' => $this->location,
-            's:room_nr' => $this->room_nr,
-            's:images' => $this->images
-        ]);
-
-        $this->saveProduct();
-
-        $this->handleInsertResult($database);
-
-        return $result;
     }
 
-    public function addImages(array $images): array
-    {
-        $currentImages = $this->getImages();
-        $currentImages = array_merge($currentImages, $images);
-        $this->setImages($currentImages);
+    // public function addImages(array $images): array
+    // {
+    //     $currentImages = $this->getImages();
+    //     $currentImages = array_merge($currentImages, $images);
+    //     $this->setImages($currentImages);
 
-        return $currentImages;
-    }
+    //     return $currentImages;
+    // }
 
-    public function getImages(): array
-    {
-        return json_decode($this->images);
-    }
+    // public function getImages(): array
+    // {
+    //     return json_decode($this->images);
+    // }
 
-    public function hasImages(): bool
-    {
-        return !empty($this->getImages());
-    }
+    // public function hasImages(): bool
+    // {
+    //     return !empty($this->getImages());
+    // }
 
-    public function removeImages(array $images): array
-    {
-        $currentImages = $this->getImages();
+    // public function removeImages(array $images): array
+    // {
+    //     $currentImages = $this->getImages();
 
-        $filteredImages = array_filter($currentImages, function ($image) use ($images) {
-            if (in_array($image, $images)) {
-                return false;
-            }
-            return true;
-        });
-        /**
-         * @todo: objasniti
-         */
-        $this->setImages($filteredImages);
+    //     $filteredImages = array_filter($currentImages, function ($image) use ($images) {
+    //         if (in_array($image, $images)) {
+    //             return false;
+    //         }
+    //         return true;
+    //     });
+    //     /**
+    //      * @todo: objasniti
+    //      */
+    //     $this->setImages($filteredImages);
 
-        return $filteredImages;
-    }
+    //     return $filteredImages;
+    // }
 
-    public function setImages(array $images): array
-    {
-        $this->images = json_encode(array_values($images));
+    // public function setImages(array $images): array
+    // {
+    //     $this->images = json_encode(array_values($images));
 
-        return $this->getImages();
-        /**
-         * @todo: objasniti
-         */
-    }
+    //     return $this->getImages();
+    // }
 }

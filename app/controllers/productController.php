@@ -3,12 +3,28 @@
 namespace App\Controllers;
 
 use App\Models\Product;
+use Core\View;
 
 class ProductController {
 
     public function index() {
-        $prods = Products::all();
+        $prods = Product::all();
 
         View::render('products/index', ['products' => $products]);
+    }
+
+    public function show(int $id)
+    {
+        /**
+         * Gewünschtes Equipment aus der DB laden.
+         */
+        $product = Product::findOrFail($id);
+
+        /**
+         * View laden und Daten übergeben.
+         */
+        View::render('products/show', [
+            'product' => $product
+        ]);
     }
 }

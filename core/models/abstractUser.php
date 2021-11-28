@@ -7,7 +7,6 @@ use Core\Database;
 use Core\Session;
 use Core\Helpers\Redirector;
 use Exception;
-use JetBrains\PhpStorm\Pure;
 
 /**
  * Class AbstractModel
@@ -222,5 +221,4 @@ abstract class AbstractUser extends AbstractModel
          */
         return null;
     }
-
 }

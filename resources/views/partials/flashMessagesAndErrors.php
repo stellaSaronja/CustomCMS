@@ -6,11 +6,6 @@
      * durch und geben sie als Alert aus.
      */
     foreach (\Core\Session::getAndForget('errors', []) as $error): ?>
-        <p class="alert alert-danger"><?php echo $error; ?></p>
-    <?php endforeach; ?>
-
-    <?php
-    foreach (\Core\Session::getAndForget('success', []) as $success): ?>
-        <p class="alert alert-success"><?php echo $success; ?></p>
+        <p><?php echo $error; ?></p>
     <?php endforeach; ?>
 </div>
