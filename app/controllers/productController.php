@@ -3,8 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\Product;
-// use Core\Helpers\Redirector;
-// use Core\Session;
 use Core\View;
 
 class ProductController {

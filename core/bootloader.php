@@ -2,18 +2,43 @@
 
 namespace Core;
 
-class Bootloader {
+/**
+ * Class Bootloader
+ *
+ * @package Core
+ */
+class Bootloader
+{
 
-    public function __construct(){
+    public function __construct()
+    {
+        /**
+         * Session starten
+         */
         Session::init();
+        /**
+         * Daten aus den $_GET und $_POST Superglobals in die Session speichern. Das wird benötigt, damit die old()-
+         * Methode der Session Core Klasse funktioniert.
+         */
+        Session::initSuperglobals();
 
-        Session::initSuperGlobals();
+        /**
+         * Damit wir nicht bei jedem Redirect die baseurl aus der Config laden müssen, erstellen wir hier eine Hilfskonstante.
+         */
+        define('BASE_URL', Config::get('app.baseurl', 'http://localhost:8080'));
+        define('IMG_FOLDER_URL', Config::get('app.images_folder_url'));
 
-        define('BASE_URL', Config::get('app.baseurl', 'http://localhost:80'));
-
+        /**
+         * Ein try-catch-Block ermöglicht es uns Code auszuführen und eine Exception, die in diesem Code auftritt
+         * abzufangen, ohne dass der Skriptdurchlauf abgebrochen wird.
+         */
         try {
+            /**
+             * Hier erstellen wir einen neuen Router und starten dann das Routing.
+             */
             $router = new Router();
             $router->route();
+
         } catch (\Exception $exception) {
             /**
              * Ist innerhalb des try-Blocks eine Exception aufgetreten (auch innerhalb von Funktionen, die in dem Block
@@ -28,6 +53,10 @@ class Bootloader {
         }
     }
 
+    /**
+     * Je nach Umgebung, welche Umgebung (dev/prod) gerade konfiguriert ist, schalten wir das error reporting ein oder
+     * aus.
+     */
     public static function setDisplayErrors()
     {
         /**

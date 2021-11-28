@@ -8,17 +8,27 @@ use Core\View;
 
 class HomeController {
     
-    // public function index() {
-    //     View::render('index', ['foo' => 'bar']);
-    // }
     public function index() {
         $prods = Product::all();
 
         View::render('products/index', ['products' => $products]);
     }
 
-    public function home() {
+    /**
+     * Alle users auflisten
+     */
+    public function home()
+    {
+        /**
+         * Alle users aus der Datenbank laden und von der Datenbank sortieren lassen.
+         */
         $users = User::all('username', 'ASC');
-        View::render('home', ['users' => $users]);
+
+        /**
+         * View laden und Daten �bergeben.
+         */
+        View::render('home', [
+            'users' => $users
+        ]);
     }
 }

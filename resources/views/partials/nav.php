@@ -2,16 +2,19 @@
   <nav>
     <h1>Totes : cool</h1>
     
-    <ul class="nav__ul">
-      <li>
-        <a href="<?php echo BASE_URL; ?>/home">Home</a>
+    <ul class="nav__ul navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="<?php echo BASE_URL; ?>/home">Home</a>
       </li>
-      <li>
-        <a href="<?php echo BASE_URL; ?>/products">Products</a>
+      <li class="nav-item">
+        <a class="nav-link" href="<?php echo BASE_URL; ?>/products">Products</a>
       </li>
-      <li>
-        <a href="<?php echo BASE_URL; ?>/about">About Us</a>
+      <li class="nav-item">
+        <a class="nav-link" href="<?php echo BASE_URL; ?>/about">About Us</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<?php echo BASE_URL; ?>/users">Users</a>
+      </li>      
       <li>
         <a href="<?php echo BASE_URL; ?>/cart">
           <svg xmlns="http://www.w3.org/2000/svg" width="29.29" height="30" viewBox="0 0 29.29 40">

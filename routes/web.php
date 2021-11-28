@@ -2,10 +2,16 @@
 
 use App\Controllers\AuthController;
 use App\Controllers\HomeController;
-use App\Controllers\ProductController;
 use App\Controllers\UserController;
+use App\Controllers\ProductController;
 
 return [
+    '/' => [HomeController::class, 'home'],
+
+    /**
+     * Home Route
+     */
+    '/home' => [HomeController::class, 'home'],
 
     /**
      * Index Route
