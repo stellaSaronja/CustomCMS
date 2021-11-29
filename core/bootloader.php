@@ -9,7 +9,8 @@ class Bootloader {
 
         Session::initSuperGlobals();
 
-        define('BASE_URL', Config::get('app.baseurl', 'http://localhost:80'));
+        define('BASE_URL', Config::get('app.baseurl'));
+        define('IMG_FOLDER_URL', Config::get('app.images_folder_url'));
 
         try {
             $router = new Router();

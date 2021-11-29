@@ -1,12 +1,12 @@
 <main class="details__main">
     <div class="img__container">
         <p class="details__title">Lorem ipsum dolor sit amet</p>
-        <img src="../../imgs/magnolia.jpg" alt="Magnolia tote bag">
+        <img src="<?php echo IMG_FOLDER_URL; echo $product->images ?>" alt="<?php echo $product->images ?>">
     </div>
 
     <div class="detail__features">
         <p class="detail__title">Price:</p>
-        <span class="prod__price">20€</span>
+        <span class="detail__price"><?php echo $product->price; ?></span>
         
         <p class="detail__title">Color:</p>
         <div>

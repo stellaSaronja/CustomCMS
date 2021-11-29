@@ -1,7 +1,7 @@
 .details__main {
   display: grid;
-  grid-template-columns: 530px 600px;
-  margin: 100px 200px;
+  grid-template-columns: auto auto auto;
+  margin: 150px 200px;
 }
 
 .img__container {
@@ -15,19 +15,24 @@
   height: 450px;
 }
 
-.details__title {
-  font-family: 'Arial Rounded MT';
-  font-size: 22px;
-  color: #fff;
-  margin-bottom: 30px;
-  max-width: 250px;
-}
-
 .detail__features {
   display: grid;
   grid-template-columns: 130px auto;
   grid-template-rows: 50px;
   margin-top: 30px;
+}
+
+.detail__title {
+  font-family: 'Arial Rounded MT';
+  font-size: 22px;
+  /* color: #fff; */
+  margin-bottom: 30px;
+  max-width: 250px;
+}
+
+.detail__price {
+  font-family: 'Arial Rounded MT';
+  font-size: 22px;
 }
 
 .detail__btn {

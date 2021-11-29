@@ -11,15 +11,9 @@ class Config {
 
         if (file_exists($path)) {
             $config = require $path;
-            /**
-             * @todo: objasniti
-             */
 
             if (array_key_exists($key, $config)) {
                 return $config[$key];
-                /**
-                 * @todo: objasniti
-                 */
             }
         }
 
