@@ -7,8 +7,6 @@ use Core\Models\AbstractUser;
 use Core\Traits\SoftDelete;
 
 class User extends AbstractUser {
-
-    public const TABLENAME = 'user';
     
     use SoftDelete;
 

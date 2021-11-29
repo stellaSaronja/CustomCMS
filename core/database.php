@@ -49,11 +49,6 @@ class Database
      * Anwendung:
      *  + $database->query('SELECT * FROM users WHERE id = ?', ['i:id' => $id]);
      *  + $database->query('SELECT * FROM users WHERE id = ? AND email = ?', ['i:id' => $id, 's:email' => $email]);
-     *
-     * @param string $query
-     * @param array  $params
-     *
-     * @return bool|array
      */
     public function query(string $query, array $params = []): bool|array
     {
@@ -104,10 +99,6 @@ class Database
 
     /**
      * Datenbank-Query nicht als Prepared Statement ausführen.
-     *
-     * @param string $query
-     *
-     * @return mysqli_result|bool
      */
     private function executeQuery(string $query): mysqli_result|bool
     {
@@ -118,11 +109,6 @@ class Database
      * Datenbank-Query als Prepared Statement ausführen.
      *
      * $database->query('SELECT * FROM users WHERE id = ? AND email = ?', ['i:id' => $id, 's:email' => $email]);
-     *
-     * @param string $queryWithPlaceholders
-     * @param array  $params
-     *
-     * @return mysqli_result|bool
      */
     private function prepareStatementAndExecuteQuery(string $queryWithPlaceholders, array $params): mysqli_result|bool
     {
@@ -187,25 +173,17 @@ class Database
      * wir für unsere Framework Anwender*innen hier die Möglichkeit sich das \mysqli Objekt aus der Database Klasse
      * abzurufen. Eine Veränderung des Rückgabewerts von $this->getLink() verändert aber nicht $this->link, wodurch
      * $this->link weiterhin nur von der Database Klasse selbst veränderbar ist.
-     *
-     * @return mysqli
      */
     public function getLink(): mysqli
     {
         return $this->link;
     }
 
-    /**
-     * @return array|bool
-     */
     public function getLastResult(): bool|array
     {
         return $this->lastResult;
     }
 
-    /**
-     * @return array
-     */
     public function getData(): array
     {
         return $this->data;
@@ -215,20 +193,9 @@ class Database
      * Wird bei einem INSERT-Query ein auto_increment Feld befüllt, so wird der Wert des zuletzt ausgeführten Queries
      * in $link->insert_id gespeichert. Das hat den Sinn, dass die neu generierte ID direkt für weitere Queries
      * verwendet werden kann, ohne die neu eingetragene Zeile wieder extra abfragen zu müssen.
-     *
-     * @return int|string
      */
     public function getInsertId(): int|string
     {
         return $this->link->insert_id;
-    }
-
-    /**
-     * Der Destruktor wird aufgerufen, wenn das aktuelle Database Objekt gelöscht wird. In diesem Fall wird auch die
-     * Datenbankverbindung wieder getrennt.
-     */
-    public function __destruct()
-    {
-        $this->link->close();
     }
 }

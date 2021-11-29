@@ -10,9 +10,6 @@
         <a class="nav-link" href="<?php echo BASE_URL; ?>/products">Products</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?php echo BASE_URL; ?>/about">About Us</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link" href="<?php echo BASE_URL; ?>/users">Users</a>
       </li>      
       <li>

@@ -10,15 +10,11 @@ class Router
 
     /**
      * Wird alle Routen, die das System kennt, beinhalten.
-     *
-     * @var array
      */
     private array $routes = [];
 
     /**
      * Wird die Namen der Parameter für die gefundenen Route beinhalten.
-     *
-     * @var array
      */
     private array $paramNames = [];
 
@@ -41,33 +37,12 @@ class Router
         /**
          * Route-Files laden.
          */
-        $webRoutes = require_once __DIR__ . '/../routes/web.php'; // bspw. /var/www/html/mvc/core/
-        $apiRoutes = require_once __DIR__ . '/../routes/api.php';
+        $webRoutes = require_once __DIR__ . '/../routes/web.php';
 
         /**
          * Property setzen, damit die Routen in diesem Objekt immer überall verfügbar sind.
          */
         $this->routes = $webRoutes;
-
-        /**
-         * Alle API Routen durchgehen und prefixen.
-         */
-        foreach ($apiRoutes as $apiRoute => $callable) {
-            /**
-             * Allen API Routen /api/ voranstellen, damit sie eindeutig als API Routen erkennbar sind.
-             */
-            $route = "/api/$apiRoute";
-
-            /**
-             * Doppelte Slashes in allen API Routen entfernen, die durch das Prefixing entstanden sein könnten.
-             */
-            $route = str_replace('//', '/', $route);
-
-            /**
-             * "fertige" API Route zu den anderen Routes hinzufügen.
-             */
-            $this->routes[$route] = $callable;
-        }
     }
 
     /**
@@ -194,13 +169,6 @@ class Router
         }
     }
 
-    /**
-     * Valide Regular Expression aus einer Routen-Definition bauen.
-     *
-     * @param string $route
-     *
-     * @return string
-     */
     private function buildRegex(string $route): string
     {
         /**

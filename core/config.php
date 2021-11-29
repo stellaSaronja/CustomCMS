@@ -4,22 +4,10 @@ namespace Core;
 
 /**
  * Class Config
- *
- * @package Core
  */
 class Config
 {
 
-    /**
-     * Config auslesen
-     *
-     * Config::get('database.host') => config/database.php['host']
-     *
-     * @param string $filenameAndKey Format: filename.arrayKey
-     * @param mixed  $default        Wert der zurückgegeben wird, wenn das File oder der Index nicht gefunden wurden
-     *
-     * @return mixed
-     */
     public static function get (string $filenameAndKey, mixed $default = null): mixed
     {
         /**

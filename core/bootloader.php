@@ -2,11 +2,6 @@
 
 namespace Core;
 
-/**
- * Class Bootloader
- *
- * @package Core
- */
 class Bootloader
 {
 
@@ -21,6 +16,7 @@ class Bootloader
          * Methode der Session Core Klasse funktioniert.
          */
         Session::initSuperglobals();
+
         define('BASE_URL', Config::get('app.baseurl'));
         define('IMG_FOLDER_URL', Config::get('app.images_folder_url'));
 

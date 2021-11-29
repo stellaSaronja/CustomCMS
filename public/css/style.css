@@ -138,7 +138,7 @@ h2 {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-image: url("/resources/imgs/bckgrnd.png");
+  /* background-image: url("/CustomCMS/resources/imgs/bckgrnd.png"); */
   height: 300px;
   margin: 70px 0;
 }

@@ -8,16 +8,11 @@ use Core\Session;
 use Core\Validator;
 use Core\View;
 
-/**
- * Class AuthController
- *
- * @package App\Controllers
- */
 class AuthController
 {
 
     /**
-     * Loin Formular anzeigen
+     * Login Formular anzeigen
      */
     public function loginForm()
     {

@@ -13,11 +13,6 @@ abstract class AbstractUser extends AbstractModel {
     const LOGGED_IN_STATUS = 'is_logged_in';
     const LOGGED_IN_USER_ID = 'logged_in_user_id';
 
-    /**
-     * @param string $emailOrUsername
-     *
-     * @return object|null
-     */
     public static function findByEmailOrUsername(string $emailOrUsername): ?object
     {
         /**
@@ -164,7 +159,7 @@ abstract class AbstractUser extends AbstractModel {
      *
      * @return bool
      */
-    #[Pure] public static function isLoggedIn(): bool
+    public static function isLoggedIn(): bool
     {
         /**
          * Ist ein*e User*in eingeloggt, so geben wir true zurück ...

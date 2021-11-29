@@ -6,9 +6,7 @@ use App\Models\User;
 use Core\Helpers\Redirector;
 use Core\Session;
 use Core\View;
-/**
- * User Controller
- */
+
 class UserController
 {
 
@@ -32,10 +30,6 @@ class UserController
 
     /**
      * Einzelnes User anzeigen.
-     *
-     * @param int $id
-     *
-     * @throws \Exception
      */
     public function show(int $id)
     {

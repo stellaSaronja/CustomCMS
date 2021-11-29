@@ -8,8 +8,6 @@ namespace Core;
  * Wir definieren deshalb eine eigene Klasse Session, damit wir überall, wo wir auf die Session zugreifen wollen diese
  * Wrapper-Klasse verwenden, damit die Session-Engine, also der Mechanismus, der die Daten dann speichert, ganz einfach
  * getauscht werden kann, ohne dass der ganze Code, der Sessions verwendet, umgebaut werden muss.
- *
- * @package Core
  */
 class Session
 {
@@ -36,9 +34,6 @@ class Session
 
     /**
      * Wert in Session schreiben
-     *
-     * @param string $key
-     * @param mixed  $value
      */
     public static function set(string $key, mixed $value)
     {
@@ -47,11 +42,6 @@ class Session
 
     /**
      * Wert aus Session auslesen
-     *
-     * @param string $key
-     * @param null   $default
-     *
-     * @return mixed
      */
     public static function get(string $key, mixed $default = null): mixed
     {
@@ -63,8 +53,6 @@ class Session
 
     /**
      * Wert aus Session löschen
-     *
-     * @param string $key
      */
     public static function forget(string $key)
     {
@@ -75,16 +63,6 @@ class Session
 
     /**
      * Wert aus der Session auslesen und danach löschen
-     *
-     * Das ist vor allem dann relevant, wenn wir beispielsweise Fehlermeldungen in die Session schreiben, die nur beim
-     * nächsten Seitenaufruf angezeigt werden sollen und dann wieder aus der Session gelöscht werden. Wir könnten das
-     * auch mit Session::get() und Session::forget() machen, aber so können wir das in einer Zeile machen. Das ist eine
-     * reine Convenience Funktion.
-     *
-     * @param string $key
-     * @param null   $default
-     *
-     * @return mixed
      */
     public static function getAndForget(string $key, mixed $default = null): mixed
     {
@@ -97,11 +75,6 @@ class Session
      * Diese Methode ermöglicht es uns auf die Werte, die in dem jeweils vorhergehenden Request in ein Formular
      * eingegeben wurden, zuzugreifen. Dadurch können wir Formularfelder mit Werten befüllen, wenn ein Fehler in der
      * Validierung auftritt, der/die User*in muss dann die Werte nicht nochmal eingeben, sondern lediglich korrigieren.
-     *
-     * @param string $key
-     * @param null   $default
-     *
-     * @return mixed
      */
     public static function old(string $key, mixed $default = null): mixed
     {

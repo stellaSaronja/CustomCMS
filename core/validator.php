@@ -18,8 +18,6 @@ class Validator
     /**
      * Definieren der numerischen Datentypen, die validiert werden können. Hier wird auch definiert, mit welcher PHP
      * Funktion die Validierung durchgeführt werden soll.
-     *
-     * @var string[]
      */
     private array $numericTypes = [
         'numeric' => 'is_numeric',
@@ -31,8 +29,6 @@ class Validator
      * Definieren der Fehlermeldungen für alle Datentypen oben. Hier wird immer ein %s-Platzhalter definiert, damit wir
      * später, wenn wir die Fehlermeldung verwenden, mit der sprintf()-Funktion das Label des Input Feldes einfügen
      * können.
-     *
-     * @var string[]
      */
     private array $errorMessages = [
         'letters' => '%s darf nur Buchstaben und Leerzeichen beinhalten.',
@@ -64,8 +60,6 @@ class Validator
 
     /**
      * Definieren einer Property, in die alle aufgetretenen Fehler gespeichert werden.
-     *
-     * @var string[]
      */
     private array $errors = [];
 
@@ -78,8 +72,6 @@ class Validator
      * ["something"]) aufgerufen. Dadurch müssen wir nicht für alle string-basierten Datentypen eine eigene Methode
      * schreiben, sondern können ein und die selbe Methode für alle Typen schreiben und haben trotzdem hübsch benannte
      * Methoden bei der Verwendung des Validators zur Verfügung.
-     *
-     * @throws \Exception
      */
     public function __call($name, $arguments)
     {
@@ -118,10 +110,6 @@ class Validator
 
     /**
      * Hier prüfen wir, ob der aufgerufenen $type einer der oben definierten numericTypes ist.
-     *
-     * @param string $type
-     *
-     * @return bool
      */
     private function isNumericType(string $type): bool
     {
@@ -173,11 +161,6 @@ class Validator
 
     /**
      * Hier vergleichen wir zwei Werte miteinander. Das ist für Passwort und Passwort wiederholen Felder sehr praktisch.
-     *
-     * @param array $valueAndLabel1 [$wert, $label]
-     * @param array $valueAndLabel2 [$wert, $label]
-     *
-     * @return bool
      */
     public function compare(array $valueAndLabel1, array $valueAndLabel2): bool
     {
@@ -197,71 +180,6 @@ class Validator
 
         /**
          * Andernfalls geben wir true zurück.
-         */
-        return true;
-    }
-
-    /**
-     * Hochgeladene Dateien validieren.
-     *
-     * @param array       $files
-     * @param string      $label
-     * @param string|null $type
-     * @param int|null    $maxFileSize
-     *
-     * @return bool
-     */
-    public function file(array $files, string $label, ?string $type = null, ?int $maxFileSize = null): bool
-    {
-        /**
-         * Wurde eine Datei hochgeladen?
-         */
-        if ($files['error'][0] !== UPLOAD_ERR_NO_FILE) {
-            /**
-             * Fallback für die max-upload-size holen, falls der Parameter nicht gesetzt wurde.
-             */
-            if (empty($maxFileSize)) {
-                $maxFileSize = Config::get('app.max-upload-size', 0);
-            }
-
-            /**
-             * Alle Uploads durchgehen.
-             */
-            foreach ($files['name'] as $index => $filename) {
-                /**
-                 * Ist ein Upload-Fehler aufgetreten, schreiben wir einen Fehler.
-                 */
-                if ($files['error'][$index] !== UPLOAD_ERR_OK) {
-                    $this->errors[] = sprintf($this->errorMessages['file-error'], $label);
-                    return false;
-                }
-
-                /**
-                 * Ist ein Typ definiert und stimmt dieser Type aber nicht überein, schreiben wir einen Fehler.
-                 */
-                if (!empty($type)) {
-                    $_type = $files['type'][$index];
-                    if (!str_starts_with($_type, $type)) {
-                        $this->errors[] = sprintf($this->errorMessages['file-type'], $label, $type);
-                        return false;
-                    }
-                }
-
-                /**
-                 * Überschreitet die Datei das Upload-Limit, schreiben wir einen Fehler.
-                 */
-                if (!empty($maxFileSize)) {
-                    $_filesize = $files['size'][$index];
-                    if ($_filesize > $maxFileSize) {
-                        $this->errors[] = sprintf($this->errorMessages['file-size'], $label, $maxFileSize / 1024 / 1024);
-                        return false;
-                    }
-                }
-            }
-        }
-
-        /**
-         * Ist bisher kein Fehler aufgetreten, war die Validierung erfolgreich.
          */
         return true;
     }

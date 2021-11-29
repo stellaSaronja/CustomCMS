@@ -16,14 +16,8 @@ class ProductController {
 
     public function show(int $id)
     {
-        /**
-         * Gewünschtes Equipment aus der DB laden.
-         */
         $product = Product::findOrFail($id);
 
-        /**
-         * View laden und Daten übergeben.
-         */
         View::render('products/details', [
             'product' => $product
         ]);
