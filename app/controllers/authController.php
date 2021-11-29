@@ -136,8 +136,8 @@ class AuthController
          */
         $validator = new Validator();
         $validator->email($_POST['email'], 'E-Mail', required: true);
-        $validator->unique($_POST['email'], 'E-Mail', 'users', 'email');
-        $validator->unique($_POST['username'], 'Username', 'users', 'username');
+        $validator->unique($_POST['email'], 'E-Mail', User::TABLENAME, 'email');
+        $validator->unique($_POST['username'], 'Username', User::TABLENAME, 'username');
         $validator->password($_POST['password'], 'Passwort', min: 8, required: true);
         /**
          * Das Feld 'password_repeat' braucht nicht validiert werden, weil wenn 'password' ein valides Passwort ist und
@@ -168,6 +168,7 @@ class AuthController
              */
             Session::set('errors', $errors);
             Redirector::redirect('/sign-up');
+            exit;
         }
 
         /**
