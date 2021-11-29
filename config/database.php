@@ -4,5 +4,5 @@ return [
     'host' => 'localhost',
     'user' => 'root',
     'password' => '',
-    'dbname' => 'custom_cms',
+    'dbname' => 'custom_cms'
 ];

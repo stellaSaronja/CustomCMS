@@ -25,11 +25,11 @@ class Product extends AbstractModel {
 
     public function save(): bool {
         $database = new Database();
-
+      
         $tablename = self::getTablenameFromClassname();
 
         if (!empty($this->$id)) {
-            $result = $database->query(
+           $result = $database->query(
                 "UPDATE $tablename SET name = ?, description = ?, category = ?, price = ?, images = ? WHERE id = ?",
                 [
                     's:name' => $this->name,
@@ -40,7 +40,6 @@ class Product extends AbstractModel {
                     'i:id' => $this->id
                 ]
             );
-
             return $result;
         } else {
             $result = $database->query("INSERT INTO $tablename SET name = ?, description = ?, category = ?, id = ?", [
@@ -98,8 +97,5 @@ class Product extends AbstractModel {
     //     $this->images = json_encode(array_values($images));
 
     //     return $this->getImages();
-    //     /**
-    //      * @todo: objasniti
-    //      */
     // }
 }
