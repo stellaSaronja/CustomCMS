@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/details.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/cart.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/order.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/form.css">
 </head>
 <body>
 
