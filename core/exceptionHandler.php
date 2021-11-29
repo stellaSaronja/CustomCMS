@@ -10,6 +10,8 @@ class ExceptionHandler
 
     /**
      * Fehler in einem catch-Block entgegennehmen und exception view laden.
+     *
+     * @param \Exception $exception
      */
     public static function handle(\Exception $exception)
     {
