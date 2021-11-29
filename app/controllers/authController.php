@@ -72,7 +72,7 @@ class AuthController
             /**
              * Wenn nein: Fehler!
              */
-            $errors[] = 'Username/E-Mail oder Passwort sind falsch.';
+            $errors[] = 'Username/E-Mail or password are wrong.';
         } else {
             /**
              * Wenn ja: weiter.
@@ -146,10 +146,10 @@ class AuthController
          */
         $validator->compare([
             $_POST['password'],
-            'Passwort'
+            'Password'
         ], [
             $_POST['password_repeat'],
-            'Passwort wiederholen'
+            'Repeat password'
         ]);
 
         /**
@@ -189,13 +189,13 @@ class AuthController
              *
              * Um eine Erfolgsmeldung ausgeben zu können, verwenden wir dieselbe Mechanik wie für die errors.
              */
-            Session::set('success', ['Herzlich wilkommen!']);
+            Session::set('success', ['Welcome!']);
             $user->login('/home');
         } else {
             /**
              * Fehlermeldung erstellen und in die Session speichern.
              */
-            $errors[] = 'Leider ist ein Fehler aufgetreten. Bitte probieren Sie es erneut! :(';
+            $errors[] = 'There has been a problem. Please try again! :(';
             Session::set('errors', $errors);
 
             /**

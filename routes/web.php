@@ -6,17 +6,16 @@ use App\Controllers\UserController;
 use App\Controllers\ProductController;
 
 return [
+    
+    /**
+     * Indey Route
+     */
     '/' => [HomeController::class, 'home'],
 
     /**
      * Home Route
      */
     '/home' => [HomeController::class, 'home'],
-
-    /**
-     * Index Route
-     */
-    '/' => [HomeController::class, 'index'],
 
     /**
      * Auth Routes
@@ -26,11 +25,6 @@ return [
     '/logout' => [AuthController::class, 'logout'],
     '/sign-up' => [AuthController::class, 'signupForm'],
     '/sign-up/do' => [AuthController::class, 'signupDo'],
-
-    /**
-     * Home Route
-     */
-    '/home' => [HomeController::class, 'home'],
 
     /**
      * Products Routes

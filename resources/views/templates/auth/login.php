@@ -1,13 +1,8 @@
 <form action="<?php echo BASE_URL; ?>/login/do" method="post">
 
     <div class="input">
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username" class="input-field">
-    </div>
-
-    <div class="input">
-        <label for="email">Email:</label>
-        <input type="email" name="email" id="email" class="input-field">
+        <label for="username-or-email">Username / Email:</label>
+        <input type="text" name="username-or-email" id="username-or-email" class="input-field">
     </div>
 
     <div class="input">
