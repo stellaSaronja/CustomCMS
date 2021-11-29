@@ -1,10 +1,9 @@
 <main>
     <h2>Products</h2>
     <div class="prods">
-    <?php foreach ($products as $product): ?>
+        <?php foreach ($products as $product): ?>
         <div class="prod__background">
-            <img src="<?php echo IMG_FOLDER_URL; echo $product->images ?>" 
-                alt="<?php echo $product->images ?>" width="200px" class="prod__img">
+            <img src="<?php echo IMG_FOLDER_URL; echo $product->images ?>" alt="<?php echo $product->images ?>" class="prod__img">
             <p class="prod__description">Lorem ipsum dolor sit amet</p>
             <div class="prod__divider">
                 <span class="prod__price"><?php echo $product->price; ?></span>
