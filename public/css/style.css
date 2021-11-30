@@ -39,7 +39,7 @@ h1 {
 .nav__ul {
     list-style: none;
     display: flex;
-    flex-basis: 700px;
+    flex-basis: 600px;
     justify-content: space-between;
     align-items: center;
 }

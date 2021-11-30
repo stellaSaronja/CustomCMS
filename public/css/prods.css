@@ -10,7 +10,7 @@
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    /* justify-content: space-between; */
+    justify-content: space-between;
     max-width: 270px;
     height: 430px;
     padding: 30px;
