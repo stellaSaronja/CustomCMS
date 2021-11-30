@@ -2,8 +2,7 @@
 
 namespace Core;
 
-class Validator
-{
+class Validator {
 
     private array $types = [
         'letters' => '/^[a-zA-Zßäöü ]*$/i',
@@ -73,8 +72,7 @@ class Validator
      * schreiben, sondern können ein und die selbe Methode für alle Typen schreiben und haben trotzdem hübsch benannte
      * Methoden bei der Verwendung des Validators zur Verfügung.
      */
-    public function __call($name, $arguments)
-    {
+    public function __call($name, $arguments) {
         /**
          * Namen der aufgerufenen Funktion laden, der ident sein sollte mit einem der Types.
          */
@@ -111,8 +109,7 @@ class Validator
     /**
      * Hier prüfen wir, ob der aufgerufenen $type einer der oben definierten numericTypes ist.
      */
-    private function isNumericType(string $type): bool
-    {
+    private function isNumericType(string $type): bool {
         return array_key_exists($type, $this->numericTypes);
     }
 
@@ -130,8 +127,7 @@ class Validator
      *
      * @return bool
      */
-    public function unique(string $value, string $label, string $table, string $column, int $ignoreThisId = 0): bool
-    {
+    public function unique(string $value, string $label, string $table, string $column, int $ignoreThisId = 0): bool {
         /**
          * Datenbankverbindung herstellen.
          */
@@ -162,8 +158,7 @@ class Validator
     /**
      * Hier vergleichen wir zwei Werte miteinander. Das ist für Passwort und Passwort wiederholen Felder sehr praktisch.
      */
-    public function compare(array $valueAndLabel1, array $valueAndLabel2): bool
-    {
+    public function compare(array $valueAndLabel1, array $valueAndLabel2): bool {
         /**
          * Werte aus den beiden Arrays extrahieren.
          */
@@ -194,8 +189,7 @@ class Validator
      *
      * @return array
      */
-    private function mergeDefaults(array $arguments): array
-    {
+    private function mergeDefaults(array $arguments): array {
         /**
          * Standardwerte definieren.
          */
@@ -256,8 +250,7 @@ class Validator
      *
      * @return bool
      */
-    private function validateRequired(bool $required, mixed $value, string $label): bool
-    {
+    private function validateRequired(bool $required, mixed $value, string $label): bool {
         /**
          * Wenn ein Feld verpflichtend ist, aber empty, schreiben wir einen Fehler und geben false zurück.
          */
@@ -282,8 +275,7 @@ class Validator
      *
      * @return bool
      */
-    private function validateMin(mixed $type, ?int $min, mixed $value, mixed $label): bool
-    {
+    private function validateMin(mixed $type, ?int $min, mixed $value, mixed $label): bool {
         /**
          * Wurde $min gesetzt ...
          */
@@ -323,8 +315,7 @@ class Validator
      *
      * @return bool
      */
-    private function validateMax(mixed $type, ?int $max, mixed $value, mixed $label): bool
-    {
+    private function validateMax(mixed $type, ?int $max, mixed $value, mixed $label): bool {
         if ($max !== null) {
             if ($this->isNumericType($type) && $value > $max) {
                 $this->errors[] = sprintf($this->errorMessages['max'], $label, $max);
@@ -349,8 +340,7 @@ class Validator
      * @return bool
      * @throws \Exception
      */
-    private function validateWithRegex(string $type, mixed $value, string $label): bool
-    {
+    private function validateWithRegex(string $type, mixed $value, string $label): bool {
         /**
          * Ist der gewünschte $type nicht in $this->types definiert, so liegt ein schwerer Fehler in der Programmierung
          * vor und wir werfen einen Exception (s. https://www.php.net/manual/de/class.exception.php).
@@ -387,8 +377,7 @@ class Validator
      *
      * @return bool
      */
-    private function validateNumericType(string $type, mixed $value, string $label): bool
-    {
+    private function validateNumericType(string $type, mixed $value, string $label): bool {
         /**
          * Hier holen wir uns den Namen der Funktion, mit der validiert werden soll.
          */
@@ -414,8 +403,7 @@ class Validator
      *
      * @return bool
      */
-    public function hasErrors(): bool
-    {
+    public function hasErrors(): bool {
         if (empty($this->errors)) {
             return false;
         }
@@ -429,9 +417,7 @@ class Validator
      *
      * @return string[]
      */
-    public function getErrors(): array
-    {
+    public function getErrors(): array {
         return $this->errors;
     }
-
 }

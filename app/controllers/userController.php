@@ -7,14 +7,12 @@ use Core\Helpers\Redirector;
 use Core\Session;
 use Core\View;
 
-class UserController
-{
+class UserController {
 
     /**
      * Alle Einträge listen.
      */
-    public function index()
-    {
+    public function index() {
         /**
          * Alle Objekte über das Model aus der Datenbank laden.
          */
@@ -31,8 +29,7 @@ class UserController
     /**
      * Einzelnes User anzeigen.
      */
-    public function show(int $id)
-    {
+    public function show(int $id) {
         /**
          * Gewünschtes User aus der DB laden.
          */
@@ -45,6 +42,4 @@ class UserController
             'user' => $user
         ]);
     }
-
-
 }

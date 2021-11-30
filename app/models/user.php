@@ -25,8 +25,7 @@ class User extends AbstractUser {
     ) {
     }
 
-    public function save(): bool
-    {
+    public function save(): bool {
         /**
          * Datenbankverbindung herstellen.
          */

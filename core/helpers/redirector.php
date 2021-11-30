@@ -2,11 +2,9 @@
 
 namespace Core\Helpers;
 
-class Redirector
-{
+class Redirector {
 
-    public static function redirect(?string $redirect = null, bool $useBaseUrl = true)
-    {
+    public static function redirect(?string $redirect = null, bool $useBaseUrl = true) {
         /**
          * Wurde eine Redirect-URL übergeben, leiten wir hier weiter.
          */
@@ -26,5 +24,4 @@ class Redirector
             exit;
         }
     }
-
 }

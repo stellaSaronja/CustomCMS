@@ -14,8 +14,7 @@ class AuthController
     /**
      * Login Formular anzeigen
      */
-    public function loginForm()
-    {
+    public function loginForm() {
         /**
          * Wenn bereits ein*e User*in eingeloggt ist, zeigen wir das Login Formular nicht an, sondern leiten auf die
          * Startseite weiter.
@@ -33,8 +32,7 @@ class AuthController
     /**
      * Daten aus Login Formular entgegennehmen und verarbeiten.
      */
-    public function loginDo()
-    {
+    public function loginDo() {
         /**
          * 1) Username & Passwort ins Login Formular eingeben
          * 2) Remember Me Checkbox anhakerln (optional)
@@ -93,16 +91,14 @@ class AuthController
     /**
      * Logout und redirect auf die Startseite durchführen.
      */
-    public function logout()
-    {
+    public function logout() {
         User::logout('/');
     }
 
     /**
      * Registrierungsformular anzeigen
      */
-    public function signupForm()
-    {
+    public function signupForm() {
         /**
          * Wenn bereits ein*e User*in eingeloggt ist, zeigen wir das Signup Formular nicht an, sondern leiten auf die
          * Startseite weiter.
@@ -120,8 +116,7 @@ class AuthController
     /**
      * Daten aus dem Registrierungsformular entgegennehmen und verarbeiten.
      */
-    public function signupDo()
-    {
+    public function signupDo() {
         /**
          * [x] Daten validieren
          * [x] erfolgreich: weiter, nicht erfolgreich: Fehler

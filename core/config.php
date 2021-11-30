@@ -5,11 +5,9 @@ namespace Core;
 /**
  * Class Config
  */
-class Config
-{
+class Config {
 
-    public static function get (string $filenameAndKey, mixed $default = null): mixed
-    {
+    public static function get (string $filenameAndKey, mixed $default = null): mixed {
         /**
          * Dateiname und Config-Key aus dem $configString auslesen. Hier verwenden wir Array Destructuring um beide
          * Variablen direkt setzen zu können.

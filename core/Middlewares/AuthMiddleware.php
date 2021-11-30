@@ -10,8 +10,7 @@ use JetBrains\PhpStorm\Pure;
  *
  * @package Core\Middlewares
  */
-class AuthMiddleware
-{
+class AuthMiddleware {
 
     /**
      * Prüfen, ob der/die eingeloggte User*in ein Admin ist.
@@ -19,8 +18,7 @@ class AuthMiddleware
      * @return bool|null
      * @throws \Exception
      */
-    public static function isAdmin(): ?bool
-    {
+    public static function isAdmin(): ?bool {
         /**
          * Hier verwenden wir den Nullsafe Operator (?). Dadurch wird kein Fehler auftreten, wenn kein*e User*in
          * eingeloggt und getLoggedIn() somit keine*n User*in zurückgibt und somit dieser leere Rückgabewert auch keine
@@ -32,8 +30,7 @@ class AuthMiddleware
     /**
      * Prüfen, ob der/die eingeloggte User*in ein Admin ist und andernfalls Fehler 403 Forbidden zurückgeben.
      */
-    public static function isAdminOrFail()
-    {
+    public static function isAdminOrFail() {
         /**
          * Prüfen, ob der/die aktuell eingeloggt User*in Admin ist.
          */
@@ -53,8 +50,7 @@ class AuthMiddleware
      *
      * @throws \Exception
      */
-    public static function isLoggedInOrFail()
-    {
+    public static function isLoggedInOrFail() {
         /**
          * Prüfen, ob der/die aktuell eingeloggt User*in Admin ist.
          */
@@ -74,8 +70,7 @@ class AuthMiddleware
      *
      * @return bool
      */
-    #[Pure] public static function isLoggedIn () {
+    public static function isLoggedIn () {
         return User::isLoggedIn();
     }
-
 }

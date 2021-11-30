@@ -10,8 +10,7 @@ use Exception;
  *
  * @package Core\Models
  */
-abstract class AbstractModel
-{
+abstract class AbstractModel {
 
     /**
      * Hier definieren wir, dass jede Class, die das AbstractModel erweitert, auch eine save()-Methode definieren muss.
@@ -32,8 +31,7 @@ abstract class AbstractModel
      *
      * @return array
      */
-    public static function all(?string $orderBy = null, ?string $direction = null): array
-    {
+    public static function all(?string $orderBy = null, ?string $direction = null): array {
         /**
          * Datenbankverbindung herstellen.
          */
@@ -68,8 +66,7 @@ abstract class AbstractModel
      *
      * @return object|null
      */
-    public static function find(int $id): ?object
-    {
+    public static function find(int $id): ?object {
         /**
          * Datenbankverbindung herstellen.
          */
@@ -101,8 +98,7 @@ abstract class AbstractModel
      * @return object|null
      * @throws Exception
      */
-    public static function findOrFail(int $id): ?object
-    {
+    public static function findOrFail(int $id): ?object {
         /**
          * find()-Methode aufrufen.
          */
@@ -131,8 +127,7 @@ abstract class AbstractModel
      *
      * @return object
      */
-    public function fill(array $data, bool $ignoreEmpty = true): object
-    {
+    public function fill(array $data, bool $ignoreEmpty = true): object {
         /**
          * 1) $data durchgehen
          * 2) Gibt es eine Property zu den $data Werten?
@@ -174,8 +169,7 @@ abstract class AbstractModel
      *
      * @return bool
      */
-    public function delete(): bool
-    {
+    public function delete(): bool {
         /**
          * Datenbankverbindung herstellen.
          */
@@ -209,8 +203,7 @@ abstract class AbstractModel
      *
      * @return array
      */
-    public static function handleResult(array $results): array
-    {
+    public static function handleResult(array $results): array {
         /**
          * Ergebnis-Array vorbereiten.
          */
@@ -246,8 +239,7 @@ abstract class AbstractModel
      *
      * @return ?object
      */
-    public static function handleUniqueResult(array $results): ?object
-    {
+    public static function handleUniqueResult(array $results): ?object {
         /**
          * Datenbankergebnis ganz normal verarbeiten.
          */
@@ -272,8 +264,7 @@ abstract class AbstractModel
      *
      * @param Database $database
      */
-    public function handleInsertResult(Database $database)
-    {
+    public function handleInsertResult(Database $database) {
         /**
          * Neu generierte id holen.
          */
@@ -296,8 +287,7 @@ abstract class AbstractModel
      *
      * @return string
      */
-    public static function getTablenameFromClassname(): string
-    {
+    public static function getTablenameFromClassname(): string {
         /**
          * Name der aufgerufenen Klasse abfragen.
          */

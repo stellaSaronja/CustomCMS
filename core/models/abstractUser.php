@@ -13,8 +13,7 @@ abstract class AbstractUser extends AbstractModel {
     const LOGGED_IN_STATUS = 'is_logged_in';
     const LOGGED_IN_USER_ID = 'logged_in_user_id';
 
-    public static function findByEmailOrUsername(string $emailOrUsername): ?object
-    {
+    public static function findByEmailOrUsername(string $emailOrUsername): ?object {
         /**
          * Whitespace entfernen.
          */
@@ -65,8 +64,7 @@ abstract class AbstractUser extends AbstractModel {
      *
      * @return
      */
-    public function checkPassword(string $password): bool
-    {
+    public function checkPassword(string $password): bool {
         /**
          * Die folgende Funktion kann einen plaintext Passwort gegen einen bcrypt Hash prüfen und wird von PHP
          * mitgeliefert.
@@ -83,8 +81,7 @@ abstract class AbstractUser extends AbstractModel {
      *
      * @return void
      */
-    public function setPassword(string $password): void
-    {
+    public function setPassword(string $password): void {
         $this->password = password_hash($password, PASSWORD_DEFAULT);
     }
 
@@ -95,8 +92,7 @@ abstract class AbstractUser extends AbstractModel {
      *
      * @return bool
      */
-    public function login(?string $redirect): bool
-    {
+    public function login(?string $redirect): bool {
         /**
          * Login-Status in die Session speichern.
          */
@@ -124,8 +120,7 @@ abstract class AbstractUser extends AbstractModel {
      *
      * @return bool
      */
-    public static function logout(?string $redirect): bool
-    {
+    public static function logout(?string $redirect): bool {
         /**
          * Login Status in der Session aktualisieren.
          *
@@ -159,8 +154,7 @@ abstract class AbstractUser extends AbstractModel {
      *
      * @return bool
      */
-    public static function isLoggedIn(): bool
-    {
+    public static function isLoggedIn(): bool {
         /**
          * Ist ein*e User*in eingeloggt, so geben wir true zurück ...
          */
@@ -183,8 +177,7 @@ abstract class AbstractUser extends AbstractModel {
      * @return object|null
      * @throws Exception
      */
-    public static function getLoggedIn(): ?object
-    {
+    public static function getLoggedIn(): ?object {
         /**
          * Ist ein*e User*in eingeloggt, ...
          */

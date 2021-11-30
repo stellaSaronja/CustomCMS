@@ -2,11 +2,9 @@
 
 namespace Core;
 
-class Bootloader
-{
+class Bootloader {
 
-    public function __construct()
-    {
+    public function __construct() {
         /**
          * Session starten
          */
@@ -49,8 +47,7 @@ class Bootloader
      * Je nach Umgebung, welche Umgebung (dev/prod) gerade konfiguriert ist, schalten wir das error reporting ein oder
      * aus.
      */
-    public static function setDisplayErrors()
-    {
+    public static function setDisplayErrors() {
         /**
          * Config aus dem app.php Config File auslesen
          */

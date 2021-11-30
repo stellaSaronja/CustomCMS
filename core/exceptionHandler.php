@@ -5,16 +5,14 @@ namespace Core;
 /**
  * Der ExceptionHandler nimmt alle Exceptions entgegen und gibt einen Fehler aus.
  */
-class ExceptionHandler
-{
+class ExceptionHandler {
 
     /**
      * Fehler in einem catch-Block entgegennehmen und exception view laden.
      *
      * @param \Exception $exception
      */
-    public static function handle(\Exception $exception)
-    {
+    public static function handle(\Exception $exception) {
         // Log Eintrag schreiben
         // ...
 

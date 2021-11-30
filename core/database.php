@@ -10,8 +10,7 @@ use mysqli_result;
  *
  * @package Core
  */
-class Database
-{
+class Database {
 
     private object $link;
     private object $stmt;
@@ -21,8 +20,7 @@ class Database
     /**
      * Database constructor.
      */
-    public function __construct()
-    {
+    public function __construct() {
         /**
          * Datenbankverbindung aufbauen
          */
@@ -50,8 +48,7 @@ class Database
      *  + $database->query('SELECT * FROM users WHERE id = ?', ['i:id' => $id]);
      *  + $database->query('SELECT * FROM users WHERE id = ? AND email = ?', ['i:id' => $id, 's:email' => $email]);
      */
-    public function query(string $query, array $params = []): bool|array
-    {
+    public function query(string $query, array $params = []): bool|array {
         /**
          * Wenn keine Parameter in $params übergeben wurden an diese Funktion, dann schicken wir den Query einfach so ab,
          * weil wir ihn nicht preparen müssen.
@@ -100,8 +97,7 @@ class Database
     /**
      * Datenbank-Query nicht als Prepared Statement ausführen.
      */
-    private function executeQuery(string $query): mysqli_result|bool
-    {
+    private function executeQuery(string $query): mysqli_result|bool {
         return $this->link->query($query);
     }
 
@@ -110,8 +106,7 @@ class Database
      *
      * $database->query('SELECT * FROM users WHERE id = ? AND email = ?', ['i:id' => $id, 's:email' => $email]);
      */
-    private function prepareStatementAndExecuteQuery(string $queryWithPlaceholders, array $params): mysqli_result|bool
-    {
+    private function prepareStatementAndExecuteQuery(string $queryWithPlaceholders, array $params): mysqli_result|bool {
         /**
          * Prepared Statement initialisieren
          */
@@ -174,18 +169,15 @@ class Database
      * abzurufen. Eine Veränderung des Rückgabewerts von $this->getLink() verändert aber nicht $this->link, wodurch
      * $this->link weiterhin nur von der Database Klasse selbst veränderbar ist.
      */
-    public function getLink(): mysqli
-    {
+    public function getLink(): mysqli {
         return $this->link;
     }
 
-    public function getLastResult(): bool|array
-    {
+    public function getLastResult(): bool|array {
         return $this->lastResult;
     }
 
-    public function getData(): array
-    {
+    public function getData(): array {
         return $this->data;
     }
 
@@ -194,8 +186,7 @@ class Database
      * in $link->insert_id gespeichert. Das hat den Sinn, dass die neu generierte ID direkt für weitere Queries
      * verwendet werden kann, ohne die neu eingetragene Zeile wieder extra abfragen zu müssen.
      */
-    public function getInsertId(): int|string
-    {
+    public function getInsertId(): int|string {
         return $this->link->insert_id;
     }
 }
