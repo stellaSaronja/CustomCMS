@@ -4,6 +4,7 @@ use App\Controllers\AuthController;
 use App\Controllers\HomeController;
 use App\Controllers\UserController;
 use App\Controllers\ProductController;
+use App\Controllers\CartController;
 
 return [
     
@@ -42,8 +43,8 @@ return [
      * Cart Routes
      */
     '/cart' => [CartController::class, 'index'],
-    'products/{id}/add-to-cart' => [CartController::class, 'add'],
-    'products/{id}/remove-from-cart' => [CartController::class, 'remove'],
-    'products/{id}/remove-all-from-cart' => [CartController::class, 'removeAll']
+    '/products/{id}/add-to-cart' => [CartController::class, 'add'],
+    '/products/{id}/remove-from-cart' => [CartController::class, 'remove'],
+    '/products/{id}/remove-all-from-cart' => [CartController::class, 'removeAll']
     
 ];

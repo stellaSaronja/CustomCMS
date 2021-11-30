@@ -5,9 +5,11 @@
         <thead>
             <th>Name</th>
             <th>Units</th>
+            <th>Actions</th>
         </thead>
 
         <?php foreach ($products as $product): ?>
+        <tr>
             <td>
                 <a href="<?php echo BASE_URL; ?>/products/<?php echo $product->id; ?>/show"><?php echo $product->name; ?></a>
             </td>
@@ -16,12 +18,13 @@
             </td>
             <td>
                 <a href="<?php
-                echo BASE_URL . "/products/$product->id/add-to-cart"; ?>" class="btn btn-primary">+</a>
+                echo "$BASE_URL/products/$product->id/add-to-cart"; ?>" class="btn btn-primary">+</a>
                 <a href="<?php
                 echo BASE_URL . "/products/$product->id/remove-from-cart"; ?>" class="btn btn-primary">-</a>
                 <a href="<?php
                 echo BASE_URL . "/products/$product->id/remove-all-from-cart"; ?>" class="btn btn-danger">Remove from cart</a>
             </td>
+        </tr>
         <?php endforeach; ?>
     </table>
 

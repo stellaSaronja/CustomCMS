@@ -124,7 +124,7 @@ class CartService {
             /**
              * ... jeweils das zugehörige Equipment aus der Datenbank laden, ...
              */
-            $product = Product::findOrFail($productIdä);
+            $product = Product::findOrFail($productId);
             /**
              * ... eine zusätzliche Property dynamisch hinzufügen, ...
              */
