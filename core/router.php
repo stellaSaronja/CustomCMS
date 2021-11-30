@@ -5,8 +5,7 @@ namespace Core;
 /**
  * Der Router übernimmt die Übersetzung von URLs in Controllers und Actions.
  */
-class Router
-{
+class Router {
 
     /**
      * Wird alle Routen, die das System kennt, beinhalten.
@@ -21,8 +20,7 @@ class Router
     /**
      * Routen automatisiert laden
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->loadRoutes();
     }
 
@@ -32,8 +30,7 @@ class Router
      * Nachdem routes/web.php und roues/api.php beide einfach nur ein Array returnen, wird dieser Wert als Return-Wert
      * für das require_once verwendet und kann somit direkt in Variablen gespeichert werden.
      */
-    private function loadRoutes()
-    {
+    private function loadRoutes() {
         /**
          * Route-Files laden.
          */
@@ -49,8 +46,7 @@ class Router
      * $_GET['path'], die im .htaccess File definiert ist, verarbeiten und die richtige Controller/Action Kombination
      * aus den routes/*.php files suchen.
      */
-    public function route()
-    {
+    public function route() {
         /**
          * $_GET['path'] so umformen, dass immer ein führendes Slash dran steht und am Ende keines.
          * Das ist nötig, weil unsere Standard Route, wenn also kein spezieller Pfad eingegeben wurde, nur / ist, also
@@ -169,8 +165,7 @@ class Router
         }
     }
 
-    private function buildRegex(string $route): string
-    {
+    private function buildRegex(string $route): string {
         /**
          * Um benannte Capture Groups erstellen zu können, müssen wir zunächst die Namen aller Parameter aus der Route
          * extrahieren. Das geht am einfachsten mit einer Regular Expression, die alles in der Form {xyz} sucht und den
