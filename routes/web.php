@@ -8,7 +8,7 @@ use App\Controllers\ProductController;
 return [
     
     /**
-     * Indey Route
+     * Index Route
      */
     '/' => [HomeController::class, 'home'],
 
@@ -37,5 +37,13 @@ return [
      */
     '/users' => [UserController::class, 'index'],
     '/users/{id}/show' => [UserController::class, 'show'],
+
+    /**
+     * Cart Routes
+     */
+    '/cart' => [CartController::class, 'index'],
+    'products/{id}/add-to-cart' => [CartController::class, 'add'],
+    'products/{id}/remove-from-cart' => [CartController::class, 'remove'],
+    'products/{id}/remove-all-from-cart' => [CartController::class, 'removeAll']
     
 ];
