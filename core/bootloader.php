@@ -71,5 +71,4 @@ class Bootloader {
             error_reporting(E_ALL);
         }
     }
-
 }
