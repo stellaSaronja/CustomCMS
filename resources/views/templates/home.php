@@ -71,7 +71,7 @@
 
     <div class="offer-section">
         <div class="home-prod__container">
-            <img src="../resources/imgs/black.jpg" alt="Librarian tote bag" class="home-prod__img">
+            <img src="../resources/imgs/black.jpg" alt="Black tote bag" class="home-prod__img">
             <p class="home-prod__description">Lorem ipsum dolor sit amet</p>
             <div class="home__divider">
                 <span class="home__price">20€</span>
@@ -83,7 +83,7 @@
         </div>
 
         <div class="home-prod__container">
-            <img src="../resources/imgs/pride.jpg" alt="Librarian tote bag" class="home-prod__img">
+            <img src="../resources/imgs/pride.jpg" alt="Pride tote bag" class="home-prod__img">
             <p class="home-prod__description">Lorem ipsum dolor sit amet</p>
             <div class="home__divider">
                 <span class="home__price">20€</span>
@@ -95,7 +95,7 @@
         </div>
 
         <div class="home-prod__container">
-            <img src="../resources/imgs/coffeWhite.jpg" alt="Librarian tote bag" class="home-prod__img">
+            <img src="../resources/imgs/coffeeWhite.jpg" alt="'But first coffee' tote bag" class="home-prod__img">
             <p class="home-prod__description">Lorem ipsum dolor sit amet</p>
             <div class="home__divider">
                 <span class="home__price">20€</span>

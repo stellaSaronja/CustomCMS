@@ -162,7 +162,7 @@ class AuthController
              * zurück zum Formular.
              */
             Session::set('errors', $errors);
-            Redirector::redirect('/sign-up');
+            Redirector::redirect('/login');
             exit;
         }
 
@@ -186,7 +186,7 @@ class AuthController
              * Um eine Erfolgsmeldung ausgeben zu können, verwenden wir dieselbe Mechanik wie für die errors.
              */
             Session::set('success', ['Welcome!']);
-            $user->login('/home');
+            $user->login('/login');
         } else {
             /**
              * Fehlermeldung erstellen und in die Session speichern.
