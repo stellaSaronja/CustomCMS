@@ -162,7 +162,7 @@ class AuthController
              * zurück zum Formular.
              */
             Session::set('errors', $errors);
-            Redirector::redirect('/login');
+            Redirector::redirect('/signup');
             exit;
         }
 

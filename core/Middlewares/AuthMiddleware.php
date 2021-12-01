@@ -3,20 +3,11 @@
 namespace Core\Middlewares;
 
 use App\Models\User;
-use JetBrains\PhpStorm\Pure;
 
-/**
- * Class AuthMiddleware
- *
- * @package Core\Middlewares
- */
 class AuthMiddleware {
 
     /**
      * Prüfen, ob der/die eingeloggte User*in ein Admin ist.
-     *
-     * @return bool|null
-     * @throws \Exception
      */
     public static function isAdmin(): ?bool {
         /**

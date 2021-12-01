@@ -52,6 +52,24 @@ ul a {
 }
 
 /*##################################
+########## MESSAGES STYLE ##########
+###################################*/
+
+.error {
+    font-family: 'Arial Rounded MT';
+    color: red;
+    display: flex;
+    z-index: 2;
+}
+
+.success {
+    font-family: 'Arial Rounded MT';
+    color: rgb(126, 207, 102);
+    display: flex;
+    z-index: 2;
+}
+
+/*##################################
 ############ MAIN STYLE ############
 ###################################*/
 
