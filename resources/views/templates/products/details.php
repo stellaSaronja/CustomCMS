@@ -6,7 +6,7 @@
 
     <div class="detail__features">
         <p class="detail__title">Price:</p>
-        <span class="detail__price"><?php echo $product->price; ?></span>
+        <span class="detail__price"><?php echo $product->price; ?> €</span>
         
         <p class="detail__title">Color:</p>
         <div>
@@ -24,6 +24,6 @@
 
     </div>
     <span></span>
-    <a href="<?php echo BASE_URL; ?>/add-to-cart" class="detail__btn">Add to cart</a>
+    <a href="<?php echo BASE_URL; ?>/products/<?php echo $product->id; ?>/add-to-cart" class="detail__btn">Add to cart</a>
 
 </main>

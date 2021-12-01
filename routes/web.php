@@ -2,7 +2,6 @@
 
 use App\Controllers\AuthController;
 use App\Controllers\HomeController;
-use App\Controllers\UserController;
 use App\Controllers\ProductController;
 use App\Controllers\CartController;
 
@@ -32,12 +31,6 @@ return [
      */
     '/products' => [ProductController::class, 'index'],
     '/products/{id}/show' => [ProductController::class, 'show'],
-
-    /**
-     * Users Routes
-     */
-    '/users' => [UserController::class, 'index'],
-    '/users/{id}/show' => [UserController::class, 'show'],
 
     /**
      * Cart Routes

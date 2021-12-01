@@ -57,16 +57,18 @@ ul a {
 
 .error {
     font-family: 'Arial Rounded MT';
-    color: red;
+    font-size: 22px;
+    color: rgb(255, 0, 0);
     display: flex;
-    z-index: 2;
+    justify-content: center;
 }
 
 .success {
     font-family: 'Arial Rounded MT';
+    font-size: 22px;
     color: rgb(126, 207, 102);
     display: flex;
-    z-index: 2;
+    justify-content: center;
 }
 
 /*##################################

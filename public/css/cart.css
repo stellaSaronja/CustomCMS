@@ -1,4 +1,42 @@
-.cart__main {
+.cart {
+    font-family: 'Arial Rounded MT';
+    font-size: 18px;
+    width: 1000px;
+    margin: auto;
+    border: 1px solid red;
+}
+
+.btn-edit {
+    font-family: 'Arial Rounded MT';
+    font-size: 16px;
+    color: #FFF;
+    text-decoration: none;
+    background-color: #2f77d6;
+    padding: 5px 15px;
+    border-radius: 10px;
+}
+
+.delete-btn {
+    font-family: 'Arial Rounded MT';
+    font-size: 14px;
+    color: #FFF;
+    text-decoration: none;
+    background-color: #E94B4B;
+    padding: 5px 30px;
+    border-radius: 10px;
+}
+
+.checkout-btn {
+    font-family: 'Arial Rounded MT';
+    font-size: 18px;
+    color: #FFF;
+    background-color: #E1BDA5;
+    padding: 15px 40px;
+    border-radius: 10px;
+    margin-left: 170px;
+}
+
+/* .cart__main {
     max-width: 1000px;
     margin: auto;
 }
@@ -27,11 +65,7 @@
     margin-bottom: 30px;
 }
 
-.cart__title {
-    font-family: 'Arial Rounded MT';
-    font-size: 18px;
-    color: #FFF;
-}
+
 
 .cart__description {
     font-family: 'Varela Round';
@@ -75,13 +109,4 @@
     font-size: 18px;
     color: #FFF;
 }
-
-.checkout-btn {
-    font-family: 'Arial Rounded MT';
-    font-size: 18px;
-    color: #FFF;
-    background-color: #E1BDA5;
-    padding: 15px 40px;
-    border-radius: 10px;
-    float: right;
-}
+ */

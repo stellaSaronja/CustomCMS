@@ -38,9 +38,9 @@ class Validator {
         'password' => '%s muss mindestens 8 Zeichen lang sein, Groß- und Kleinbuchstabe und Sonderzeichen enthalten.',
         'email' => '%s muss eine korrekte E-Mail Adresse sein.',
 
-        'numeric' => '%s muss numerisch sein.',
-        'int' => '%s muss ganzzahlig sein.',
-        'float' => '%s muss eine Fließkommazahl sein.',
+        // 'numeric' => '%s muss numerisch sein.',
+        // 'int' => '%s muss ganzzahlig sein.',
+        // 'float' => '%s muss eine Fließkommazahl sein.',
 
         'equals' => '%s muss ident sein mit %s.',
         'compare' => '%s und %s müssen ident sein.',
@@ -52,9 +52,6 @@ class Validator {
         'max' => '%s muss kleiner oder gleich %s sein.',
         'max-string' => '%s darf maximal %s Zeichen haben.',
 
-        'file-error' => 'Es konnten nicht alle Dateien aus %s hochgeladen werden.',
-        'file-type' => '%s darf nur Dateien vom Typ "%s" beinhalten.',
-        'file-size' => '%s darf nur Dateien bis zu %d MB beinhalten.'
     ];
 
     /**

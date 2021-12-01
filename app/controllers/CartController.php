@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Equipment;
+use App\Models\Product;
 use App\Services\CartService;
 use Core\Helpers\Redirector;
 use Core\View;
