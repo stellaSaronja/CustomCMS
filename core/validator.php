@@ -30,27 +30,26 @@ class Validator {
      * können.
      */
     private array $errorMessages = [
-        'letters' => '%s darf nur Buchstaben und Leerzeichen beinhalten.',
-        'text' => '%s darf nur Buchstaben und Sonderzeichen beinhalten.',
-        'textnum' => '%s darf nur aus alphanumerischen Zeichen bestehen.',
-        'alphanumeric' => '%s darf nur Buchstaben, Zahlen, Binde- und Unterstriche beinhalten.',
-        'checkbox' => '%s enthält keinen gültigen Wert für eine Checkbox.',
-        'password' => '%s muss mindestens 8 Zeichen lang sein, Groß- und Kleinbuchstabe und Sonderzeichen enthalten.',
-        'email' => '%s muss eine korrekte E-Mail Adresse sein.',
+        'letters' => '%s may only include letters and spaces.',
+        'text' => '%s may only include letters and special characters.',
+        'textnum' => '%s may only consist of alphanumeric characters.',
+        'alphanumeric' => '%s may only contain letters, numbers, hyphens and underscores.',
+        'password' => '%s must be at least 8 characters long, contain upper and lower case letters and special characters.',
+        'email' => '%s has to be a correct e-mail address.',
 
-        // 'numeric' => '%s muss numerisch sein.',
-        // 'int' => '%s muss ganzzahlig sein.',
-        // 'float' => '%s muss eine Fließkommazahl sein.',
+        'numeric' => '%s has to be numeric.',
+        'int' => '%s must be integer.', 
+        'float' => '%s must be a floating point number.',
 
-        'equals' => '%s muss ident sein mit %s.',
-        'compare' => '%s und %s müssen ident sein.',
-        'unique' => '%s wird bereits verwendet.',
+        'equals' => '%s has to be identical to %s.',
+        'compare' => '%s and %s have to be identical.',
+        'unique' => '%s is already being used.',
 
-        'required' => '%s ist ein Pflichtfeld.',
-        'min' => '%s muss mindestens %s sein.',
-        'min-string' => '%s muss mindestens %s Zeichen haben.',
-        'max' => '%s muss kleiner oder gleich %s sein.',
-        'max-string' => '%s darf maximal %s Zeichen haben.',
+        'required' => '%s is a mandatory field.',
+        'min' => '%s has to be at least %s long.',
+        'min-string' => '%s has to be at least %s characters long.',
+        'max' => '%s has to be less or equal to %s.',
+        'max-string' => '%s may have a maximum of %s characters.',
 
     ];
 

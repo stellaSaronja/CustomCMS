@@ -1,6 +1,7 @@
 <main>
     <h2>Your cart</h2>
 
+    <?php $total = 0; ?>
     <table class="cart">
         <thead>
             <th>Name</th>
@@ -33,17 +34,26 @@
                 <?php echo $product->price * $product->count; ?>.00 €
             </td>
         </tr>
-        <?php $total = 0; ?>
         <?php $total += $product->price * $product->count; ?>
         <?php endforeach; ?>
 
         <tr>
-            <td colspan="4">Total:</td>
-            <td><?php echo $total; ?>.00 €</td>
+            <td colspan="4" class="border">Total:</td>
+            <td class="border"><?php echo $total; ?>.00 €</td>
         </tr>
     </table>
 
-    <?php if (\App\Models\User::isLoggedIn()): ?>
-        <a href="<?php echo BASE_URL; ?>/checkout" class="checkout-btn">Checkout</a>
-    <?php endif; ?>
+    <form action="<?php echo BASE_URL; ?>/saveOrder" method="post" class="cart-form">
+        <input type="text" name="address" placeholder="Street name" class="checkout-input" id="address">
+        <input type="text" name="address-nr" placeholder="House number" class="checkout-input" id="address-nr">
+        <input type="text" name="city" placeholder="City" class="checkout-input" id="city">
+        <input type="text" name="postal-code" placeholder="Postal code" class="checkout-input" id="postal-code">
+        <input type="text" name="state" placeholder="State" class="checkout-input" id="state">
+        
+        <?php if (\App\Models\User::isLoggedIn()): ?>
+        <button type="submit">Checkout</button>
+        <?php endif; ?>
+    </form>
+    
+        <a href="<?php echo BASE_URL; ?>/saveOrder" class="checkout-btn">Checkout</a>
 </main>

@@ -1,4 +1,4 @@
-<form action="<?php echo BASE_URL; ?>/login/do" method="post">
+<form action="<?php echo BASE_URL; ?>/login/do" method="post" class="form">
 
     <div class="input">
         <label for="username-or-email">Username / Email:</label>

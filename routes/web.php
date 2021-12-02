@@ -4,6 +4,7 @@ use App\Controllers\AuthController;
 use App\Controllers\HomeController;
 use App\Controllers\ProductController;
 use App\Controllers\CartController;
+use App\Controllers\CheckoutController;
 
 return [
     
@@ -39,9 +40,11 @@ return [
     '/products/{id}/add-to-cart' => [CartController::class, 'add'],
     '/products/{id}/remove-from-cart' => [CartController::class, 'remove'],
     '/products/{id}/remove-all-from-cart' => [CartController::class, 'removeAll'],
+    '/saveOrder' =>  [CartController::class, 'saveOrder'],
     
     /**
      * Checkout Routes
      */
-    '/checkout' => [CartController::class, 'checkout']
+    '/checkout' => [CartController::class, 'summary'],
+    '/checkout/finish' => [CheckoutController::class, 'finish']
 ];

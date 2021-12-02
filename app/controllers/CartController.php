@@ -6,7 +6,9 @@ use App\Models\Equipment;
 use App\Models\Product;
 use App\Services\CartService;
 use Core\Helpers\Redirector;
+use Core\Validator;
 use Core\View;
+use  Core\Session;
 
 class CartController {
     
@@ -87,22 +89,49 @@ class CartController {
         Redirector::redirect('/cart');
     }
 
-    public function checkout() {
+    public function summary() {
+        /**
+         * Produkte aus dem Cart laden.
+         */
+        $productsInCart = CartService::get();
+
+        /**
+         * View laden und Daten übergeben.
+         */
+        View::render('cart/checkout', [
+            'products' => $productsInCart
+        ]);
+
         /**
          * unos adrese i nacina placanja
          * kontrola da je sve uneseno
          */
-        $productsInCart = CartService::get();
-
-        View::render('cart/checkout', [
-            'products' => $productsInCart
-        ]);
     }
 
     public function saveOrder() {
         /**
          * snimiti podatke u bazi
          * napraviti model za narudzbu
+         */
+        $validator = new Validator();
+        $validator->text($_POST['address'], label: 'Street name', required: true);
+        $validator->alphanumeric($_POST['address-nr'], label: 'House number', required: true);
+        $validator->text($_POST['city'], label: 'City', required: true);
+        $validator->int($_POST['postal-code'], label: 'Postal code', required: true);
+        $validator->text($_POST['state'], label: 'State', required: true);
+
+        $errors = $validator->getErrors();
+
+        if (!empty($errors)) {
+            /**
+             * ... dann speichern wir sie in die Session, damit sie im View ausgegeben werden können und leiten dann
+             * zurück zum Formular.
+             */
+            Session::set('errors', $errors);
+            Redirector::redirect('/cart');
+        }
+        /*
+         * ok onda treba spremiti i prikazati sljedeći ekran
          */
     }
 }

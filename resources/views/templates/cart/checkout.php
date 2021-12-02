@@ -12,6 +12,8 @@
 <main class="cart__main">
     <h2>Order summary</h2>
 
+    <?php  ?>
+
     <div class="cart__background">
         <div class="cart__container">
             <img src="../../imgs/librarian.jpg" alt="'Librarian' tote bag" class="cart__img">
@@ -59,7 +61,7 @@
             <span class="sum__price">68€</span>
         </div>
     </div>
-    <a href="" class="checkout-btn">Proceed to checkout</a>
+    <a href="" class="checkout-btn">Confirm payment</a>
 </main>
 </body>
 </html>
