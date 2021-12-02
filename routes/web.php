@@ -38,6 +38,10 @@ return [
     '/cart' => [CartController::class, 'index'],
     '/products/{id}/add-to-cart' => [CartController::class, 'add'],
     '/products/{id}/remove-from-cart' => [CartController::class, 'remove'],
-    '/products/{id}/remove-all-from-cart' => [CartController::class, 'removeAll']
+    '/products/{id}/remove-all-from-cart' => [CartController::class, 'removeAll'],
     
+    /**
+     * Checkout Routes
+     */
+    '/checkout' => [CartController::class, 'checkout']
 ];

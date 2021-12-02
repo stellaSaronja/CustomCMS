@@ -10,7 +10,7 @@
 </head>
 <body>
 <main class="cart__main">
-    <h2>Your shopping cart</h2>
+    <h2>Order summary</h2>
 
     <div class="cart__background">
         <div class="cart__container">

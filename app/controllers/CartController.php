@@ -15,7 +15,7 @@ class CartController {
      */
     public function index() {
         /**
-         * Inhalt des Cart laden.
+         * Inhalt des Carts laden.
          */
         $productsInCart = CartService::get();
 
@@ -28,51 +28,51 @@ class CartController {
     }
 
     /**
-     * Equipment in Cart hinzufügen (+1)
+     * Produkt in Cart hinzufügen (+1)
      */
     public function add(int $id) {
         /**
-         * Equipment, das hinzugefügt werden soll, laden.
+         * Produkt, das hinzugefügt werden soll, laden.
          */
         $product = Product::findOrFail($id);
 
         /**
-         * Equipment in Cart hinzufügen.
+         * Produkte in Cart hinzufügen.
          */
         CartService::add($product);
 
         /**
-         * Redirect.
+         * Redirect
          */
         Redirector::redirect('/cart');
     }
 
     /**
-     * Equipment in Cart entfernen (-1)
+     * Produkt in Cart entfernen (-1)
      */
     public function remove(int $id) {
         /**
-         * Equipment, von dem ein Element entfernt werden soll, laden.
+         * Ein Element, das vom Produkt entfernt werden soll, laden.
          */
         $product = Product::findOrFail($id);
 
         /**
-         * Ein Element des Equipments entfernen.
+         * Ein Element des Produkts entfernen.
          */
         CartService::remove($product);
 
         /**
-         * Redirect.
+         * Redirect
          */
         Redirector::redirect('/cart');
     }
 
     /**
-     * Equipment komplett aus Cart entfernen (-all)
+     * Produkte komplett aus Cart entfernen (-all)
      */
     public function removeAll(int $id) {
         /**
-         * Equipment, das komplett aus dem Cart entfernt werden soll, laden.
+         * Produkte, die aus dem Cart entfernt werden sollen, finden und laden.
          */
         $product = Product::findOrFail($id);
 
@@ -82,8 +82,27 @@ class CartController {
         CartService::removeAll($product);
 
         /**
-         * Redirect.
+         * Redirect zur Cart Seite
          */
         Redirector::redirect('/cart');
+    }
+
+    public function checkout() {
+        /**
+         * unos adrese i nacina placanja
+         * kontrola da je sve uneseno
+         */
+        $productsInCart = CartService::get();
+
+        View::render('cart/checkout', [
+            'products' => $productsInCart
+        ]);
+    }
+
+    public function saveOrder() {
+        /**
+         * snimiti podatke u bazi
+         * napraviti model za narudzbu
+         */
     }
 }
