@@ -9,9 +9,9 @@ class Validator {
         'text' => '/^[a-zA-Zßäöü .,#\-_|;:?!]*$/i',
         'textnum' => '/^[\w\sßäöü .,#\-_|;:?!]*$/i',
         'alphanumeric' => '/^[^-_]{1}[a-zA-Z0-9-_]*$/',
-        'checkbox' => '/^(on|true|checked|1)$/i',
         'password' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/',
-        'email' => '/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix' // taken from: https://www.w3schools.in/php-script/email-validation-php-regular-expression/
+        'email' => '/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix',
+        'ccexpire' => '/^(0[1-9]|1[0-2])\/?([0-9]{2})$/'
     ];
 
     /**

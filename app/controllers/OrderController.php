@@ -10,42 +10,34 @@ use Core\Helpers\Redirector;
 use Core\Session;
 use Core\View;
 
-class CheckoutController {
+class OrderController {
 
-    public function __construct()
-    {
+    public function __construct() {
         AuthMiddleware::isLoggedInOrFail();
     }
 
-    public function summary()
-    {
+    public function summary() {
         /**
          * Einträge aus dem Cart und eingeloggte*n User*in holen.
          */
         $cartContent = CartService::get();
-        $user = User::getLoggedIn();
+        // $user = User::getLoggedIn();
 
         /**
          * View laden und Daten übergeben.
          */
         View::render('checkout/summary', [
             'cartContent' => $cartContent,
-            'user' => $user
+            // 'user' => $user
         ]);
     }
 
-    public function saveOrder()
-    {
-        /**
-         * + Booking Einträge anlegen
-         * + Units reduzieren
-         */
-
+    public function saveOrder() {
         /**
          * Einträge aus dem Cart und eingeloggte*n User*in holen.
          */
         $cartContent = CartService::get();
-        $user = User::getLoggedIn();
+        // $user = User::getLoggedIn();
 
         /**
          * Alle Einträge aus dem Cart durchgehen.

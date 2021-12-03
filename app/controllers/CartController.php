@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Product;
-use App\Models\Orders;
+use App\Models\Order;
 use App\Services\CartService;
 use Core\Helpers\Redirector;
 use Core\Validator;
@@ -89,80 +89,37 @@ class CartController {
         Redirector::redirect('/cart');
     }
 
-    // public function summary() {
-    //     /**
-    //      * Produkte aus dem Cart laden.
-    //      */
-    //     $productsInCart = CartService::get();
+    public function validateOrder() {
+        $validator = new Validator();
+        $validator->letters($_POST['address'], label: 'Address', required: true);
+        $validator->numeric($_POST['address-nr'], label: 'Address', required: true);
+        $validator->letters($_POST['city'], label: 'City', required: true);
+        $validator->numeric($_POST['postal-code'], label: 'Postal code', required: true);
+        $validator->letters($_POST['state'], label: 'State', required: true);
 
-    //     /**
-    //      * View laden und Daten übergeben.
-    //      */
-    //     View::render('cart/checkout', [
-    //         'products' => $productsInCart
-    //     ]);
+        $validator->letters($_POST['card_holder'], label: 'Card name', required: true);
+        $validator->numeric($_POST['card_number'], label: 'Card number', required: true);
+        $validator->ccexpire($_POST['expiry_date'], label: 'Expiry date', required: true);
+        $validator->numeric($_POST['cvv'], label: 'CVV', min: 100, max: 999, required: true);
 
-    //     /**
-    //      * unos adrese i nacina placanja
-    //      * kontrola da je sve uneseno
-    //      */
-    // }
+        $errors = $validator->getErrors();
 
-    // public function saveOrder() {
-    //     /**
-    //      * snimiti podatke u bazi
-    //      * napraviti model za narudzbu
-    //      */
-    //     $validator = new Validator();
-    //     $validator->text($_POST['address'], label: 'Street name', required: true);
-    //     $validator->alphanumeric($_POST['address-nr'], label: 'House number', required: true);
-    //     $validator->text($_POST['city'], label: 'City', required: true);
-    //     $validator->int($_POST['postal-code'], label: 'Postal code', required: true);
-    //     $validator->text($_POST['state'], label: 'State', required: true);
+        if (!empty($errors)) {
+            Session::set('errors', $errors);
+            $this->index();
+        }
 
-    //     $errors = $validator->getErrors();
+        $order = new Order();
+        $order->fill($_POST);
 
-    //     if (!empty($errors)) {
-    //         /**
-    //          * ... dann speichern wir sie in die Session, damit sie im View ausgegeben werden können und leiten dann
-    //          * zurück zum Formular.
-    //          */
-    //         Session::set('errors', $errors);
-    //         Redirector::redirect('/cart');
-    //         exit;
-    //     }
+        if ($order->save()) {
+            CartService::destroy();
+            View::render('thanks', []);
+        } else {
+            $errors[] = 'An error occured. Please try again.';
+            Session::set('errors', $errors);
 
-    //     $orders = new Orders();
-    //     $orders->fill($_POST);
-    //     $orders->setAddress($_POST['address']);
-    //     /*
-    //      * ok onda treba spremiti i prikazati sljedeći ekran
-    //      */
-
-    //     /**
-    //      * Neue*n User*in in die Datenbank speichern.
-    //      *
-    //      * Die User::save() Methode gibt true zurück, wenn die Speicherung in die Datenbank funktioniert hat.
-    //      */
-    //     if ($orders->save()) {
-    //         /**
-    //          * Hat alles funktioniert und sind keine Fehler aufgetreten, leiten wir zum Login Formular.
-    //          *
-    //          * Um eine Erfolgsmeldung ausgeben zu können, verwenden wir dieselbe Mechanik wie für die errors.
-    //          */
-    //         Session::set('success', ['Successfully saved!']);
-    //         $orders->index('/cart/index');
-    //     } else {
-    //         /**
-    //          * Fehlermeldung erstellen und in die Session speichern.
-    //          */
-    //         $errors[] = 'There has been a problem. Please try again! :(';
-    //         Session::set('errors', $errors);
-
-    //         /**
-    //          * Redirect zurück zum Registrierungsformular.
-    //          */
-    //         Redirector::redirect('/checkout');
-    //     }
-    // }
+            Redirector::redirect('/cart');
+        }
+    }
 }

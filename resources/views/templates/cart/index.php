@@ -43,17 +43,36 @@
         </tr>
     </table>
 
-    <form action="<?php echo BASE_URL; ?>/checkout/summary" method="post" class="cart-form">
-        <input type="text" name="address" placeholder="Street name" class="checkout-input" id="address">
-        <input type="text" name="address-nr" placeholder="House number" class="checkout-input" id="address-nr">
-        <input type="text" name="city" placeholder="City" class="checkout-input" id="city">
-        <input type="text" name="postal-code" placeholder="Postal code" class="checkout-input" id="postal-code">
-        <input type="text" name="state" placeholder="State" class="checkout-input" id="state">
+    <form action="<?php echo BASE_URL; ?>/validateOrder" method="post" class="cart-form">
+        <div class="address-form">
+            <input type="text" name="address" placeholder="Street name" class="checkout-input" id="address">
+            <input type="text" name="address-nr" placeholder="House number" class="checkout-input" id="address-nr">
+            <input type="text" name="city" placeholder="City" class="checkout-input" id="city">
+            <input type="text" name="postal-code" placeholder="Postal code" class="checkout-input" id="postal-code">
+            <input type="text" name="state" placeholder="State" class="checkout-input" id="state">
+        </div>
+        
+        <div class="payment-form">
+            <select name="card_type" id="card_type" class="checkout-input">
+                <option value="_default" selected disabled>Choose card type</option>
+                <option value="visa">Visa</option>
+                <option value="diners">Diners</option>
+                <option value="mastercard">Mastercard</option>
+            </select>
+
+            <input type="text" name="card_holder" placeholder="Card holder" maxLength="30" class="checkout-input">
+            <input type="text" name="card_number" placeholder="Card number" id="card_number" inputmode="numeric" class="checkout-input">
+            <input type="text" name="expiry_date" placeholder="Expiry date" class="checkout-input">
+            <input type="text" name="cvv" placeholder="CVV" inputmode="numeric" maxLength="3" class="checkout-input">
+        </div>
+        <input type="hidden" name="price" value="<?php echo $total; ?>" />
+        <input type="hidden" name="user_id" value ="<?php echo $userId; ?>"/>
+        </div>
         
         <?php if (\App\Models\User::isLoggedIn()): ?>
-        <button type="submit">Checkout</button>
+            <button type="submit" class="form-btn">Checkout</button>
         <?php endif; ?>
     </form>
     
-    <a href="<?php echo BASE_URL; ?>/checkout/summary" class="checkout-btn">Checkout</a>
+    <!-- <a href="<?php echo BASE_URL; ?>/checkout" class="checkout-btn">Checkout</a> -->
 </main>

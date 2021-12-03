@@ -6,7 +6,7 @@ use Core\Database;
 use Core\Models\AbstractModel;
 use Core\Traits\SoftDelete;
 
-class Orders extends AbstractModel {
+class Order extends AbstractModel {
 
     use SoftDelete;
 
@@ -44,23 +44,7 @@ class Orders extends AbstractModel {
          * aktualisieren.
          */
         if (!empty($this->id)) {
-            /**
-             * Query ausführen und Ergebnis direkt zurückgeben. Das kann entweder true oder false sein, je nachdem ob
-             * der Query funktioniert hat oder nicht.
-             */
-            $result = $database->query(
-                "UPDATE $tablename SET user_id = ?, address = ?, payment_type = ?, price = ? WHERE id = ?",
-                [
-                    'i:user_id' => $this->user_id,
-                    's:address' => $this->address,
-                    's:payment_type' => $this->payment_type,
-                    'i:price' => $this->price,
-                    'i:id' => $this->id
-                ]
-            );
 
-            return $result;
-        } else {
             /**
              * Hat das Objekt keine id, so müssen wir es neu anlegen.
              */
@@ -80,10 +64,6 @@ class Orders extends AbstractModel {
              */
             $this->handleInsertResult($database);
 
-            /**
-             * Ergebnis zurückgeben. Das kann entweder true oder false sein, je nachdem ob der Query funktioniert hat
-             * oder nicht.
-             */
             return $result;
         }
     }
