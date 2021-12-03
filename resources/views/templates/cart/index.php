@@ -60,8 +60,8 @@
                 <option value="mastercard">Mastercard</option>
             </select>
 
-            <input type="text" name="card_holder" placeholder="Card holder" maxLength="30" class="checkout-input">
-            <input type="text" name="card_number" placeholder="Card number" id="card_number" inputmode="numeric" class="checkout-input">
+            <input type="text" name="card_holder" placeholder="Card holder" maxLength="255" class="checkout-input">
+            <input type="text" name="card_number" placeholder="Card number" inputmode="numeric" class="checkout-input">
             <input type="text" name="expiry_date" placeholder="Expiry date" class="checkout-input">
             <input type="text" name="cvv" placeholder="CVV" inputmode="numeric" maxLength="3" class="checkout-input">
         </div>

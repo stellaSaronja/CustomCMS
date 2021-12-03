@@ -36,6 +36,7 @@ class Validator {
         'alphanumeric' => '%s may only contain letters, numbers, hyphens and underscores.',
         'password' => '%s must be at least 8 characters long, contain upper and lower case letters and special characters.',
         'email' => '%s has to be a correct e-mail address.',
+        'ccexpire' => '%s should be mm/yy',
 
         'numeric' => '%s has to be numeric.',
         'int' => '%s must be integer.', 
