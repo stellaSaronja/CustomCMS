@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Services\CartService;
 use App\Models\User;
-use App\Models\OrderItem;
+use App\Models\Orders;
 use Core\Middlewares\AuthMiddleware;
 use Core\Helpers\Redirector;
 use Core\Session;
@@ -28,13 +28,13 @@ class CheckoutController {
         /**
          * View laden und Daten übergeben.
          */
-        View::render('checkout', [
+        View::render('checkout/summary', [
             'cartContent' => $cartContent,
             'user' => $user
         ]);
     }
 
-    public function finish()
+    public function saveOrder()
     {
         /**
          * + Booking Einträge anlegen
@@ -61,7 +61,7 @@ class CheckoutController {
                 /**
                  * Booking Objekt erstellen und befüllen.
                  */
-                $cartItem = new OrderItem();
+                $cartItem = new Orders();
                 $cartItem->fill([
                     'user_id' => $user->id,
                     'foreign_table' => $itemFromCart::class,
@@ -75,7 +75,7 @@ class CheckoutController {
                      * Konnte nicht gespeichert werden, schreiben wir einen Fehler und leiten zurück zur Zusammenfassung.
                      */
                     Session::set('errors', ['Cart items could not be saved.']);
-                    Redirector::redirect('/checkout/checkout');
+                    Redirector::redirect('/checkout');
                 }
             }
 

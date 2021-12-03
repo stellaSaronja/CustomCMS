@@ -3,8 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\User;
-use Core\Helpers\Redirector;
-use Core\Session;
+// use Core\Helpers\Redirector;
+// use Core\Session;
 use Core\View;
 
 class UserController {

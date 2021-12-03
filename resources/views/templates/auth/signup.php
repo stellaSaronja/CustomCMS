@@ -14,11 +14,6 @@
         <label for="surname">Surname:</label>
         <input type="text" name="surname" id="surname" class="input-field">
     </div>
-    
-    <div class="input">
-        <label for="address">Address:</label>
-        <input type="text" name="address" id="address" class="input-field">
-    </div>
 
     <div class="input">
         <label for="email">Email:</label>

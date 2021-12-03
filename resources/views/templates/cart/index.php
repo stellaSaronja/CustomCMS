@@ -43,7 +43,7 @@
         </tr>
     </table>
 
-    <form action="<?php echo BASE_URL; ?>/saveOrder" method="post" class="cart-form">
+    <form action="<?php echo BASE_URL; ?>/checkout/summary" method="post" class="cart-form">
         <input type="text" name="address" placeholder="Street name" class="checkout-input" id="address">
         <input type="text" name="address-nr" placeholder="House number" class="checkout-input" id="address-nr">
         <input type="text" name="city" placeholder="City" class="checkout-input" id="city">
@@ -55,5 +55,5 @@
         <?php endif; ?>
     </form>
     
-        <a href="<?php echo BASE_URL; ?>/saveOrder" class="checkout-btn">Checkout</a>
+    <a href="<?php echo BASE_URL; ?>/checkout/summary" class="checkout-btn">Checkout</a>
 </main>

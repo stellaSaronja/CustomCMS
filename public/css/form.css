@@ -1,4 +1,4 @@
-.form {
+.login-form {
     background-color: #8B9E8A; 
     border-radius: 30px;
     width: 550px;
@@ -33,6 +33,10 @@
 }
 
 .register-form {
+    background-color: #8B9E8A; 
+    border-radius: 30px;
     width: 500px;
-    height: 380px;
+    height: 340px;
+    padding: 20px;
+    margin: 70px auto;
 }

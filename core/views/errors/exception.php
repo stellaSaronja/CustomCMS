@@ -1,16 +1,15 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error</title>
 </head>
 <body>
-    <div class="exception">
-        <div class="emoji">:(</div>
-        <div class="code"><?php echo $code; ?></div>
-        <div class="message"><?php echo $message; ?></div>
-    </div>
+<div>
+    <div><?php echo $code; ?></div>
+    <div><?php echo $message; ?></div>
+</div>
 </body>
 </html>
