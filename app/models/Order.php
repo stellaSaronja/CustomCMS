@@ -21,7 +21,7 @@ class Order extends AbstractModel {
         public ?int $user_id = null,
         public string $address = '',
         public string $payment_type = '',
-        public ?int $price = null,
+        public ?string $price = null,
         public string $created_at = '',
         public string $updated_at = '',
         public ?string $deleted_at = null
@@ -45,8 +45,26 @@ class Order extends AbstractModel {
          */
         if (!empty($this->id)) {
 
+            $result = $database->query(
+                "UPDATE $tablename SET user_id = ?, address = ?, payment_type = ?, price = ? WHERE id = ?",
+                [
+                    'i:user_id' => $this->user_id,
+                    's:address' => $this->address,
+                    's:payment_type' => $this->payment_type,
+                    'd:price' => $this->price,
+                    'i:id' => $this->id
+                ]
+            );
+
+            return $result;
+        } else {
             /**
              * Hat das Objekt keine id, so müssen wir es neu anlegen.
+             */
+
+            /**
+             * Ein INSERT Query generiert eine neue id, diese müssen wir daher extra abfragen und verwenden daher die
+             * von uns geschrieben handleInsertResult()-Methode, die über das AbstractModel verfügbar ist.
              */
             $result = $database->query(
                 "INSERT INTO $tablename SET user_id = ?, address = ?, payment_type = ?, price = ?",
@@ -54,14 +72,9 @@ class Order extends AbstractModel {
                     'i:user_id' => $this->user_id,
                     's:address' => $this->address,
                     's:payment_type' => $this->payment_type,
-                    'i:price' => $this->price
+                    'd:price' => $this->price
                 ]
             );
-
-            /**
-             * Ein INSERT Query generiert eine neue id, diese müssen wir daher extra abfragen und verwenden daher die
-             * von uns geschrieben handleInsertResult()-Methode, die über das AbstractModel verfügbar ist.
-             */
             $this->handleInsertResult($database);
 
             return $result;

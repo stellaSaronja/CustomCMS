@@ -1,6 +1,17 @@
 <main>
     <h2>Your cart</h2>
 
+    <?php 
+        if (\App\Models\User::isLoggedIn())
+        {
+            $userId = \App\Models\User::getLoggedIn()->id;
+        }
+        else
+        {
+            $userId = null;
+        }
+    ?>
+
     <?php $total = 0; ?>
     <table class="cart">
         <thead>
@@ -31,7 +42,7 @@
                 echo BASE_URL . "/products/$product->id/remove-all-from-cart"; ?>" class="delete-btn">Remove from cart</a>
             </td>
             <td>
-                <?php echo $product->price * $product->count; ?>.00 €
+                <?php echo $product->price * $product->count; ?> €
             </td>
         </tr>
         <?php $total += $product->price * $product->count; ?>
@@ -39,7 +50,7 @@
 
         <tr>
             <td colspan="4" class="border">Total:</td>
-            <td class="border"><?php echo $total; ?>.00 €</td>
+            <td class="border"><?php echo $total; ?> €</td>
         </tr>
     </table>
 
@@ -67,12 +78,9 @@
         </div>
         <input type="hidden" name="price" value="<?php echo $total; ?>" />
         <input type="hidden" name="user_id" value ="<?php echo $userId; ?>"/>
-        </div>
         
         <?php if (\App\Models\User::isLoggedIn()): ?>
             <button type="submit" class="form-btn">Checkout</button>
         <?php endif; ?>
     </form>
-    
-    <!-- <a href="<?php echo BASE_URL; ?>/checkout" class="checkout-btn">Checkout</a> -->
 </main>

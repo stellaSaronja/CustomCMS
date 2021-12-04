@@ -9,6 +9,8 @@ use Core\Traits\SoftDelete;
 class OrderItem extends AbstractModel {
 
     use SoftDelete;
+    
+    public const TABLENAME = 'order_item';
 
     public function __construct(
         /**
@@ -21,7 +23,7 @@ class OrderItem extends AbstractModel {
         public ?int $order_id = null,
         public ?int $product_id = null,
         public ?int $quantitiy = null,
-        public ?int $price = null,
+        public ?string $price = null,
         public string $created_at = '',
         public string $updated_at = '',
         public ?string $deleted_at = null
@@ -54,7 +56,7 @@ class OrderItem extends AbstractModel {
                     'i:order_id' => $this->order_id,
                     'i:product_id' => $this->product_id,
                     'i:quantity' => $this->quantity,
-                    'i:price' => $this->price,
+                    'd:price' => $this->price,
                     'i:id' => $this->id
                 ]
             );
@@ -70,7 +72,7 @@ class OrderItem extends AbstractModel {
                     'i:order_id' => $this->order_id,
                     'i:product_id' => $this->product_id,
                     'i:quantity' => $this->quantity,
-                    'i:price' => $this->price
+                    'd:price' => $this->price
                 ]
             );
 
