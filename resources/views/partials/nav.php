@@ -2,6 +2,13 @@
     <nav>
         <h1>Totes : cool</h1>
         
+        <button class="nav__menu">
+            <span class="sr-only">Menu</span> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 124 124" fill="#fff">
+                <path d="M112 6H12C5.4 6 0 11.4 0 18s5.4 12 12 12h100c6.6 0 12-5.4 12-12s-5.4-12-12-12zM112 50H12C5.4 50 0 55.4 0 62s5.4 12 12 12h100c6.6 0 12-5.4 12-12s-5.4-12-12-12zM112 94H12c-6.6 0-12 5.4-12 12s5.4 12 12 12h100c6.6 0 12-5.4 12-12s-5.4-12-12-12z"/>
+            </svg>
+        </button>
+
         <ul class="nav__ul navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo BASE_URL; ?>/home">Home</a>

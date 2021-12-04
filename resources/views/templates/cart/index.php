@@ -33,7 +33,7 @@
             <td>
                 <?php echo $product->price; ?> 
             </td>
-            <td>
+            <td class="cart-btns">
                 <a href="<?php
                 echo BASE_URL . "/products/$product->id/add-to-cart"; ?>" class="btn-edit">+</a>
                 <a href="<?php

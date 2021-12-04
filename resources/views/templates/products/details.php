@@ -1,7 +1,7 @@
 <main class="details__main">
     <div class="img__container">
         <p class="details__title">Lorem ipsum dolor sit amet</p>
-        <img src="<?php echo IMG_FOLDER_URL; echo $product->images ?>" alt="<?php echo $product->images ?>">
+        <img src="<?php echo IMG_FOLDER_URL; echo $product->images ?>" alt="<?php echo $product->images ?>" class="details__img">
     </div>
 
     <div class="detail__features">

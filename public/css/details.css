@@ -54,3 +54,99 @@
 .detail__p {
     font-family: 'Varela Round';
 }
+
+@media (max-width: 1300px) {
+    .details__main {
+        grid-template-columns: 350px 500px;
+        margin: 50px;
+    }
+
+    .details__title {
+        font-size: 18px;
+        width: 190px;
+    }
+
+    .img__container {
+        width: 260px;
+        height: 360px;
+    }
+
+    .details__img {
+        width: 180px;
+    }
+
+    .detail__features {
+        grid-template-columns: 100px auto;
+        grid-template-rows: 50px;
+        margin-top: 30px;
+    }
+
+    .detail__price {
+        font-size: 14px;
+    }
+
+    .detail__title {
+        font-size: 14px;
+    }
+
+    .detail__p {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 900px) {
+    .details__main {
+        grid-template-columns: 300px 450px;
+    }
+
+    .details__title {
+        font-size: 16px;
+        width: 180px;
+    }
+
+    .img__container {
+        width: 230px;
+        height: 330px;
+    }
+
+    .details__img {
+        width: 160px;
+    }
+
+    .detail__features {
+        grid-template-rows: 50px;
+        max-width: 230px;
+        margin-bottom: 30px;
+    }
+
+    .detail__btn {
+        padding: 10px;
+        max-width: 200px;
+    }
+}
+
+@media (max-width: 600px) {
+    .details__main {
+        display: flex;
+        flex-direction: column;
+        width: 290px;
+        margin: 20px auto 0;
+    }
+
+    .details__title {
+        font-size: 16px;
+        width: 180px;
+    }
+
+    .img__container {
+        width: 250px;
+    }
+
+    .details__img {
+        width: 170px;
+    }
+
+    .detail__features {
+        grid-template-rows: 40px;
+    }
+}

@@ -1,7 +1,7 @@
 .cart {
     font-family: 'Arial Rounded MT';
     font-size: 18px;
-    width: 1200px;
+    width: 1000px;
     margin: 30px auto 50px;
 }
 
@@ -46,6 +46,64 @@
     margin-left: 170px;
 }
 
+@media (max-width: 1030px) {
+    .cart {
+        font-size: 16px;
+        width: 700px;
+    }
+}
+
+@media (max-width: 850px) {
+    .cart {
+        font-size: 14px;
+        width: 500px;
+    }
+
+    .cart td {
+        font-size: 13px;
+    }
+
+    .btn-edit {
+        font-size: 12px;
+        padding: 3px 10px;
+        border-radius: 5px;
+    }
+
+    .delete-btn {
+        font-size: 12px;
+        padding: 3px 15px;
+        border-radius: 5px;
+    }
+}
+
+@media (max-width: 600px) {
+    .cart {
+        width: 300px;
+    }
+
+    .cart td {
+        font-size: 12px;
+    }
+
+    .cart-btns {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-edit {
+        font-size: 12px;
+        padding: 2px 5px;
+        width: 17px;
+        margin-bottom: 4px;
+    }
+
+    .delete-btn {
+        padding: 4px;
+        width: 65px;
+    }
+}
+
 /*##################################
 ############ FORM STYLE ############
 ###################################*/
@@ -53,15 +111,15 @@
 .cart-form {
     display: grid;
     grid-template-columns: auto auto;
+    width: 1000px;
+    margin: 30px auto 50px;
 }
 
 .address-form {
     display: grid;
-    grid-template-rows: auto auto;
     grid-gap: 15px;
-    width: 500px;
+    width: 400px;
     height: 150px;
-    margin-left: 170px;
     margin-bottom: 130px;
 }
 
@@ -76,18 +134,50 @@
     color: #000000;
 }
 
+@media (max-width: 1030px) {
+    .cart-form {
+        width: 700px;
+    }
+
+    .address-form {
+        width: 250px;
+        margin-bottom: 130px;
+    }
+}
+
+@media (max-width: 850px) {
+    .cart-form {
+        width: 500px;
+    }
+
+    .address-form {
+        width: 200px;
+        margin-bottom: 130px;
+    }
+}
+
+@media (max-width: 600px) {
+    .cart-form {
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .address-form {
+        width: 250px;
+        margin-bottom: 100px;
+    }
+}
+
 /*###################################
 ########### PAYMENT STYLE ###########
 ###################################*/
 
 .payment-form {
     display: grid;
-    grid-template-rows: auto auto;
     grid-gap: 15px;
-    width: 500px;
+    width: 400px;
     height: 150px;
-    margin-left: 170px;
-    margin-bottom: 130px;
 }
 
 .form-btn {
@@ -99,7 +189,25 @@
     padding: 15px 40px;
     width: 200px;
     border-radius: 10px;
-    margin-left: 170px;
+}
+
+@media (max-width: 1030px) {
+    .payment-form {
+        width: 250px;
+    }
+}
+
+@media (max-width: 850px) {
+    .payment-form {
+        width: 200px;
+    }
+}
+
+@media (max-width: 600px) {
+    .payment-form {
+        width: 250px;
+        margin-bottom: 130px;
+    }
 }
 
 /*##################################
@@ -109,9 +217,34 @@
 .thanks {
     display: flex;
     flex-direction: column;
-    width: 250px;
-    margin: auto;
     font-family: 'Arial Rounded MT';
-    font-size: 22px;
+    font-size: 20px;
     text-decoration: none;
+    margin-top: 100px;
+}
+
+.thanks__p {
+    text-align: center;
+    width: 450px;
+    margin: auto;
+}
+
+.thanks__link {
+    font-size: 16px;
+    margin-left: 200px;
+    margin-top: 100px;
+}
+
+@media (max-width: 600px) {
+    .thanks__p {
+        text-align: center;
+        font-size: 18px;
+        width: 330px;
+        margin: auto;
+    }
+
+    .thanks__link {
+        /* margin-left: 100px; */
+        margin: auto;
+    }
 }

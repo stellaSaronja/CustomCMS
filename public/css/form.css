@@ -40,3 +40,54 @@
     padding: 20px;
     margin: 70px auto;
 }
+
+@media (max-width: 620px) {
+    .login-form {
+        width: 480px;
+        height: 200px;
+        padding: 20px;
+        margin: 30px auto;
+    }
+
+    .input-field {
+        width: 250px;
+    }
+
+    .confirm-btn {
+        font-size: 14px;
+        margin-top: 20px;
+    }
+
+    .register-form {
+        width: 480px;
+        height: 340px;
+        padding: 20px;
+        margin: 30px auto;
+    }
+}
+
+@media (max-width: 520px) {
+    .login-form {
+        width: 330px;
+        height: 220px;
+        padding: 15px;
+        margin: 30px auto;
+    }
+
+    .input {
+        flex-direction: column;
+        margin: 15px 0;
+    }
+
+    .input-field {
+        width: 250px;
+        margin-top: 5px;
+    }
+
+    .register-form {
+        width: 330px;
+        height: 460px;
+        padding: 20px;
+        margin: 30px auto;
+    }
+}
