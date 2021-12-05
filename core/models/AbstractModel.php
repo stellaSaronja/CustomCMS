@@ -5,31 +5,15 @@ namespace Core\Models;
 use Core\Database;
 use Exception;
 
-/**
- * Class AbstractModel
- *
- * @package Core\Models
- */
 abstract class AbstractModel {
 
     /**
      * Hier definieren wir, dass jede Class, die das AbstractModel erweitert, auch eine save()-Methode definieren muss.
-     *
-     * @return bool
      */
     public abstract function save(): bool;
 
     /**
      * Alle Datensätze aus der Datenbank abfragen.
-     *
-     * Die beiden Funktionsparameter bieten die Möglichkeit die Daten, die abgerufen werden, nach einer einzelnen Spalte
-     * aufsteigend oder absteigend direkt über MySQL zu sortieren. Sortierungen sollten, sofern möglich, über die
-     * Datenbank durchgeführt werden, weil das wesentlich performanter ist als über PHP.
-     *
-     * @param string|null $orderBy
-     * @param string|null $direction
-     *
-     * @return array
      */
     public static function all(?string $orderBy = null, ?string $direction = null): array {
         /**
@@ -43,9 +27,6 @@ abstract class AbstractModel {
 
         /**
          * Query ausführen.
-         *
-         * Wurde in den Funktionsparametern eine Sortierung definiert, so wenden wir sie hier an, andernfalls rufen wir
-         * alles ohne Sortierung ab.
          */
         if ($orderBy === null) {
             $result = $database->query("SELECT * FROM $tablename");
@@ -60,11 +41,7 @@ abstract class AbstractModel {
     }
 
     /**
-     * Ein einzelnes Objekt anhand seiner ID finden.
-     *
-     * @param int $id
-     *
-     * @return object|null
+     * Ein einzelnes Objekt anhand seiner ID finden
      */
     public static function find(int $id): ?object {
         /**
@@ -92,11 +69,6 @@ abstract class AbstractModel {
     /**
      * find()-Methode aufrufen oder einen Fehler 404 Not Found zurückgeben, wenn kein Ergebnis aus der Datenbank
      * zurückgekommen ist.
-     *
-     * @param int $id
-     *
-     * @return object|null
-     * @throws Exception
      */
     public static function findOrFail(int $id): ?object {
         /**
@@ -106,8 +78,7 @@ abstract class AbstractModel {
 
         if (empty($result)) {
             /**
-             * Wurde kein Ergebnis gefunden, so werfen wir einen Fehler, den wir über den ErrorHandler dann abfangen
-             * können.
+             * Wurde kein Ergebnis gefunden, so werfen wir einen Fehler, den wir über den ErrorHandler dann abfangen können.
              */
             throw new Exception('Model not found', 404);
         }
@@ -119,23 +90,9 @@ abstract class AbstractModel {
     }
 
     /**
-     * Diese Methode ermöglicht es uns, jedes beliebige Model, das das AbstractModel erweitert, mit Daten aus einem
-     * Array (bspw. $_GET oder $_POST) zu befüllen.
-     *
-     * @param array $data
-     * @param bool  $ignoreEmpty
-     *
-     * @return object
+     * Jedes beliebige Model, das das AbstractModel erweitert, mit Daten aus einem Array (bspw. $_GET oder $_POST) zu befüllen.
      */
     public function fill(array $data, bool $ignoreEmpty = true): object {
-        /**
-         * 1) $data durchgehen
-         * 2) Gibt es eine Property zu den $data Werten?
-         *   Wenn ja: weiter, wenn nein: nix
-         * 3) Wert in Property mit Wert aus $data überschreiben
-         * 4) Fertiges Object zurückgeben
-         */
-
         /**
          * Wir gehen alle Werte aus dem übergebenen Array durch.
          */
@@ -166,8 +123,6 @@ abstract class AbstractModel {
 
     /**
      * Objekt löschen.
-     *
-     * @return bool
      */
     public function delete(): bool {
         /**
@@ -194,14 +149,6 @@ abstract class AbstractModel {
 
     /**
      * Resultat aus der Datenbank verarbeiten.
-     *
-     * Wir haben das aus der self::all()-Methode ausgelagert, weil die all()-Methode nicht die einzige Methode sein
-     * wird, in der wir Datenbankergebnisse verarbeiten werden müssen. Damit wir den Code nicht immer kopieren müssen,
-     * was als Bad Practice gilt, haben wir eine eigene Methode gebaut.
-     *
-     * @param array $results
-     *
-     * @return array
      */
     public static function handleResult(array $results): array {
         /**
@@ -214,9 +161,7 @@ abstract class AbstractModel {
          */
         foreach ($results as $result) {
             /**
-             * Auslesen, welche Klasse aufgerufen wurde und ein Objekt dieser Klasse erstellen und in den Ergebnis-Array
-             * speichern. Das ist nötig, weil wir bspw. Post Objekte haben wollen und nicht ein Array voller
-             * AbstractModels.
+             * Auslesen, welche Klasse aufgerufen wurde und ein Objekt dieser Klasse erstellen und in den Ergebnis-Array speichern.
              */
             $calledClass = get_called_class();
             $objects[] = new $calledClass(...$result);
@@ -229,44 +174,33 @@ abstract class AbstractModel {
     }
 
     /**
-     * Hier erweitern wir die self::handleResult()-Methode für den Fall, dass wir von einem Query kein oder maximal ein
-     * Ergebnis erwarten. Bei einem Query mit einer WHERE-Abfrage auf eine UNIQUE-Spalte, würden wir maximal ein
-     * Ergebnis zurückbekommen. Diese Funktion ist also mehr eine Convenience Funktion, weil sie entweder null
-     * zurückgibt, wenn kein Ergebnis zurückgekommen ist (statt eines leeren Arrays in self::handleResult()) oder ein
-     * einzelnes Objekt (statt eines Arrays mit einem einzigen Objekt darin).
-     *
-     * @param array $results
-     *
-     * @return ?object
+     * Erweiterte handleResult-Methode für den Fall, dass wir von einem Query kein oder maximal ein Ergebnis erwarten.
      */
     public static function handleUniqueResult(array $results): ?object {
         /**
-         * Datenbankergebnis ganz normal verarbeiten.
+         * Datenbankergebnis verarbeiten.
          */
         $objects = self::handleResult($results);
 
         /**
-         * ist das Ergebnis aus der Datenbank leer, geben wir null zurück.
+         * Ergebnis aus der Datenbank leer => null
          */
         if (empty($objects)) {
             return null;
         }
 
         /**
-         * Andernfalls geben wir das Objekt an Stelle 0 zurück, das in diesem Fall das einzige Objekt sein sollte.
+         * Andernfalls geben wir das Objekt an Stelle 0 zurück.
          */
         return $objects[0];
     }
 
     /**
-     * Wird ein INSERT-Query ausgeführt, so wird in den allermeisten Fällen auch eine neue ID generiert. Diese ist über
-     * die Datenbankverbindung abrufbar. Hier holen wir diese ID und aktualisieren das aktuelle Objekt mit der neuen ID.
-     *
-     * @param Database $database
+     * Wenn ein INSERT-Query ausgeführt wird, wird eine neue ID generiert. Das Objekt wird mit der neuen ID aktualisiert.
      */
     public function handleInsertResult(Database $database) {
         /**
-         * Neu generierte id holen.
+         * Neu generierte ID holen.
          */
         $newId = $database->getInsertId();
 
@@ -284,33 +218,27 @@ abstract class AbstractModel {
     /**
      * Damit diese abstrakte Klasse für alle Models verwendet werden kann, ist es hilfreich, berechnen zu können, welche
      * Tabelle vermutlich zu dem erweiternden Model gehört.
-     *
-     * @return string
      */
     public static function getTablenameFromClassname(): string {
         /**
          * Name der aufgerufenen Klasse abfragen.
          */
-        $calledClass = get_called_class(); // bspw. App\Models\User
+        $calledClass = get_called_class();
 
         /**
-         * Hat die aufgerufene Klasse eine Konstante TABLENAME?
+         * Wenn die aufgerufene Klasse eine Konstante TABLENAME hat, dann verwenden wir diese Konstante als Tabellenname.
          */
         if (defined("$calledClass::TABLENAME")) {
-            /**
-             * Wenn ja, dann verwenden wir den Wert dieser Konstante als Tabellenname. Das ermöglicht uns einen Namen
-             * für eine Tabelle anzugeben, wenn der Tabellenname nicht vom Klassennamen abgeleitet werden kann.
-             */
             return $calledClass::TABLENAME;
         }
 
         /**
          * Wenn nein, dann holen wir uns den Namen der Klasse ohne Namespace, konvertieren ihn in Kleinbuchstaben und
-         * fügen hinten ein s dran. So wird bspw. aus App\Models\Product --> products
+         * fügen hinten ein s dran. So wird bspw. aus App\Models\Product -> products
          */
-        $particles = explode('\\', $calledClass); // ['App', 'Models', 'User']
-        $classname = array_pop($particles); // 'User'
-        $tablename = strtolower($classname) . 's'; // 'users'
+        $particles = explode('\\', $calledClass);
+        $classname = array_pop($particles);
+        $tablename = strtolower($classname) . 's';
 
         /**
          * Berechneten Tabellennamen zurückgeben.

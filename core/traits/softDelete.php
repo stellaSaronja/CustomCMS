@@ -23,25 +23,19 @@ trait SoftDelete
 
         /**
          * Query ausführen.
-         *
-         * CURRENT_TIMESTAMP() ist eine Funktion von MySQL, die den aktuellen Zeitstempel zurückgibt.
          */
         $result = $database->query("UPDATE $tablename SET deleted_at = CURRENT_TIME() WHERE id = ?", [
             'i:id' => $this->id
         ]);
 
         /**
-         * Datenbankergebnis verarbeiten und zurückgeben.
+         * Datenbankergebnis zurückgeben.
          */
         return $result;
     }
 
     /**
      * Alle Datensätze aus der Datenbank abfragen.
-     *
-     * Die beiden Funktionsparameter bieten die Möglichkeit die Daten, die abgerufen werden, nach einer einzelnen Spalte
-     * aufsteigend oder absteigend direkt über MySQL zu sortieren. Sortierungen sollten, sofern möglich, über die
-     * Datenbank durchgeführt werden, weil das wesentlich performanter ist als über PHP.
      */
     public static function all(?string $orderBy = null, ?string $direction = null): array
     {
@@ -56,14 +50,7 @@ trait SoftDelete
 
         /**
          * Query ausführen.
-         *
-         * Wurde in den Funktionsparametern eine Sortierung definiert, so wenden wir sie hier an, andernfalls rufen wir
-         * alles ohne Sortierung ab.
-         *
-         * Hier nehmen wir auch Rücksicht auf die deleted_at Spalte und geben nur Einträge zurück, die nicht als
-         * gelöscht markiert sind.
          */
-      
         if ($orderBy === null) {
             $result = $database->query("SELECT * FROM $tablename WHERE deleted_at IS NULL");
         } else {
@@ -77,5 +64,4 @@ trait SoftDelete
          */
         return self::handleResult($result);
     }
-
 }

@@ -2,13 +2,6 @@
 
 namespace Core;
 
-/**
- * Class Session
- *
- * Wir definieren deshalb eine eigene Klasse Session, damit wir überall, wo wir auf die Session zugreifen wollen diese
- * Wrapper-Klasse verwenden, damit die Session-Engine, also der Mechanismus, der die Daten dann speichert, ganz einfach
- * getauscht werden kann, ohne dass der ganze Code, der Sessions verwendet, umgebaut werden muss.
- */
 class Session {
 
     /**
@@ -16,14 +9,12 @@ class Session {
      */
     public static function init() {
         /**
-         * Hier setzen wir den Namen des Session Cookie aus dem app-slug Value aus der app-Config.
+         * Den Namen des Session Cookie aus dem app-slug Value setzen.
          */
         session_name(Config::get('app.app-slug', 'cms-session-cookie'));
 
         /**
-         * Die session_start() Funktion erlaubt es, Config-Werte zu übergeben, unter anderem das Ablaufdatum des Session
-         * Cookie. Das brauchen wir unter anderem dafür, wenn wir sowas wie eine RememberMe-Checkbox einbauen möchten
-         * im Login.
+         * Cookie lifetime wird beispielsweise für Remember Me Checkboxen verwendet.
          */
         session_start([
             'cookie_lifetime' => 60 * 60 * 24 * 30 // 30 Tage Cookie Lifetime
@@ -66,14 +57,11 @@ class Session {
     }
 
     /**
-     * Diese Methode ermöglicht es uns auf die Werte, die in dem jeweils vorhergehenden Request in ein Formular
-     * eingegeben wurden, zuzugreifen. Dadurch können wir Formularfelder mit Werten befüllen, wenn ein Fehler in der
-     * Validierung auftritt, der/die User*in muss dann die Werte nicht nochmal eingeben, sondern lediglich korrigieren.
+     * Formular mit alten Werten befüllen, damit der/die User*in die Werte nicht nochmal eingeben muss.
      */
     public static function old(string $key, mixed $default = null): mixed {
         /**
-         * Damit sowohl POST als auch GET Formular funktionieren, suchen wir über die $_REQUEST Superglobal in beiden
-         * Datenbeständen und geben den Wert zurück, wenn der $key gefunden wurde.
+         * $_REQUEST = $_POST & $_GET
          */
         if (isset($_SESSION['$_request'][$key])) {
             $_value = $_SESSION['$_request'][$key];
@@ -82,17 +70,14 @@ class Session {
         }
 
         /**
-         * Andernfalls geben wir wie immer den $default zurück.
+         * Andernfalls $default zurückgeben.
          */
         return $default;
     }
 
     /**
      * Hier setzen wir die Werte aus der $_REQUEST Superglobals in die Session, damit wir sie in der
-     * old()-Methode wieder abrufen können. Das ganze dient dazu, dass Werte aus einem Formular, die nicht korrekt
-     * Validiert werden konnten, nicht wieder komplett neu eingegeben werden, nachdem die Validierungsfehler angezeigt
-     * wurden. Mit dieser Mechanik können Werte, die über ein Formular abgeschickt wurden, wieder in dem Formular
-     * angezeigt werden, damit die fehlerhaften Eingaben korrigiert werden können.
+     * old()-Methode wieder abrufen können.
      */
     public static function initSuperglobals() {
         /**

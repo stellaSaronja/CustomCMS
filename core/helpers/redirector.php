@@ -10,7 +10,7 @@ class Redirector {
          */
         if (!empty($redirect)) {
             /**
-             * Soll das übergeben Redirect-Ziel mit der BASE_URL geprefixt werde?
+             * Das übergebene Redirect-Ziel mit der BASE_URL prefixen
              */
             if ($useBaseUrl === true) {
                 header("Location: " . BASE_URL . "$redirect");
@@ -18,7 +18,7 @@ class Redirector {
             }
 
             /**
-             * Wenn kein prefixing durchgeführt werden soll, leiten wir ohne Änderung weiter.
+             * Wenn kein prefixing benötigt wird, leiten wir ohne Änderung weiter.
              */
             header("Location: $redirect");
             exit;

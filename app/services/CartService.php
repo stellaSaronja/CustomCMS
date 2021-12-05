@@ -4,13 +4,6 @@ namespace App\Services;
 
 use App\Models\Product;
 
-/**
- * Cart Service
- *
- * Services sind üblicherweise Klassen, die Funktionalitäten beinhalten, die weder ein Controller noch ein Model sind.
- * Oft werden sie auch verwendet um Logik, die nicht zwangsläufig auf einen Controller beschränkt ist, wiederverwendbar
- * zu machen.
- */
 class CartService {
     /**
      * Wir definieren den Namen des Carts innerhalb der Session.
@@ -27,7 +20,7 @@ class CartService {
         self::init();
 
         /**
-         * Gibt es das Equipment bereits im Cart ...
+         * Gibt es das Produkt schon im Cart ...
          */
         if (self::has($product)) {
             /**
@@ -42,13 +35,13 @@ class CartService {
         }
 
         /**
-         * Neuen Inhalt des Carts zurückgeben.
+         * Inhalt des Carts zurückgeben.
          */
         return self::get();
     }
 
     /**
-     * Eine Einheit eines Equipments aus dem Cart entfernen.
+     * Eine Einheit eines Produkts aus dem Cart entfernen.
      */
     public static function remove(Product $product): array {
         /**
@@ -57,7 +50,7 @@ class CartService {
         self::init();
 
         /**
-         * Gibt es das Equipment im Cart ...
+         * Gibt es das Produkt im Cart ...
          */
         if (self::has($product)) {
             /**
@@ -66,7 +59,7 @@ class CartService {
             $_SESSION[self::SESSION_KEY][$product->id]--;
 
             /**
-             * Ist der Counter für ein Equipment im Cart auf 0 gefallen, so entfernen wir das Equipment aus dem Cart.
+             * Ist der Counter für ein Produkt gleich 0, wird das Produkt aus dem Cart entfernt.
              */
             if ($_SESSION[self::SESSION_KEY][$product->id] <= 0) {
                 self::removeAll($product);
@@ -80,7 +73,7 @@ class CartService {
     }
 
     /**
-     * Alle Einheiten eines Products aus dem Cart entfernen.
+     * Alle Einheiten eines Produkts aus dem Cart entfernen.
      */
     public static function removeAll(Product $product): array {
         /**
@@ -89,17 +82,17 @@ class CartService {
         self::init();
 
         /**
-         * Gibt es das Equipment im Cart ...
+         * Gibt es das Produkt schon im Cart ...
          */
         if (self::has($product)) {
             /**
-             * So entfernen wir alle Einheiten davon indem wir den entsprechenden Array-Key unsetten.
+             * Entfernen wir alle Einheiten davon indem wir den entsprechenden Array-Key unsetten.
              */
             unset($_SESSION[self::SESSION_KEY][$product->id]);
         }
 
         /**
-         * Neuen Inhalt des Carts zurückgeben.
+         * Inhalt des Carts zurückgeben.
          */
         return self::get();
     }
@@ -122,7 +115,7 @@ class CartService {
          */
         foreach ($_SESSION[self::SESSION_KEY] as $productId => $number) {
             /**
-             * ... jeweils das zugehörige Equipment aus der Datenbank laden, ...
+             * ... jeweils das zugehörige Produkt aus der Datenbank laden, ...
              */
             $product = Product::findOrFail($productId);
             /**
@@ -130,19 +123,19 @@ class CartService {
              */
             $product->count = $number;
             /**
-             * ... und "fertiges" Equipment Objekt in das vorbereitete Array speichern.
+             * ... und "fertiges" Produkt Objekt in das vorbereitete Array speichern.
              */
             $products[] = $product;
         }
 
         /**
-         * Liste aller Equipments aus dem Cart zurückgeben.
+         * Alle Produkte aus dem Cart zurückgeben
          */
         return $products;
     }
 
     /**
-     * Anzahl der Elemente im Cart zurückgeben.
+     * Anzahl der Elemente im Cart
      */
     public static function getCount(): int {
         /**

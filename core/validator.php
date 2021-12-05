@@ -4,6 +4,9 @@ namespace Core;
 
 class Validator {
 
+    /**
+     * Definieren der Datentypen, die validiert werden können. 
+     */
     private array $types = [
         'letters' => '/^[a-zA-Zßäöü ]*$/i',
         'text' => '/^[a-zA-Zßäöü .,#\-_|;:?!]*$/i',
@@ -15,8 +18,7 @@ class Validator {
     ];
 
     /**
-     * Definieren der numerischen Datentypen, die validiert werden können. Hier wird auch definiert, mit welcher PHP
-     * Funktion die Validierung durchgeführt werden soll.
+     * Definieren der numerischen Datentypen, die validiert werden können.
      */
     private array $numericTypes = [
         'numeric' => 'is_numeric',
@@ -25,9 +27,7 @@ class Validator {
     ];
 
     /**
-     * Definieren der Fehlermeldungen für alle Datentypen oben. Hier wird immer ein %s-Platzhalter definiert, damit wir
-     * später, wenn wir die Fehlermeldung verwenden, mit der sprintf()-Funktion das Label des Input Feldes einfügen
-     * können.
+     * Definieren der Fehlermeldungen für alle Datentypen oben. %s dient hier als Platzhalter.
      */
     private array $errorMessages = [
         'letters' => '%s may only include letters and spaces.',
@@ -60,14 +60,7 @@ class Validator {
     private array $errors = [];
 
     /**
-     * Hier wird die gesamte Validierung der Daten durchgeführt.
-     *
-     * Die __call() Magic Method wird aufgerufen, wenn eine nicht zugreifbare Methode aufgerufen wird. Das betrifft
-     * Methoden, die private oder protected sind, oder Methoden, die nicht existieren. Das führt also dazu, dass wir
-     * $validator->email("something") aufrufen können, und in wirklichkeit wird $validator->__call("email",
-     * ["something"]) aufgerufen. Dadurch müssen wir nicht für alle string-basierten Datentypen eine eigene Methode
-     * schreiben, sondern können ein und die selbe Methode für alle Typen schreiben und haben trotzdem hübsch benannte
-     * Methoden bei der Verwendung des Validators zur Verfügung.
+     * Gesamte Validierung der Daten durchführen.
      */
     public function __call($name, $arguments) {
         /**
@@ -111,18 +104,10 @@ class Validator {
     }
 
     /**
-     * Prüfe, ob ein
-     *
-     * @param string $value
-     * @param string $label
-     * @param string $table
-     * @param string $column
-     * @param int    $ignoreThisId Soll ein Eintrag aktualisiert werden, so muss die Unique-Prüfung auf alle anderen
-     *                             Einträge ausgeführt werden und den aktuellen Eintrag ignorieren, da sonst ein
-     *                             Validierungsfehler passieren würde, wenn der Wert in der Unique-Spalte für den zu
-     *                             aktualisierenden Eintrag nicht geändert werden soll.
-     *
-     * @return bool
+     * Soll ein Eintrag aktualisiert werden, so muss die Unique-Prüfung auf alle anderen
+     * Einträge ausgeführt werden und den aktuellen Eintrag ignorieren, da sonst ein
+     * Validierungsfehler passieren würde, wenn der Wert in der Unique-Spalte für den zu
+     * aktualisierenden Eintrag nicht geändert werden soll.
      */
     public function unique(string $value, string $label, string $table, string $column, int $ignoreThisId = 0): bool {
         /**
@@ -153,7 +138,7 @@ class Validator {
     }
 
     /**
-     * Hier vergleichen wir zwei Werte miteinander. Das ist für Passwort und Passwort wiederholen Felder sehr praktisch.
+     * Hier vergleichen wir zwei Werte miteinander.
      */
     public function compare(array $valueAndLabel1, array $valueAndLabel2): bool {
         /**
@@ -171,20 +156,13 @@ class Validator {
         }
 
         /**
-         * Andernfalls geben wir true zurück.
+         * Andernfalls true zurückgeben.
          */
         return true;
     }
 
     /**
-     * Diese Funktion hilft uns dabei, Standardwerte für alle Parameter in $arguments aus __call() zu setzen. Das ist
-     * nötig, weil wir normalerweise Standardwerte für optionale Paramater direkt in der Funktion definieren können. Die
-     * __call()-Methode erhält die Funktionsparameter aber als ein Array $arguments, wodurch wir die Funktionalität für
-     * optionale Werte selbst bauen müssen.
-     *
-     * @param array $arguments
-     *
-     * @return array
+     * Diese Funktion hilft uns dabei, Standardwerte für alle Parameter in $arguments aus __call() zu setzen.
      */
     private function mergeDefaults(array $arguments): array {
         /**
@@ -205,9 +183,6 @@ class Validator {
 
         /**
          * Nun gehen wir alle Standardwerte durch ...
-         *
-         * Hier definieren wir auch noch eine Zählervariable $1, weil für Array Destructuring weiter oben in dem File
-         * ein numerisches Array nötig ist.
          */
         $i = 0;
         foreach ($defaults as $index => $value) {
@@ -232,7 +207,7 @@ class Validator {
         }
 
         /**
-         * Nun geben wir das fertige Array zurück, das Werte aus $arguments enthält und überall dort, wo keine Werte
+         * Fertiges Array zurückgeben, das Werte aus $arguments enthält und überall dort, wo keine Werte
          * übergeben wurden, weil sie optional waren, enthält es die Werte aus $defaults.
          */
         return $mergedArguments;
@@ -240,12 +215,6 @@ class Validator {
 
     /**
      * Prüfen, ob ein Pflichtfeld ausgefüllt wurde.
-     *
-     * @param bool   $required
-     * @param mixed  $value
-     * @param string $label
-     *
-     * @return bool
      */
     private function validateRequired(bool $required, mixed $value, string $label): bool {
         /**
@@ -261,93 +230,20 @@ class Validator {
         return true;
     }
 
-
-    /**
-     * Prüfen, ob der Mindestwert unterschritten wurde.
-     *
-     * @param string $type
-     * @param mixed  $min
-     * @param mixed  $value
-     * @param string $label
-     *
-     * @return bool
-     */
-    private function validateMin(mixed $type, ?int $min, mixed $value, mixed $label): bool {
-        /**
-         * Wurde $min gesetzt ...
-         */
-        if ($min !== null) {
-            /**
-             * ... so prüfen wir für numerische Typen direkt ...
-             */
-            if ($this->isNumericType($type) && $value < $min) {
-                $this->errors[] = sprintf($this->errorMessages['min'], $label, $min);
-                return false;
-            }
-
-            /**
-             * ... und für string-basierte Typen die Länge des Strings.
-             *
-             * In beiden Fällen schreiben wir einen Fehler und geben false zurück im Fehlerfall.
-             */
-            if (!$this->isNumericType($type) && strlen($value) < $min) {
-                $this->errors[] = sprintf($this->errorMessages['min-string'], $label, $min);
-                return false;
-            }
-        }
-
-        /**
-         * Im Erfolgsfall geben wir true zurück.
-         */
-        return true;
-    }
-
-    /**
-     * S. this->validateMin() nur umgekehrt.
-     *
-     * @param mixed  $type
-     * @param mixed  $max
-     * @param mixed  $value
-     * @param string $label
-     *
-     * @return bool
-     */
-    private function validateMax(mixed $type, ?int $max, mixed $value, mixed $label): bool {
-        if ($max !== null) {
-            if ($this->isNumericType($type) && $value > $max) {
-                $this->errors[] = sprintf($this->errorMessages['max'], $label, $max);
-                return false;
-            }
-
-            if (!$this->isNumericType($type) && strlen($value) > $max) {
-                $this->errors[] = sprintf($this->errorMessages['max-string'], $label, $max);
-                return false;
-            }
-        }
-        return true;
-    }
-
     /**
      * Prüfen, ob der Wert auf die oben definierte Regex zutrifft.
-     *
-     * @param mixed  $type
-     * @param mixed  $value
-     * @param string $label
-     *
-     * @return bool
-     * @throws \Exception
      */
     private function validateWithRegex(string $type, mixed $value, string $label): bool {
         /**
          * Ist der gewünschte $type nicht in $this->types definiert, so liegt ein schwerer Fehler in der Programmierung
-         * vor und wir werfen einen Exception (s. https://www.php.net/manual/de/class.exception.php).
+         * vor und wir werfen einen Exception.
          */
         if (!array_key_exists($type, $this->types)) {
             throw new \Exception("Type $type does not exists in Validator.");
         }
 
         /**
-         * Nun holen wir uns die Regular Expression und prüfen mit der preg_match()-Funktion.
+         * Regular Expression holen und prüfen mit der preg_match()-Funktion.
          */
         $typeRegex = $this->types[$type];
         if (preg_match($typeRegex, $value) !== 1) {
@@ -360,19 +256,13 @@ class Validator {
         }
 
         /**
-         * Im Erfolgsfall geben wir true zurück.
+         * Andernfalls geben wir true zurück.
          */
         return true;
     }
 
     /**
      * Numerische Typen werden nicht über Regular Expression validiert, sondern mit den passenden PHP Funktionen.
-     *
-     * @param mixed $type
-     * @param mixed $value
-     * @param mixed $label
-     *
-     * @return bool
      */
     private function validateNumericType(string $type, mixed $value, string $label): bool {
         /**
@@ -389,16 +279,13 @@ class Validator {
         }
 
         /**
-         * Im Erfolgsfall geben wir true zurück.
+         * Andernfalls geben wir true zurück.
          */
         return true;
     }
 
     /**
-     * Hierbei handelt es sich um eine praktische Hilfsfunktion, mit der wir ganz einfach prüfen können, ob im Zuge der
-     * Validierung Fehler aufgetreten sind.
-     *
-     * @return bool
+     * Hilfsfunktion, mit der wir prüfen können, ob im Zuge der Validierung Fehler aufgetreten sind.
      */
     public function hasErrors(): bool {
         if (empty($this->errors)) {
@@ -409,10 +296,7 @@ class Validator {
 
     /**
      * Nachdem $this->errors private ist, damit von außerhalb des Validators nicht darauf zugegriffen werden kann,
-     * müssen wir irgendwie die Möglichkeit schaffen, die Fehler doch außerhalb zu bekommen. Daher definieren wir hier
-     * einen einfachen Getter.
-     *
-     * @return string[]
+     * müssen wir irgendwie die Möglichkeit schaffen, die Fehler doch außerhalb zu bekommen.
      */
     public function getErrors(): array {
         return $this->errors;

@@ -10,6 +10,10 @@ class User extends AbstractUser {
     
     use SoftDelete;
 
+    /**
+     * Da die Methode getTablenameFromClassname in diesem Fall nicht funktioniert, 
+     * weil die Tabelle nicht users heißt, definierten wir selber den Namen.
+     */
     const TABLENAME = 'user';
 
     public function __construct(

@@ -2,9 +2,6 @@
 
 namespace Core;
 
-/**
- * Der Router übernimmt die Übersetzung von URLs in Controllers und Actions.
- */
 class Router {
 
     /**
@@ -13,12 +10,12 @@ class Router {
     private array $routes = [];
 
     /**
-     * Wird die Namen der Parameter für die gefundenen Route beinhalten.
+     * Beinhaltet die Namen der Parameter für die gefundenen Route.
      */
     private array $paramNames = [];
 
     /**
-     * Routen automatisiert laden
+     * Routen automatisiert laden.
      */
     public function __construct() {
         $this->loadRoutes();
@@ -26,9 +23,6 @@ class Router {
 
     /**
      * Routen laden
-     *
-     * Nachdem routes/web.php und roues/api.php beide einfach nur ein Array returnen, wird dieser Wert als Return-Wert
-     * für das require_once verwendet und kann somit direkt in Variablen gespeichert werden.
      */
     private function loadRoutes() {
         /**
@@ -42,15 +36,9 @@ class Router {
         $this->routes = $webRoutes;
     }
 
-    /**
-     * $_GET['path'], die im .htaccess File definiert ist, verarbeiten und die richtige Controller/Action Kombination
-     * aus den routes/*.php files suchen.
-     */
     public function route() {
         /**
          * $_GET['path'] so umformen, dass immer ein führendes Slash dran steht und am Ende keines.
-         * Das ist nötig, weil unsere Standard Route, wenn also kein spezieller Pfad eingegeben wurde, nur / ist, also
-         * quasi ein führendes Slash mit nichts dahinter.
          */
         $path = '';
         if (isset($_GET['path'])) {
@@ -60,24 +48,18 @@ class Router {
         /**
          * `rtrim()` entfernt eine Liste an Zeichen vom Ende eines Strings.
          *
-         * Wenn kein Pfad übergeben wurde, ist unsere Standard Route einfach nur /.
+         * Unsere Standard Route ist nur /.
          */
         $path = '/' . rtrim($path, '/');
 
         /**
          * Variablen initialisieren, damit wir sie später befüllen können.
-         *
-         * $callable wird dabei die in unseren Routes Files angegebene Kombination aus Klasse und Methodenname beinhalten.
          */
         $callable = [];
         $params = [];
 
         /**
          * Prüfen, ob der angefragte Pfad als Route in unseren Routen 1:1 vorkommt oder nicht.
-         *
-         * Kommt der angefragte Pfad 1:1 in einem unserer Routes Files vor, so impliziert das, dass kein Parameter in
-         * der Route vorkommt und wir brauchen auch keinen Parameter auswerten, sondern können einfach direkt Controller
-         * und Action auslesen.
          */
         if (array_key_exists($path, $this->routes)) {
             $callable = $this->routes[$path];
@@ -101,16 +83,12 @@ class Router {
                     $regex = $this->buildRegex($route);
 
                     /**
-                     * Wird die einzelnen Treffer der Regular Expression beinhalten.
-                     *
-                     * s. https://www.php.net/manual/en/function.preg-match-all.php
+                     * Beinhaltet die einzelnen Treffer der Regular Expression.
                      */
                     $matches = [];
 
                     /**
                      * Hier prüfen wir, ob der angefragte Pfad auf die Route im aktuellen Schleifendurchlauf zutrifft.
-                     *
-                     * preg_match_all() gibt bei einer Übereinstimmung die Anzahl der Treffer zurück.
                      */
                     if (preg_match_all($regex, $path, $matches, PREG_SET_ORDER) >= 1) {
                         /**
@@ -128,11 +106,7 @@ class Router {
                         }
 
                         /**
-                         * Zu diesem Zeitpunkt wurde ein Treffer in den Routen gefunden und Controller, Action und
-                         * Parameter aufgelöst. `break` beendet nun die aktuelle Schleife, weil wir nur einen Treffer
-                         * brauchen und jede weitere Berechnung daher sinnlos ist.
-                         *
-                         *  s. https://www.php.net/manual/en/control-structures.break.php
+                         * Break beendet die aktuelle Schleife, weil wir nur einen Treffer brauchen.
                          */
                         break;
                     }
@@ -151,8 +125,6 @@ class Router {
         } else {
             /**
              * Controller und Action aus dem Callable laden und den Controller instanziieren.
-             * $callable beinhaltete den Namen der Klasse inklusive Namespace als String und kann verwendet werden um
-             * ein Objekt ohne fix definierten Klassennamen zu erzeugen, dynamisch also.
              */
             $controller = new $callable[0]();
             $action = $callable[1];
@@ -167,42 +139,29 @@ class Router {
 
     private function buildRegex(string $route): string {
         /**
-         * Um benannte Capture Groups erstellen zu können, müssen wir zunächst die Namen aller Parameter aus der Route
-         * extrahieren. Das geht am einfachsten mit einer Regular Expression, die alles in der Form {xyz} sucht und den
-         * Inhalt der Klammern in $matches schreibt.
+         * Um benannte Capture Groups erstellen zu können, müssen wir die Namen aller Parameter aus der Route extrahieren.
          */
         $matches = [];
         preg_match_all('/{([a-zA-Z0-9]+)}/', $route, $matches);
         $this->paramNames = $matches[1];
 
         /**
-         * Wir würden gerne den sehr einfachen Ausdruck aus unserem Routes File in eine valide Regular Expression
-         * in der Form ^\/blog\/(?<paramName>[^\/]+)$ umformen. Dazu sind folgende Schritte notwenig:
-         * - Slashes escapen (/ => \/)
-         * - {param} mit einer Named Capture Group ersetzen
-         * - Anfang und Ende des String setzen
+         * Ausdruck aus dem Routes File in eine valide Regular Expression umformen.
          */
-        $regex = str_replace('/', '\/', $route); // => '\/channels\/{id}'
+        $regex = str_replace('/', '\/', $route);
 
         /**
          * Alle Parameter Namen durchgehen und innerhalb der $regex mit einer benannten Capture Group ersetzen, damit
          * am Ende eine valide Regular Expression raus kommt.
          */
         foreach ($this->paramNames as $paramName) {
-            /**
-             * {slug} => (?<slug>[^\/]+)
-             * führt zu:
-             * \/blog\/{slug} => \/blog\/(?<slug>[^\/]+)
-             */
             $regex = str_replace("{{$paramName}}", "(?<$paramName>[^\/]+)", $regex); // => '\/channels\/(?<id>[^\/]+)'
         }
 
         /**
          * Anfang und Ende des Strings setzen und Regular Expression damit finalisieren.
-         *
-         * \/blog\/(?<slug>[^\/]+) => /^\/blog\/(?<slug>[^\/]+)$/
          */
-        $regex = "/^$regex$/"; // => '/^\/channels\/(?<id>[^\/]+)$/'
+        $regex = "/^$regex$/";
 
         /**
          * Fertige Regular Expression zurückgeben

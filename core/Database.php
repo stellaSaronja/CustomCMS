@@ -5,11 +5,6 @@ namespace Core;
 use mysqli;
 use mysqli_result;
 
-/**
- * Class Database
- *
- * @package Core
- */
 class Database {
 
     private object $link;
@@ -17,9 +12,6 @@ class Database {
     private mixed $lastResult;
     private array $data;
 
-    /**
-     * Database constructor.
-     */
     public function __construct() {
         /**
          * Datenbankverbindung aufbauen
@@ -34,19 +26,13 @@ class Database {
         );
 
         /**
-         * Charset für die Daten setzen. Umlaute und sprachspezifische Sonderzeichen werden so relativ problemlos
-         * gespeichert und übertragen.
+         * Charset für die Daten setzen.
          */
         $this->link->set_charset('utf8');
     }
 
     /**
-     * Wir möchten die MMöglichkeit bieten, Prepared Statements zu verwenden, ohne mühsam jedes Mal die Parameter binden
-     * zu müssen.
-     *
-     * Anwendung:
-     *  + $database->query('SELECT * FROM users WHERE id = ?', ['i:id' => $id]);
-     *  + $database->query('SELECT * FROM users WHERE id = ? AND email = ?', ['i:id' => $id, 's:email' => $email]);
+     * Hier verwenden wir Prepared Statements, damit wir nicht jedes Mal die Parameter binden müssen.
      */
     public function query(string $query, array $params = []): bool|array {
         /**
@@ -76,8 +62,7 @@ class Database {
         }
 
         /**
-         * Das Ergebnis ist idR. nur dann ein bool'scher Wert, wenn ein Fehler auftritt oder ein Query ohne Ergebnis
-         * ausgeführt wird (z.B. DELETE).
+         * Das Ergebnis ist nur dann ein bool'scher Wert, wenn ein Fehler auftritt oder ein Query ohne Ergebnis ausgeführt wird (z.B. DELETE).
          */
         if (is_bool($this->lastResult)) {
             return $this->lastResult;
@@ -103,8 +88,6 @@ class Database {
 
     /**
      * Datenbank-Query als Prepared Statement ausführen.
-     *
-     * $database->query('SELECT * FROM users WHERE id = ? AND email = ?', ['i:id' => $id, 's:email' => $email]);
      */
     private function prepareStatementAndExecuteQuery(string $queryWithPlaceholders, array $params): mysqli_result|bool {
         /**
@@ -132,23 +115,16 @@ class Database {
             $_value = $value;
             $paramValues[] = &$_value;
             unset($_value);
-            /**
-             * Nun schauen unsere beiden vorbereiteten Variablen etwa so aus:
-             *
-             * $paramTypes:  ['i', 's']
-             * $paramValues: [&$id, &$email]
-             */
         }
 
         /**
          * $stmt->bind_param() verlangt als ersten Parameter einen String mit den Typen aller folgenden Parameter. Wir
          * müssen also aus dem Array $paramTypes einen String erstellen.
          */
-        $paramTypesString = implode('', $paramTypes); // ['s', 's', 'i', 'd'] => 'ssid'
+        $paramTypesString = implode('', $paramTypes);
 
         /**
-         * Query fertig "preparen": $stmt->bind_param() mit den entsprechenden Werten ausführen; aber nur, wenn es sich
-         * um einen MySQL Query mit Parametern handelt (s. if-Statement). Hier können wir den Spread-Operator verwenden.
+         * Query fertig "preparen".
          */
         $this->stmt->bind_param($paramTypesString, ...$paramValues);
         /**
@@ -157,18 +133,11 @@ class Database {
         $this->stmt->execute();
 
         /**
-         * Ergebnis aus dem Query holen und zurückgeben,
+         * Ergebnis aus dem Query holen und zurückgeben.
          */
         return $this->stmt->get_result();
     }
 
-    /**
-     * $this->link ist private, damit nur die Database Klasse selbst diese Property verändern kann. Es kann aber
-     * passieren, dass wir Funktionalitäten des \mysqli Objekts außerhalb der Database Klasse brauchen, daher bieten
-     * wir für unsere Framework Anwender*innen hier die Möglichkeit sich das \mysqli Objekt aus der Database Klasse
-     * abzurufen. Eine Veränderung des Rückgabewerts von $this->getLink() verändert aber nicht $this->link, wodurch
-     * $this->link weiterhin nur von der Database Klasse selbst veränderbar ist.
-     */
     public function getLink(): mysqli {
         return $this->link;
     }
@@ -182,9 +151,7 @@ class Database {
     }
 
     /**
-     * Wird bei einem INSERT-Query ein auto_increment Feld befüllt, so wird der Wert des zuletzt ausgeführten Queries
-     * in $link->insert_id gespeichert. Das hat den Sinn, dass die neu generierte ID direkt für weitere Queries
-     * verwendet werden kann, ohne die neu eingetragene Zeile wieder extra abfragen zu müssen.
+     * Wird bei einem INSERT-Query ein auto_increment Feld befüllt, wird der Wert des zuletzt ausgeführten Queries in $link->insert_id gespeichert.
      */
     public function getInsertId(): int|string {
         return $this->link->insert_id;

@@ -12,10 +12,7 @@ class Order extends AbstractModel {
 
     public function __construct(
         /**
-         * Wir verwenden hier Constructor Property Promotion, damit wir die ganzen Klassen Eigenschaften nicht 3 mal
-         * angeben müssen.
-         *
-         * Im Prinzip definieren wir alle Spalten aus der Tabelle mit dem richtigen Datentyp.
+         * Hier definieren wir alle Spalten aus der Tabelle mit dem richtigen Datentyp.
          */
         public ?int $id = null,
         public ?int $user_id = null,
@@ -60,11 +57,6 @@ class Order extends AbstractModel {
         } else {
             /**
              * Hat das Objekt keine id, so müssen wir es neu anlegen.
-             */
-
-            /**
-             * Ein INSERT Query generiert eine neue id, diese müssen wir daher extra abfragen und verwenden daher die
-             * von uns geschrieben handleInsertResult()-Methode, die über das AbstractModel verfügbar ist.
              */
             $result = $database->query(
                 "INSERT INTO $tablename SET user_id = ?, address = ?, payment_type = ?, price = ?",

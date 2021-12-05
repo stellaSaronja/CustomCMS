@@ -32,9 +32,7 @@ abstract class AbstractUser extends AbstractModel {
          * Query ausführen.
          *
          * Wir setzen hier LIMIT 1, weil wir nur eine*n User*in gleichzeitig einloggen können und daher nur eine*n
-         * User*in zurückbekommen wollen aus der Datenbank. Nachdem sowohl email als auch username UNIQUE sind, gibt es
-         * nur dann die Möglichkeit, dass wir mehr als ein Ergebnis erhalten, wenn jemand eine Fremde E-Mail-Adresse als
-         * Username verwendet hat.
+         * User*in zurückbekommen wollen aus der Datenbank.
          */
         $result = $database->query("SELECT * FROM $tablename WHERE email = ? OR username = ? LIMIT 1", [
             's:email' => $emailOrUsername,
@@ -55,31 +53,14 @@ abstract class AbstractUser extends AbstractModel {
     }
 
     /**
-     * Überprüfung, ob das übergebene $password auf den gespeicherten Hash zutrifft.
-     *
-     * Wir schreiben eine eigene Wrapper-Funktion, damit wir ohne Änderung an den Controllern einfach die Funktionsweise
-     * der Passwort-Überprüfung ändern können.
-     *
-     * @param string $password
-     *
-     * @return
+     * Überprüfen, ob das übergebene $password mit den gespeicherten Hash übereinstimmt.
      */
     public function checkPassword(string $password): bool {
-        /**
-         * Die folgende Funktion kann einen plaintext Passwort gegen einen bcrypt Hash prüfen und wird von PHP
-         * mitgeliefert.
-         */
         return password_verify($password, $this->password);
     }
 
     /**
      * Neues Passwort hashen und setzen.
-     *
-     * Der Return Type void definiert, dass die Funktion keinen Rückgabewert hat.
-     *
-     * @param string $password
-     *
-     * @return void
      */
     public function setPassword(string $password): void {
         $this->password = password_hash($password, PASSWORD_DEFAULT);
@@ -87,10 +68,6 @@ abstract class AbstractUser extends AbstractModel {
 
     /**
      * Login durchführen.
-     *
-     * @param string|null $redirect
-     *
-     * @return bool
      */
     public function login(?string $redirect): bool {
         /**
@@ -101,9 +78,6 @@ abstract class AbstractUser extends AbstractModel {
 
         /**
          * Wurde eine Redirect-URL übergeben, leiten wir hier weiter.
-         *
-         * Die Funktionalität zum Redirecten haben wir in eine eigene Klasse ausgelagert, damit wir die auch woanders
-         * noch verwenden können.
          */
         Redirector::redirect($redirect);
 
@@ -114,19 +88,11 @@ abstract class AbstractUser extends AbstractModel {
     }
 
     /**
-     * Logout durchführen.
-     *
-     * @param string|null $redirect
-     *
-     * @return bool
+     * Logout Methode
      */
     public static function logout(?string $redirect): bool {
         /**
          * Login Status in der Session aktualisieren.
-         *
-         * Hier könnten wir auch einfach die Session löschen, aber wir möchten Werte in der Session, die nichts mit dem
-         * Login Status zu tun haben (bspw. Warenkorb, Dark/Lightmode Einstellungen), nicht löschen und legen daher
-         * quasi nur den Schalter um.
          */
         Session::set(self::LOGGED_IN_STATUS, false);
         Session::forget(self::LOGGED_IN_USER_ID);
@@ -144,15 +110,6 @@ abstract class AbstractUser extends AbstractModel {
 
     /**
      * Prüfen, ob aktuell ein*e User*in eingeloggt ist.
-     *
-     * Zu beachten ist hier, dass wir keinen Datenbank-Query abschicken, weil in dieser Funktion nicht relevant ist,
-     * welche*r User*in eingeloggt ist. Dadurch muss nur auf die Session zugegriffen werden und es entsteht kein
-     * Bottleneck in der Datenbankverbindung, was insgesamt erheblich schneller sein dürfte.
-     *
-     * Beachte auf das #[Pure] Function Attribute, das dazu dient, der Funktion Metadaten zu verleihen. Attribute sind
-     * völlig optional und müssen nicht verwendet werden.
-     *
-     * @return bool
      */
     public static function isLoggedIn(): bool {
         /**
@@ -173,9 +130,6 @@ abstract class AbstractUser extends AbstractModel {
 
     /**
      * Aktuell eingeloggten User mit Informationen aus der Session aus der Datenbank abfragen.
-     *
-     * @return object|null
-     * @throws Exception
      */
     public static function getLoggedIn(): ?object {
         /**

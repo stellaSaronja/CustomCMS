@@ -10,11 +10,13 @@ class Bootloader {
          */
         Session::init();
         /**
-         * Daten aus den $_GET und $_POST Superglobals in die Session speichern. Das wird benötigt, damit die old()-
-         * Methode der Session Core Klasse funktioniert.
+         * Daten aus den $_GET und $_POST Superglobals in die Session speichern.
          */
         Session::initSuperglobals();
 
+        /**
+         * Hier definieren wir die BASE_URL als auch IMAGE_URL, damit wir nicht immer dieselben URLs schreiben müssen.
+         */
         define('BASE_URL', Config::get('app.baseurl'));
         define('IMG_FOLDER_URL', Config::get('app.images_folder_url'));
 
@@ -32,12 +34,7 @@ class Bootloader {
         } catch (\Exception $exception) {
             /**
              * Ist innerhalb des try-Blocks eine Exception aufgetreten (auch innerhalb von Funktionen, die in dem Block
-             * aufgerufen wurden), so wird diese Exception hier an unseren ErrorHandler übergeben. Dadurch haben wir
-             * einen einzigen Handler für alle Exceptions, die in Controllern auftreten könnten.
-             *
-             * Exceptions selbst sind Fehler im System, die das System in einen Zustand bringen, an dem es nicht mehr
-             * weiter kommt. Wenn keine Route gefunden wird, kann man drüber diskutieren, aber eine Umsetzung als
-             * Exception ist meines Erachtens nach durchaus legitim.
+             * aufgerufen wurden), so wird diese Exception hier an den ErrorHandler übergeben.
              */
             ExceptionHandler::handle($exception);
         }
@@ -59,14 +56,11 @@ class Bootloader {
         if ($environment === 'dev') {
             /**
              * ... zeigen wir alle Fehler an.
-             *
-             * Hier werden zwei PHP Einstellungen überschrieben, die in der php.ini Datei konfiguriert sind.
              */
             ini_set('display_errors', 1);
             ini_set('display_startup_errors', 1);
             /**
-             * E_ALL ist eine von PHP mitgelieferte Konstante zur Konfiguration. Hier wird definiert, dass wir ALLE
-             * Fehler angezeigt bekommen möchten.
+             * Hier wird definiert, dass wir ALLE Fehler angezeigt bekommen möchten.
              */
             error_reporting(E_ALL);
         }

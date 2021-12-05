@@ -24,10 +24,20 @@ class Product extends AbstractModel {
     }
 
     public function save(): bool {
+        /**
+         * Datenbankverbindung herstellen.
+         */
         $database = new Database();
       
+        /**
+         * Tabellennamen berechnen.
+         */
         $tablename = self::getTablenameFromClassname();
 
+        /**
+         * Hat das Objekt bereits eine id, so existiert in der Datenbank auch schon ein Eintrag dazu und wir können es
+         * aktualisieren.
+         */
         if (!empty($this->$id)) {
            $result = $database->query(
                 "UPDATE $tablename SET name = ?, description = ?, category = ?, price = ?, images = ? WHERE id = ?",
@@ -42,6 +52,9 @@ class Product extends AbstractModel {
             );
             return $result;
         } else {
+            /**
+             * Hat das Objekt keine id, so müssen wir es neu anlegen.
+             */
             $result = $database->query("INSERT INTO $tablename SET name = ?, description = ?, category = ?, id = ?", [
                 's:name' => $this->name,
                 's:description' => $this->description,
@@ -49,8 +62,15 @@ class Product extends AbstractModel {
                 'i:id' => $this->id,
             ]);
 
+            /**
+             * Ein INSERT Query generiert eine neue id, diese müssen wir daher extra abfragen und verwenden daher die
+             * von uns geschrieben handleInsertResult()-Methode, die über das AbstractModel verfügbar ist.
+             */
             $this->handleInsertResult($database);
 
+            /**
+             * Ergebnis true -> hat funktioniert, false -> nicht funktioniert
+             */
             return $result;
         }
     }

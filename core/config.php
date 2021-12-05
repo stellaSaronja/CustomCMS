@@ -2,9 +2,6 @@
 
 namespace Core;
 
-/**
- * Class Config
- */
 class Config {
 
     public static function get (string $filenameAndKey, mixed $default = null): mixed {
@@ -39,5 +36,4 @@ class Config {
          */
         return $default;
     }
-
 }

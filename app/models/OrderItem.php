@@ -10,14 +10,15 @@ class OrderItem extends AbstractModel {
 
     use SoftDelete;
     
+    /**
+     * Da die Methode getTablenameFromClassname in diesem Fall nicht funktioniert, 
+     * weil die Tabelle nicht order_items heißt, definierten wir selber den Namen.
+     */
     public const TABLENAME = 'order_item';
 
     public function __construct(
         /**
-         * Wir verwenden hier Constructor Property Promotion, damit wir die ganzen Klassen Eigenschaften nicht 3 mal
-         * angeben müssen.
-         *
-         * Im Prinzip definieren wir alle Spalten aus der Tabelle mit dem richtigen Datentyp.
+         * Hier definieren wir alle Spalten aus der Tabelle mit dem richtigen Datentyp.
          */
         public ?int $id = null,
         public ?int $order_id = null,
@@ -47,8 +48,7 @@ class OrderItem extends AbstractModel {
          */
         if (!empty($this->id)) {
             /**
-             * Query ausführen und Ergebnis direkt zurückgeben. Das kann entweder true oder false sein, je nachdem ob
-             * der Query funktioniert hat oder nicht.
+             * Query ausführen und Ergebnis direkt zurückgeben. (true -> hat funktioniert, false -> nicht funktioniert)
              */
             $result = $database->query(
                 "UPDATE $tablename SET order_id = ?, product_id = ?, quantity = ?, price = ? WHERE id = ?",
@@ -83,8 +83,7 @@ class OrderItem extends AbstractModel {
             $this->handleInsertResult($database);
 
             /**
-             * Ergebnis zurückgeben. Das kann entweder true oder false sein, je nachdem ob der Query funktioniert hat
-             * oder nicht.
+             * Ergebnis true -> hat funktioniert, false -> nicht funktioniert
              */
             return $result;
         }

@@ -14,16 +14,16 @@ use Core\Session;
 class CartController {
     
     /**
-     * Cart Übersicht anzeigen
+     * Cart anzeigen
      */
     public function index() {
         /**
-         * Inhalt des Carts laden.
+         * Inhalt laden
          */
         $productsInCart = CartService::get();
 
         /**
-         * View laden und Daten übergeben.
+         * View laden und Daten übergeben
          */
         View::render('cart/index', [
             'products' => $productsInCart
@@ -91,6 +91,9 @@ class CartController {
     }
 
     public function validateOrder() {
+        /**
+         * Validator prüft die eingegebenen Daten
+         */
         $validator = new Validator();
         $validator->letters($_POST['address'], label: 'Address', required: true);
         $validator->numeric($_POST['address-nr'], label: 'Address', required: true);
@@ -103,18 +106,30 @@ class CartController {
         $validator->ccexpire($_POST['expiry_date'], label: 'Expiry date', required: true); 
         $validator->numeric($_POST['cvv'], label: 'CVV', min: 100, required: true);
 
+        /**
+         * Wenn Card Typ nicht gesetzt wurde, zeigen wir einen Fehler an.
+         */
         $errors = $validator->getErrors();
         if (!isset($_POST['card_type'])) {
             $errors[] = 'Card type is not set.';
         }
 
+        /**
+         * Wenn es Fehler gibt, rufen wir die index Methode auf.
+         */
         if (!empty($errors)) {
             Session::set('errors', $errors);
             $this->index();
         }
 
+        /**
+         * Neue Bestellung anlegen
+         */
         $order = new Order();
         $order->fill($_POST);
+        /**
+         * Wenn die Bestellung gespeichert wird...
+         */
         if ($order->save()) {
             /**
              * 1. Alle Produkte aus dem Cart laden
@@ -125,6 +140,9 @@ class CartController {
             $orderItems = [];
             $saveOrderItemsSuccessful = true;
 
+            /**
+             * Daten vom bestellten Produkt in $orderItems speichern
+             */
             foreach ($orderProducts as $orderProduct) {
                 $orderItem = new OrderItem();
                 $orderItem->order_id = $order->id;
@@ -138,10 +156,17 @@ class CartController {
                 $orderItems[] = $orderItem;
             }
 
+            /**
+             * Wenn Bestellung erfolgreich abgeschlossen wurde, löschen wir die Produkte aus dem Cart 
+             * und zeigen ein Dankesschreiben an.
+             */
             if ($saveOrderItemsSuccessful) {
                 CartService::destroy();
                 View::render('checkout/thanks', []);
             } else {
+                /**
+                 * Andernfalls speichern wir den Fehler in die Session und leiten zurück zum Checkout
+                 */
                 foreach ($orderItems as $orderItem) {
                     if ($orderItem->id) {
                         $orderItem->delete();
@@ -153,6 +178,9 @@ class CartController {
             }
 
         } else {
+            /**
+             * Wenn die Bestellung nicht gespeichert wird, zeigen wir ein Fehler an und leiten zurück zum Cart.
+             */
             $errors[] = 'An error occured 2. Please try again.';
             Session::set('errors', $errors);
 
