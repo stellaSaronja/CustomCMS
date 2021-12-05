@@ -231,6 +231,57 @@ class Validator {
     }
 
     /**
+     * Prüfen, ob der Mindestwert unterschritten wurde.
+     */
+    private function validateMin(mixed $type, ?int $min, mixed $value, mixed $label): bool {
+        /**
+         * Wurde $min gesetzt ...
+         */
+        if ($min !== null) {
+            /**
+             * ... so prüfen wir für numerische Typen direkt ...
+             */
+            if ($this->isNumericType($type) && $value < $min) {
+                $this->errors[] = sprintf($this->errorMessages['min'], $label, $min);
+                return false;
+            }
+
+            /**
+             * ... und für string-basierte Typen die Länge des Strings.
+             *
+             * In beiden Fällen schreiben wir einen Fehler und geben false zurück im Fehlerfall.
+             */
+            if (!$this->isNumericType($type) && strlen($value) < $min) {
+                $this->errors[] = sprintf($this->errorMessages['min-string'], $label, $min);
+                return false;
+            }
+        }
+
+        /**
+         * Andernfalls geben wir true zurück.
+         */
+        return true;
+    }
+
+    /**
+     * S. this->validateMin() nur umgekehrt.
+     */
+    private function validateMax(mixed $type, ?int $max, mixed $value, mixed $label): bool {
+        if ($max !== null) {
+            if ($this->isNumericType($type) && $value > $max) {
+                $this->errors[] = sprintf($this->errorMessages['max'], $label, $max);
+                return false;
+            }
+
+            if (!$this->isNumericType($type) && strlen($value) > $max) {
+                $this->errors[] = sprintf($this->errorMessages['max-string'], $label, $max);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * Prüfen, ob der Wert auf die oben definierte Regex zutrifft.
      */
     private function validateWithRegex(string $type, mixed $value, string $label): bool {
