@@ -32,6 +32,11 @@ return [
      */
     '/products' => [ProductController::class, 'index'],
     '/products/{id}/show' => [ProductController::class, 'show'],
+    '/products/{id}' => [ProductController::class, 'edit'],
+    '/products/{id}/update' => [ProductController::class, 'update'],
+    '/products/{id}/delete' => [ProductController::class, 'delete'],
+    '/products/create' => [ProductController::class, 'create'],
+    '/products/store' => [ProductController::class, 'store'],
 
     /**
      * Cart Routes

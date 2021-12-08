@@ -25,10 +25,14 @@ class User extends AbstractUser {
         protected string $password = '',
         public string $created_at = '',
         public string $updated_at = '',
-        public ?string $deleted_at = null
+        public ?string $deleted_at = null,
+        public bool $is_admin = false
     ) {
     }
 
+    /**
+     * Objekt speichern.
+     */
     public function save(): bool {
         /**
          * Datenbankverbindung herstellen.
@@ -40,8 +44,8 @@ class User extends AbstractUser {
         $tablename = self::getTablenameFromClassname();
 
         /**
-         * Hat das Objekt bereits eine id, so existiert in der Datenbank auch schon ein Eintrag dazu und wir können es
-         * aktualisieren.
+         * Hat das Objekt bereits eine id, heißt das, dass es in der Datenbank schon existiert und 
+         * wir können es aktualisieren.
          */
         if (!empty($this->id)) {
             /**
@@ -49,13 +53,14 @@ class User extends AbstractUser {
              * der Query funktioniert hat oder nicht.
              */
             $result = $database->query(
-                "UPDATE $tablename SET username = ?, name = ?, surname = ?, email = ?, password = ? WHERE id = ?",
+                "UPDATE $tablename SET username = ?, name = ?, surname = ?, email = ?, password = ?, is_admin = ? WHERE id = ?",
                 [
                     's:username' => $this->username,
                     's:name' => $this->name,
                     's:surname' => $this->surname,
                     's:email' => $this->email,
                     's:password' => $this->password,
+                    'i:is_admin' => $this->is_admin,
                     'i:id' => $this->id
                 ]
             );
@@ -64,12 +69,13 @@ class User extends AbstractUser {
             /**
              * Hat das Objekt keine id, so müssen wir es neu anlegen.
              */
-            $result = $database->query("INSERT INTO $tablename SET username = ?, name = ?, surname = ?, email = ?, password = ?", [
+            $result = $database->query("INSERT INTO $tablename SET username = ?, name = ?, surname = ?, email = ?, password = ?, is_admin = ?", [
                 's:username' => $this->username,
                 's:name' => $this->name,
                 's:surname' => $this->surname,
                 's:email' => $this->email,
-                's:password' => $this->password
+                's:password' => $this->password,
+                'i:is_admin' => $this->is_admin
             ]);
 
             /**
