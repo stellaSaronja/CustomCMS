@@ -26,13 +26,27 @@
 .detail__features {
     display: grid;
     grid-template-columns: 130px auto;
-    grid-template-rows: 50px;
+    grid-template-rows: 60px;
     margin-top: 30px;
+}
+
+.detail__title {
+    font-family: 'Arial Rounded MT';
+    font-size: 18px;
 }
 
 .detail__price {
     font-family: 'Arial Rounded MT';
     font-size: 18px;
+}
+
+.detail__dropdown {
+    height: 25px;
+    width: 200px;
+}
+
+.detail__p {
+    font-family: 'Varela Round';
 }
 
 .detail__btn {
@@ -46,13 +60,8 @@
     max-width: 250px;
 }
 
-.detail__title {
+.admin__edit {
     font-family: 'Arial Rounded MT';
-    font-size: 18px;
-}
-
-.detail__p {
-    font-family: 'Varela Round';
 }
 
 @media (max-width: 1300px) {

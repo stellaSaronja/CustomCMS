@@ -21,7 +21,7 @@
     font-size: 16px;
     color: #FFF;
     text-decoration: none;
-    background-color: #2f77d6;
+    background-color: rgb(68, 68, 68);
     padding: 5px 15px;
     border-radius: 10px;
 }
@@ -230,7 +230,10 @@
 }
 
 .thanks__link {
+    font-family: 'Varela Round';
     font-size: 16px;
+    color: #000000;
+    justify-content: center;
     margin-left: 200px;
     margin-top: 100px;
 }
@@ -244,7 +247,6 @@
     }
 
     .thanks__link {
-        /* margin-left: 100px; */
         margin: auto;
     }
 }

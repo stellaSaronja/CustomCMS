@@ -4,25 +4,50 @@
     <a href="<?php echo BASE_URL; ?>/products" class="promo__btn">Visit the shop now</a>
     
     <div class="offer-section">
+        <?php for ($product_id=0; $product_id < 3; $product_id++): ?>
         <div class="home-prod__container">
             <img src="../resources/imgs/magnolia.jpg" alt="Magnolia tote bag" class="home-prod__img">
-            <p class="home-prod__description">Lorem ipsum dolor sit amet</p>
-            <span class="home__price">20€</span>
+            <p class="home-prod__description"><?php echo $product_id->name; ?></p>
+            <span class="home__price"><?php echo $product->price; ?></span>
             <a href="<?php echo BASE_URL; ?>/products/1/show" class="home-prod__btn">View product</a>
         </div>
-    
-        <div class="home-prod__container">
+
+        <!-- <div class="home-prod__container">
             <img src="../resources/imgs/face.jpg" alt="Outlined face tote bag" class="home-prod__img">
-            <p class="home-prod__description">Lorem ipsum dolor sit amet</p>
+            <p class="home-prod__description"><?php echo $product->name; ?></p>
             <span class="home__price">20€</span>
             <a href="<?php echo BASE_URL; ?>/products/2/show" class="home-prod__btn">View product</a>
         </div>
     
         <div class="home-prod__container">
             <img src="../resources/imgs/librarian.jpg" alt="Librarian tote bag" class="home-prod__img">
-            <p class="home-prod__description">Lorem ipsum dolor sit amet</p>
+            <p class="home-prod__description"><?php echo $product->name; ?></p>
             <span class="home__price">23€</span>
             <a href="<?php echo BASE_URL; ?>/products/3/show" class="home-prod__btn">View product</a>
+        </div> -->
+        <?php endfor; ?>
+    </div>
+
+    <div class="offer-section">
+        <div class="home-prod__container">
+            <img src="../resources/imgs/black.jpg" alt="Black tote bag" class="home-prod__img">
+            <p class="home-prod__description">Lorem ipsum dolor sit amet</p>
+            <span class="home__price">25€</span>
+            <a href="<?php echo BASE_URL; ?>/products/4/show" class="home-prod__btn">View product</a>
+        </div>
+
+        <div class="home-prod__container">
+            <img src="../resources/imgs/pride.jpg" alt="Pride tote bag" class="home-prod__img">
+            <p class="home-prod__description">Lorem ipsum dolor sit amet</p>
+            <span class="home__price">25€</span>
+            <a href="<?php echo BASE_URL; ?>/products/5/show" class="home-prod__btn">View product</a>
+        </div>
+
+        <div class="home-prod__container">
+            <img src="../resources/imgs/coffeeWhite.jpg" alt="'But first coffee' tote bag" class="home-prod__img">
+            <p class="home-prod__description">Lorem ipsum dolor sit amet</p>
+            <span class="home__price">20€</span>
+            <a href="<?php echo BASE_URL; ?>/products/6/show" class="home-prod__btn">View product</a>
         </div>
     </div>
 
@@ -51,29 +76,6 @@
                 <path d="M203.31 376.16a7 7 0 0 0-7 7v41.35a7 7 0 0 0 14 0v-41.35a7 7 0 0 0-7-7ZM203.31 324.3a7 7 0 0 0-7 7v20.31a7 7 0 0 0 14 0V331.3a7 7 0 0 0-7-7Z"/>
             </svg>
             <p class="banner__text">Plastic-free clothing</p>
-        </div>
-    </div>
-
-    <div class="offer-section">
-        <div class="home-prod__container">
-            <img src="../resources/imgs/black.jpg" alt="Black tote bag" class="home-prod__img">
-            <p class="home-prod__description">Lorem ipsum dolor sit amet</p>
-            <span class="home__price">25€</span>
-            <a href="<?php echo BASE_URL; ?>/products/4/show" class="home-prod__btn">View product</a>
-        </div>
-
-        <div class="home-prod__container">
-            <img src="../resources/imgs/pride.jpg" alt="Pride tote bag" class="home-prod__img">
-            <p class="home-prod__description">Lorem ipsum dolor sit amet</p>
-            <span class="home__price">25€</span>
-            <a href="<?php echo BASE_URL; ?>/products/5/show" class="home-prod__btn">View product</a>
-        </div>
-
-        <div class="home-prod__container">
-            <img src="../resources/imgs/coffeeWhite.jpg" alt="'But first coffee' tote bag" class="home-prod__img">
-            <p class="home-prod__description">Lorem ipsum dolor sit amet</p>
-            <span class="home__price">20€</span>
-            <a href="<?php echo BASE_URL; ?>/products/6/show" class="home-prod__btn">View product</a>
         </div>
     </div>
 </main>

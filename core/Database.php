@@ -156,4 +156,12 @@ class Database {
     public function getInsertId(): int|string {
         return $this->link->insert_id;
     }
+
+    /**
+     * Wenn das Database Objekt gelöscht wird, trennt der destructor die Datenbankverbindung.
+     */
+    public function __destruct()
+    {
+        $this->link->close();
+    }
 }
