@@ -26,7 +26,7 @@ class User extends AbstractUser {
         public string $created_at = '',
         public string $updated_at = '',
         public ?string $deleted_at = null,
-        public bool $is_admin = false
+        public ?bool $is_admin = false
     ) {
     }
 

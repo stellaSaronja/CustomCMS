@@ -20,8 +20,8 @@
         <p class="detail__title">Description:</p>
         <p class="detail__p"><?php echo $product->description; ?></p>
 
-        <?php if(AuthMiddleware::isAdmin()): ?>
-            <a href="<?php echo BASE_URL . '/products/$product->id'; ?>" class="admin__edit">Edit</a>
+        <?php if(\Core\Middlewares\AuthMiddleware::isAdmin()): ?>
+            <a href="<?php echo BASE_URL . "/products/$product->id"; ?>" class="admin__edit">Edit</a>
         <?php endif; ?>
     </div>
     <span></span>

@@ -4,51 +4,19 @@
     <a href="<?php echo BASE_URL; ?>/products" class="promo__btn">Visit the shop now</a>
     
     <div class="offer-section">
-        <?php for ($product_id=0; $product_id < 3; $product_id++): ?>
-        <div class="home-prod__container">
-            <img src="../resources/imgs/magnolia.jpg" alt="Magnolia tote bag" class="home-prod__img">
-            <p class="home-prod__description"><?php echo $product_id->name; ?></p>
-            <span class="home__price"><?php echo $product->price; ?></span>
-            <a href="<?php echo BASE_URL; ?>/products/1/show" class="home-prod__btn">View product</a>
-        </div>
-
-        <!-- <div class="home-prod__container">
-            <img src="../resources/imgs/face.jpg" alt="Outlined face tote bag" class="home-prod__img">
-            <p class="home-prod__description"><?php echo $product->name; ?></p>
-            <span class="home__price">20€</span>
-            <a href="<?php echo BASE_URL; ?>/products/2/show" class="home-prod__btn">View product</a>
-        </div>
-    
-        <div class="home-prod__container">
-            <img src="../resources/imgs/librarian.jpg" alt="Librarian tote bag" class="home-prod__img">
-            <p class="home-prod__description"><?php echo $product->name; ?></p>
-            <span class="home__price">23€</span>
-            <a href="<?php echo BASE_URL; ?>/products/3/show" class="home-prod__btn">View product</a>
-        </div> -->
-        <?php endfor; ?>
-    </div>
-
-    <div class="offer-section">
-        <div class="home-prod__container">
-            <img src="../resources/imgs/black.jpg" alt="Black tote bag" class="home-prod__img">
-            <p class="home-prod__description">Lorem ipsum dolor sit amet</p>
-            <span class="home__price">25€</span>
-            <a href="<?php echo BASE_URL; ?>/products/4/show" class="home-prod__btn">View product</a>
-        </div>
-
-        <div class="home-prod__container">
-            <img src="../resources/imgs/pride.jpg" alt="Pride tote bag" class="home-prod__img">
-            <p class="home-prod__description">Lorem ipsum dolor sit amet</p>
-            <span class="home__price">25€</span>
-            <a href="<?php echo BASE_URL; ?>/products/5/show" class="home-prod__btn">View product</a>
-        </div>
-
-        <div class="home-prod__container">
-            <img src="../resources/imgs/coffeeWhite.jpg" alt="'But first coffee' tote bag" class="home-prod__img">
-            <p class="home-prod__description">Lorem ipsum dolor sit amet</p>
-            <span class="home__price">20€</span>
-            <a href="<?php echo BASE_URL; ?>/products/6/show" class="home-prod__btn">View product</a>
-        </div>
+        <?php $products = \App\Models\Product::all();
+              $counter = 0; ?>
+        <?php foreach ($products as $product): ?>
+            <?php $counter += 1; ?>
+            <?php if ($counter<7): ?>            
+                <div class="home-prod__container">
+                    <img src="<?php echo IMG_FOLDER_URL; echo $product->images; ?>" alt="<?php echo $product->images ?>" class="home-prod__img">
+                    <p class="home-prod__description"><?php echo $product->name; ?></p>
+                    <span class="home__price"><?php echo $product->price; ?> €</span>
+                    <a href="<?php echo BASE_URL; ?>/products/1/show" class="home-prod__btn">View product</a>
+                </div>
+            <?php endif; ?>
+        <?php endforeach; ?>
     </div>
 
     <div class="banner">
