@@ -1,5 +1,14 @@
 <main>
-    <h2>Products</h2>
+    <h2>
+        Products
+        <?php
+        if (\App\Models\User::isLoggedIn()): ?>
+            <a href="<?php
+            echo BASE_URL; ?>/products/create" class="new-btn">New</a>
+        <?php
+        endif; ?>
+    </h2>
+    
     <div class="prods">
         <?php foreach ($products as $product): ?>
             <div class="prod__background">
