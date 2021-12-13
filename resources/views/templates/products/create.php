@@ -1,4 +1,4 @@
-<form action="<?php echo BASE_URL . "/products/store" ?>" method="post">
+<form action="<?php echo BASE_URL . "/products/store" ?>" method="post" enctype="multipart/form-data">
     <div class="edit__container">
         <label for="name">Name</label>
         <input type="text" name="name" id="name" placeholder="Name" class="edit__input" value="" required>
@@ -12,8 +12,8 @@
         <label for="price">Price</label>
         <input type="text" name="price" id="price" placeholder="Price" class="edit__input" value="" required>
 
-        <!-- <label for="images">Images</label>
-        <input type="file" class="edit__input" id="images" name="images[]" multiple> -->
+        <label for="images">Images</label>
+        <input type="file" class="edit__input" id="images" name="images">
     </div>
 
     <div class="buttons">

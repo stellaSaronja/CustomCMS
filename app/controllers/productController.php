@@ -4,10 +4,11 @@ namespace App\Controllers;
 
 use App\Models\Product;
 use Core\Helpers\Redirector;
-use Core\Middleware\AuthMiddleware;
+use Core\Middlewares\AuthMiddleware;
 use Core\Session;
 use Core\Validator;
 use Core\View;
+use Core\Models\File;
 
 class ProductController {
 
@@ -42,8 +43,8 @@ class ProductController {
         /**
          * Prüfen, ob ein*e User*in eingeloggt ist und ob diese*r eingeloggte User*in Admin ist.
          */
+      
         AuthMiddleware::isAdminOrFail();
-
         /**
          * Gewünschtes Element über das zugehörige Model aus der Datenbank laden.
          */
@@ -53,7 +54,7 @@ class ProductController {
          * View laden und Daten übergeben.
          */
         View::render('products/edit', [
-            'product' => $equipment
+            'product' => $product
         ]);
     }
 
@@ -90,17 +91,22 @@ class ProductController {
          */
         $product->fill($_POST);
 
+        $product = $this->handleUploadedFiles($product);
+        $product = $this->handleDeletedFiles($product);
+        
         /**
          * Hat die Speicherung nicht funktioniert, speichern wir den Fehler in die Session.
          */
         if (!$product->save()) {
             Session::set('errors', ['Failed to save.']);
+        } else {
+            Session::set('success', ['Product successfully updated.']);
         }
 
         /**
          * Hat alles funktioniert, so leiten wir zu der Home Seite.
          */
-        Redirector::redirect("/products/${id}");
+        Redirector::redirect("/products");
     }
 
     /**
@@ -178,10 +184,11 @@ class ProductController {
         }
 
         /**
-         * Neues Equipment erstellen und mit den Daten aus dem Formular befüllen.
+         * Neues Produkt erstellen und mit den Daten aus dem Formular befüllen.
          */
         $product = new Product();
         $product->fill($_POST);
+        $product = $this->handleUploadedFiles($product);
 
         /**
          * Schlägt die Speicherung aus irgendeinem Grund fehl ...
@@ -217,14 +224,69 @@ class ProductController {
             /**
              * Daten validieren.
              */
+            
             $validator->textnum($_POST['name'], label: 'Name', required: true, max: 255);
-            $validator->textnum($_POST['description'], label: 'Description');
-            $validator->int((int)$_POST['units'], label: 'Units');
+            $validator->text($_POST['description'], label: 'Description');
         }
 
         /**
          * Fehler aus dem Validator zurückgeben.
          */
         return $validator->getErrors();
+    }
+
+    public function handleUploadedFiles(Product $product) : ?product {
+        /**
+         * Wir erstellen zunächst einen Array an Objekten, damit wir Logik, die zu einer Datei gehört, in diesen
+         * Objekten kapseln können.
+         */
+        $file = File::createFromUploadedFile('images');
+
+        /**
+         * Nun gehen wir alle Dateien durch ...
+         */
+            /**
+             * ... speichern sie in den Uploads Ordner ...
+             */
+            $storagePath = $file->putToUploadsFolder();
+            /**
+             * ... und verknüpfen sie mit dem Raum.
+             */
+            // $product->addImages([$storagePath]);
+            $product->images = basename($storagePath);
+        /**
+         * Nun geben wir den aktualisierten Produkt wieder zurück.
+         */
+        return $product;
+    }
+
+    /**
+     * Löschen-Checkboxen der Bilder eines Produkts verarbeiten.
+     */
+    private function handleDeletedFiles(Product $product): Product
+    {
+        /**
+         * Wir prüfen, ob eine der Checkboxen angehakerlt wurde.
+         */
+        if (isset($_POST['delete-images'])) {
+            /**
+             * Wenn ja, gehen wir alle Checkboxen durch ...
+             */
+            foreach ($_POST['delete-images'] as $deleteImage) {
+                /**
+                 * Lösen die Verknüpfung zum Produkt ...
+                 */
+                $product->removeImages([$deleteImage]);
+                /**
+                 * ... und löschen die Datei aus dem Uploads-Ordner.
+                 */
+                File::delete($deleteImage);
+            }
+        }
+
+        /**
+         * Nun geben wir den gelöschten Produkt wieder zurück.
+         */
+        return $product;
     }
 }

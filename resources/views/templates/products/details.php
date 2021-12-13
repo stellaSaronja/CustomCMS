@@ -7,21 +7,16 @@
     <div class="detail__features">
         <p class="detail__title">Price:</p>
         <span class="detail__price"><?php echo $product->price; ?> €</span>
-        
-        <p class="detail__title">Color:</p>
-        <select name="colors" class="detail__dropdown">
-            <option value="default" selected disabled>Please choose a color</option>
-            <option value="beige">Beige</option>
-            <option value="white">White</option>
-            <option value="red">Red</option>
-            <option value="blue">Blue</option>
-        </select>
 
         <p class="detail__title">Description:</p>
         <p class="detail__p"><?php echo $product->description; ?></p>
 
         <?php if(\Core\Middlewares\AuthMiddleware::isAdmin()): ?>
             <a href="<?php echo BASE_URL . "/products/$product->id"; ?>" class="admin__edit">Edit</a>
+        <?php endif; ?>
+
+        <?php if(\Core\Middlewares\AuthMiddleware::isAdmin()): ?>
+            <a href="<?php echo BASE_URL . "/products/$product->id/delete"; ?>" class="admin__delete">Delete</a>
         <?php endif; ?>
     </div>
     <span></span>

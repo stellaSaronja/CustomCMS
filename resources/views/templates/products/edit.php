@@ -13,11 +13,11 @@
         <input type="text" name="price" id="price" placeholder="Price" class="edit__input" value="<?php echo $product->price; ?>" required>
 
         <label for="images">Images</label>
-        <input type="file" class="edit__input" id="images" name="images[]" multiple>
+        <input type="file" class="edit__input" id="images" name="images">
     </div>
 
     <div class="buttons">
         <button type="submit" class="btn__save">Save</button>
-        <a href="<?php echo BASE_URL . '/products'; ?>" class="btn__cancel">Cancel</a>
+        <a href="<?php echo BASE_URL; ?>/products/<?php echo $product->id; ?>/show" class="btn__cancel">Cancel</a>
     </div>
 </form>

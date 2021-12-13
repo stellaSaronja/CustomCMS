@@ -38,7 +38,7 @@ class Product extends AbstractModel {
          * Hat das Objekt bereits eine id, so existiert in der Datenbank auch schon ein Eintrag dazu und wir können es
          * aktualisieren.
          */
-        if (!empty($this->$id)) {
+        if (!empty($this->id)) {
            $result = $database->query(
                 "UPDATE $tablename SET name = ?, description = ?, category = ?, price = ?, images = ? WHERE id = ?",
                 [
@@ -55,11 +55,12 @@ class Product extends AbstractModel {
             /**
              * Hat das Objekt keine id, so müssen wir es neu anlegen.
              */
-            $result = $database->query("INSERT INTO $tablename SET name = ?, description = ?, category = ?, id = ?", [
+            $result = $database->query("INSERT INTO $tablename SET name = ?, description = ?, category = ?, price = ?, images = ?", [
                 's:name' => $this->name,
                 's:description' => $this->description,
                 's:category' => $this->category,
-                'i:id' => $this->id,
+                's:price' => $this->price,
+                's:images' => $this->images
             ]);
 
             /**
@@ -73,5 +74,89 @@ class Product extends AbstractModel {
              */
             return $result;
         }
+    }
+
+    /**
+     * Getter für Images.
+     */
+    public function getImages(): array
+    {
+        /**
+         * Nachdem $this->images ein JSON-Array ist, wandeln wir ihn hier in ein natives PHP Array um.
+         */
+        return json_decode($this->images);
+    }
+
+    /**
+     * Ein oder mehrere Bilder in $this->images hinzufügen.
+     */
+    public function addImages(array $images): array
+    {
+        /**
+         * Zunächst holen wir uns die aktuelle Liste verknüpfter Bilder des Raumes als Array, ...
+         */
+        $currentImages = $this->getImages();
+        /**
+         * ... führen sie dann mit der Liste der hinzuzufügenden Bilder zusammen ...
+         */
+        $currentImages = array_merge($currentImages, $images);
+        /**
+         * ... und überschreiben die aktuelle Liste.
+         */
+        $this->setImages($currentImages);
+
+        /**
+         * Zum Abschluss geben wir die neue Liste der Bilder zurück.
+         */
+        return $currentImages;
+    }
+
+    /**
+     * Ein oder mehrere Bilder aus den verknüpften Bildern des Raumes entfernen.
+     */
+    public function removeImages(array $images): array
+    {
+        /**
+         * Zunächst holen wir uns die aktuelle Liste verknüpfter Bilder des Raumes als Array.
+         */
+        $currentImages = $this->getImages();
+        /**
+         * Nun filtern wir alle Bilder mit einer Callback-Funktion.
+         */
+        $filteredImages = array_filter($currentImages, function ($image) use ($images) {
+            /**
+             * Ein Element wird in das Ergebnis-Array übernommen, wenn die Callback Funktion true zurück gibt. Soll ein
+             * Bild also entfernt werden, geben wir false zurück.
+             */
+            if (in_array($image, $images)) {
+                return false;
+            }
+            return true;
+        });
+
+        /**
+         * Nun überschreiben wir die aktuelle Liste verknüpfter Bilder des Raumes.
+         */
+        $this->setImages($filteredImages);
+
+        return $filteredImages;
+    }
+
+    /**
+     * Setter für Images.
+     */
+    public function setImages(array $images): array
+    {
+        /**
+         * Hier indizieren wir das $images Array neu und konvertieren es in ein JSON. Das ist nötig, weil die JSON-
+         * Konvertierung sonst ein Objekt und kein Array erzeugen würde - daher stellen wir sicher, dass die Arrray-
+         * Indizes fortlaufend sind.
+         */
+        $this->images = json_encode(array_values($images));
+
+        /**
+         * Zum Abschluss geben wir die neue Liste der verknüpften Bilder zurück.
+         */
+        return $this->getImages();
     }
 }

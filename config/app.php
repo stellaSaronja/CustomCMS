@@ -5,7 +5,7 @@ return [
 
     'baseurl' => 'http://localhost/php/CustomCMS/public',
 
-    'images_folder_url' => 'http://localhost/php/CustomCMS/resources/imgs/',
+    'images_folder_url' => 'http://localhost/php/CustomCMS/storage/',
 
     'environment' => 'dev',
     

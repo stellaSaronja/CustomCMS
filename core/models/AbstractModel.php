@@ -104,7 +104,8 @@ abstract class AbstractModel {
                 /**
                  * ... so trimmen wir den Wert.
                  */
-                $trimmedValue = trim($value);
+                $trimmedValue = trim($value); 
+
                 /**
                  * Ist der getrimmte Wert nicht leer oder möchten wir leere Werte nicht ignorieren, so überschreiben
                  * wir die Property mit dem Wert aus dem Array.
